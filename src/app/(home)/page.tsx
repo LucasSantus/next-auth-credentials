@@ -1,4 +1,3 @@
-import { DontAccess } from "@/components/dont-access";
 import { Button } from "@/components/ui/button";
 import { ProjectLayout } from "@/layout/project-layout";
 import { authOptions } from "@/lib/auth";
@@ -8,14 +7,6 @@ import Link from "next/link";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
-
-  if (!session || !session.user) {
-    return (
-      <ProjectLayout session={session}>
-        <DontAccess />
-      </ProjectLayout>
-    );
-  }
 
   return (
     <ProjectLayout session={session}>

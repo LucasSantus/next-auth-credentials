@@ -34,7 +34,7 @@ export function Header({ session }: HeaderProps): JSX.Element {
           <Link href="/sign-in">
             <Button>Login</Button>
           </Link>
-          <Link href="/sign-in">
+          <Link href="/sign-up">
             <Button>Registrar</Button>
           </Link>
         </div>

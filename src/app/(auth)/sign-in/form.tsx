@@ -9,37 +9,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { SignInFormData, signInFormSchema } from "@/validation/sign-in";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import { useForm } from "react-hook-form";
-
-interface SearchFormProps {}
-
 import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { z } from "zod";
 
-export const newUserFormSchema = z.object({
-  email: z
-    .string({
-      required_error: "Please enter your email address.",
-    })
-    .email({
-      message: "Please enter a valid email address.",
-    }),
-  password: z
-    .string({
-      required_error: "Please enter a password.",
-    })
-    .min(8)
-    .max(50),
-});
+interface SignInFormProps {}
 
-export type NewUserFormData = z.infer<typeof newUserFormSchema>;
+export function SignInForm({}: SignInFormProps) {
+  const { push } = useRouter();
 
-export function NewUserForm({}: SearchFormProps) {
-  const form = useForm<NewUserFormData>({
-    resolver: zodResolver(newUserFormSchema),
+  const form = useForm<SignInFormData>({
+    resolver: zodResolver(signInFormSchema),
     defaultValues: {
       email: "admin@admin.com",
       password: "1234567890",
@@ -48,7 +32,7 @@ export function NewUserForm({}: SearchFormProps) {
 
   const { handleSubmit, control } = form;
 
-  async function onSubmit(values: NewUserFormData) {
+  async function onSubmit(values: SignInFormData) {
     try {
       const response = await signIn("credentials", {
         email: values.email,
@@ -56,10 +40,12 @@ export function NewUserForm({}: SearchFormProps) {
         redirect: false,
       });
 
-      console.log(response);
+      alert(JSON.stringify(response));
 
-      if (!response?.ok) {
-        toast.error("deu bosta kkk");
+      if (!!response && response.error) {
+        toast.error(response.error);
+      } else {
+        push("/");
       }
     } catch (error) {
       const errorFormatter = error as {
@@ -72,6 +58,9 @@ export function NewUserForm({}: SearchFormProps) {
 
   return (
     <div className="mt-7 w-full sm:mt-12">
+      <Link href="/sign-up" className="text-white">
+        Criar conta
+      </Link>
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="grid gap-2">

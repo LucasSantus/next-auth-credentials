@@ -1,12 +1,9 @@
 "use server";
-
 import { prismaClient } from "@/lib/prisma";
+import { SignUpFormData } from "@/validation/sign-up";
 import * as bcrypt from "bcrypt";
-import { NewUserFormData } from "./form";
 
-export async function createUser(values: NewUserFormData) {
-  const { name, email, password } = values;
-
+export async function newUser({ name, email, password }: SignUpFormData) {
   if (!name || !email || !password) {
     throw new Error("Missing Fields");
   }
@@ -28,6 +25,15 @@ export async function createUser(values: NewUserFormData) {
       name,
       email,
       hashedPassword,
+    },
+  });
+
+  await prismaClient.account.create({
+    data: {
+      provider: "Credentials",
+      type: "credentials",
+      providerAccountId: crypto.randomUUID(),
+      userId: user.id,
     },
   });
 

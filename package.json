@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "preview": "prisma generate",
+    "migrate": "prisma migrate dev",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "prettier": "prettier --check src",

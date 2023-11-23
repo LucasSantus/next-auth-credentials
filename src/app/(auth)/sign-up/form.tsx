@@ -15,52 +15,28 @@ import { useForm } from "react-hook-form";
 
 interface SearchFormProps {}
 
-import { signIn } from "next-auth/react";
+import { newUser } from "@/actions/new/user";
+import { SignUpFormData, signUpFormSchema } from "@/validation/sign-up";
 import { toast } from "react-toastify";
-import { z } from "zod";
 
-export const newUserFormSchema = z.object({
-  email: z
-    .string({
-      required_error: "Please enter your email address.",
-    })
-    .email({
-      message: "Please enter a valid email address.",
-    }),
-  password: z
-    .string({
-      required_error: "Please enter a password.",
-    })
-    .min(8)
-    .max(50),
-});
-
-export type NewUserFormData = z.infer<typeof newUserFormSchema>;
-
-export function NewUserForm({}: SearchFormProps) {
-  const form = useForm<NewUserFormData>({
-    resolver: zodResolver(newUserFormSchema),
+export function SignUpForm({}: SearchFormProps) {
+  const form = useForm<SignUpFormData>({
+    resolver: zodResolver(signUpFormSchema),
     defaultValues: {
+      name: "Admin",
       email: "admin@admin.com",
       password: "1234567890",
+      confirmPassword: "1234567890",
     },
   });
 
   const { handleSubmit, control } = form;
 
-  async function onSubmit(values: NewUserFormData) {
+  async function onSubmit(values: SignUpFormData) {
     try {
-      const response = await signIn("credentials", {
-        email: values.email,
-        password: values.password,
-        redirect: false,
-      });
+      const user = await newUser(values);
 
-      console.log(response);
-
-      if (!response?.ok) {
-        toast.error("deu bosta kkk");
-      }
+      if (user) toast.success("BOOOOOUA CARALLEEEO");
     } catch (error) {
       const errorFormatter = error as {
         message: string;
@@ -75,6 +51,22 @@ export function NewUserForm({}: SearchFormProps) {
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="grid gap-2">
+            <FormField
+              control={control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="Nome de usuário: "
+                      className="w-full"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={control}
               name="email"
@@ -99,6 +91,22 @@ export function NewUserForm({}: SearchFormProps) {
                   <FormControl>
                     <Input
                       placeholder="Senha: "
+                      className="w-full"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="Confirmar Senha: "
                       className="w-full"
                       {...field}
                     />

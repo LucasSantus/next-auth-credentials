@@ -1,6 +1,5 @@
 import { Session } from "next-auth";
 import { PropsWithChildren } from "react";
-import { Footer } from "./footer";
 import { Header } from "./header";
 
 interface ProjectLayoutProps extends PropsWithChildren {
@@ -16,9 +15,7 @@ export function ProjectLayout({
       <div className="flex w-full flex-col space-y-3 p-3 sm:max-w-xl md:max-w-3xl xl:max-w-5xl">
         <Header session={session} />
 
-        <div className="flex-1">{children}</div>
-
-        <Footer />
+        <main className="flex-1">{children}</main>
       </div>
     </div>
   );
