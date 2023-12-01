@@ -1,7 +1,7 @@
 import { FORM_INSERT_VALID_EMAIL, FORM_REQUIRED_FIELD } from "@/constants/form";
 import { z } from "zod";
 
-export const signInFormSchema = z.object({
+export const resetPasswordFormSchema = z.object({
   email: z
     .string({
       required_error: FORM_REQUIRED_FIELD,
@@ -9,9 +9,6 @@ export const signInFormSchema = z.object({
     .email({
       message: FORM_INSERT_VALID_EMAIL,
     }),
-  password: z.string({
-    required_error: FORM_REQUIRED_FIELD,
-  }),
 });
 
-export type SignInFormData = z.infer<typeof signInFormSchema>;
+export type ResetPasswordFormData = z.infer<typeof resetPasswordFormSchema>;

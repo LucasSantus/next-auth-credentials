@@ -6,21 +6,26 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  generateErrorToastOptions,
+  generateSuccessToastOptions,
+} from "@/utils/toast";
 import { SignInFormData, signInFormSchema } from "@/validation/sign-in";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { AuthLink } from "../_components/auth-link";
 
 interface SignInFormProps {}
 
 export function SignInForm({}: SignInFormProps) {
-  const { push } = useRouter();
+  const router = useRouter();
 
   const form = useForm<SignInFormData>({
     resolver: zodResolver(signInFormSchema),
@@ -30,79 +35,94 @@ export function SignInForm({}: SignInFormProps) {
     },
   });
 
-  const { handleSubmit, control } = form;
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitting },
+  } = form;
 
-  async function onSubmit(values: SignInFormData) {
+  async function onSubmit({ email, password }: SignInFormData) {
+    const toastId = toast.loading("Logando no sistema...");
+
     try {
       const response = await signIn("credentials", {
-        email: values.email,
-        password: values.password,
+        email,
+        password,
         redirect: false,
       });
 
-      alert(JSON.stringify(response));
-
       if (!!response && response.error) {
-        toast.error(response.error);
+        toast.update(
+          toastId,
+          generateErrorToastOptions({ render: response.error }),
+        );
       } else {
-        push("/");
+        toast.update(
+          toastId,
+          generateSuccessToastOptions({
+            autoClose: 100,
+            render: "Redirecionando...",
+          }),
+        );
+
+        router.push("/");
       }
     } catch (error) {
-      const errorFormatter = error as {
-        message: string;
-      };
-
-      toast.error(errorFormatter.message);
+      if (error instanceof Error) {
+        toast.update(
+          toastId,
+          generateErrorToastOptions({ render: error.message }),
+        );
+      }
     }
   }
 
   return (
-    <div className="mt-7 w-full sm:mt-12">
-      <Link href="/sign-up" className="text-white">
-        Criar conta
-      </Link>
-      <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-          <div className="grid gap-2">
-            <FormField
-              control={control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Email: "
-                      className="w-full"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Senha: "
-                      className="w-full"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+    <Form {...form}>
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <div className="grid gap-2">
+          <FormField
+            control={control}
+            name="email"
+            disabled={isSubmitting}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="Digite o e-mail: " {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={control}
+            name="password"
+            disabled={isSubmitting}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Senha</FormLabel>
+                <FormControl>
+                  <Input placeholder="Digite a senha: " {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-            <Button type="submit" aria-label="Submit for create new user">
-              Submit
-            </Button>
+          <div className="flex justify-end">
+            <AuthLink title="Esqueci minha senha" href="/reset-password" />
           </div>
-        </form>
-      </Form>
-    </div>
+
+          <Button
+            type="submit"
+            aria-label="log-in in system"
+            isLoading={isSubmitting}
+          >
+            Entrar
+          </Button>
+        </div>
+      </form>
+    </Form>
   );
 }

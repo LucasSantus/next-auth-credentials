@@ -3,9 +3,11 @@ import { prismaClient } from "@/lib/prisma";
 import { SignUpFormData } from "@/validation/sign-up";
 import * as bcrypt from "bcrypt";
 
-export async function newUser({ name, email, password }: SignUpFormData) {
+export async function actionSignUp({ name, email, password }: SignUpFormData) {
   if (!name || !email || !password) {
-    throw new Error("Missing Fields");
+    throw new Error(
+      "Ops, parece que algo deu errado. Por favor, verifique os dados fornecidos e tente novamente.",
+    );
   }
 
   const exist = await prismaClient.user.findUnique({
@@ -15,7 +17,7 @@ export async function newUser({ name, email, password }: SignUpFormData) {
   });
 
   if (exist) {
-    throw new Error("Email already exists");
+    throw new Error("Desculpe, este e-mail já está cadastrado no sistema.");
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -36,6 +38,4 @@ export async function newUser({ name, email, password }: SignUpFormData) {
       userId: user.id,
     },
   });
-
-  return user;
 }

@@ -8,41 +8,6 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Category {
-  id          String    @id @default(uuid())
-  title       String
-  description String
-  slug        String
-  isActive    Boolean   @default(true)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now()) @updatedAt
-  deletedAt   DateTime?
-  todos       Todo[]
-  user        User      @relation(fields: [userId], references: [id])
-  userId      String
-}
-
-model Todo {
-  id          String    @id @default(uuid())
-  title       String
-  description String
-  isCompleted Boolean   @default(false)
-  isActive    Boolean   @default(true)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now()) @updatedAt
-  deletedAt   DateTime?
-  category    Category? @relation(fields: [categoryId], references: [id])
-  categoryId  String?
-  todoList    TodoList? @relation(fields: [todoListId], references: [id])
-  todoListId  String?
-}
-
-model TodoList {
-  id     String @id @default(uuid())
-  userId String
-  todos  Todo[]
-}
-
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -71,15 +36,14 @@ model Session {
 }
 
 model User {
-  id             String     @id @default(cuid())
+  id             String    @id @default(cuid())
   name           String?
-  email          String?    @unique
+  email          String?   @unique
   emailVerified  DateTime?
   image          String?
   hashedPassword String
   accounts       Account[]
   sessions       Session[]
-  Category       Category[]
 }
 
 model VerificationToken {

@@ -6,6 +6,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -15,113 +16,145 @@ import { useForm } from "react-hook-form";
 
 interface SearchFormProps {}
 
-import { newUser } from "@/actions/new/user";
+import { actionSignUp } from "@/actions/auth/sign-up";
+import { FORM_STORING_INFORMATION } from "@/constants/form";
+import {
+  generateErrorToastOptions,
+  generateSuccessToastOptions,
+} from "@/utils/toast";
 import { SignUpFormData, signUpFormSchema } from "@/validation/sign-up";
+import { Github } from "lucide-react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 export function SignUpForm({}: SearchFormProps) {
+  const router = useRouter();
+
   const form = useForm<SignUpFormData>({
+    mode: "onBlur",
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
       name: "Admin",
       email: "admin@admin.com",
       password: "1234567890",
-      confirmPassword: "1234567890",
     },
   });
 
-  const { handleSubmit, control } = form;
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitting },
+  } = form;
 
   async function onSubmit(values: SignUpFormData) {
+    const toastId = toast.loading(FORM_STORING_INFORMATION);
+
     try {
-      const user = await newUser(values);
+      await actionSignUp(values);
 
-      if (user) toast.success("BOOOOOUA CARALLEEEO");
+      toast.update(
+        toastId,
+        generateSuccessToastOptions({
+          render: "Os dados foram armazenados com êxito!",
+        }),
+      );
+
+      router.push("/");
     } catch (error) {
-      const errorFormatter = error as {
-        message: string;
-      };
-
-      toast.error(errorFormatter.message);
+      if (error instanceof Error) {
+        toast.update(
+          toastId,
+          generateErrorToastOptions({ render: error.message }),
+        );
+      }
     }
   }
 
   return (
-    <div className="mt-7 w-full sm:mt-12">
-      <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-          <div className="grid gap-2">
-            <FormField
-              control={control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Nome de usuário: "
-                      className="w-full"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Email: "
-                      className="w-full"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Senha: "
-                      className="w-full"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Confirmar Senha: "
-                      className="w-full"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+    <Form {...form}>
+      <div className="grid gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="grid w-full gap-2">
+          <FormField
+            control={control}
+            name="name"
+            disabled={isSubmitting}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nome Completo</FormLabel>
+                <FormControl>
+                  <Input placeholder="Digite o nome completo: " {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-            <Button type="submit" aria-label="Submit for create new user">
-              Submit
-            </Button>
-          </div>
+          <FormField
+            control={control}
+            name="email"
+            disabled={isSubmitting}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>E-mail</FormLabel>
+                <FormControl>
+                  <Input placeholder="Digite o e-mail: " {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={control}
+            name="password"
+            disabled={isSubmitting}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Senha</FormLabel>
+                <FormControl>
+                  <Input placeholder="Digite a senha: " {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button
+            type="submit"
+            aria-label="Submit for create new user"
+            isLoading={isSubmitting}
+          >
+            Salvar
+          </Button>
         </form>
-      </Form>
-    </div>
+
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-white px-2">OU CONTINUAR COM</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-2 xs:grid-cols-2">
+          <Button
+            className="gap-2"
+            disabled={isSubmitting}
+            onClick={() => signIn("github")}
+          >
+            <Github size={15} />
+          </Button>
+          <Button
+            className="gap-2"
+            disabled={isSubmitting}
+            onClick={() => signIn("google")}
+          >
+            <Github size={15} />
+          </Button>
+        </div>
+      </div>
+    </Form>
   );
 }

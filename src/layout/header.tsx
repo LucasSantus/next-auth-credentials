@@ -21,8 +21,17 @@ interface HeaderProps {
 }
 
 export function Header({ session }: HeaderProps): JSX.Element {
+  function userInitialLetters(session: Session) {
+    if (session.user.name) {
+      const names = session.user.name.split(" ");
+      const firstName = names[0][0];
+      const lastName = names[names.length - 1][0];
+      return `${firstName}${lastName}`;
+    }
+  }
+
   return (
-    <div className="flex h-20 items-center justify-between p-6">
+    <header className="flex h-20 items-center justify-between">
       <Link href="/">
         <Button variant="link" className="text-white">
           Todo List
@@ -46,7 +55,9 @@ export function Header({ session }: HeaderProps): JSX.Element {
                 className="cursor-pointer select-none"
                 src={session.user.image ?? ""}
               />
-              <AvatarFallback>LS</AvatarFallback>
+              <AvatarFallback className="cursor-pointer">
+                {userInitialLetters(session)}
+              </AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
@@ -66,6 +77,6 @@ export function Header({ session }: HeaderProps): JSX.Element {
           </DropdownMenuContent>
         </DropdownMenu>
       )}
-    </div>
+    </header>
   );
 }

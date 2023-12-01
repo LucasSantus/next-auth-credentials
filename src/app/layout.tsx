@@ -4,6 +4,7 @@ import "@/styles/styles.css";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import { ReactNode } from "react";
 import { NoScript } from "./no-script";
 import { Providers } from "./providers";
@@ -26,6 +27,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         suppressHydrationWarning
         className={cn("min-h-screen bg-custom-gray-800", inter.className)}
       >
+        <NextTopLoader height={4} showSpinner={false} />
         <Providers>
           <NoScript />
           {children}

@@ -4,6 +4,12 @@ import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prismaClient } from "./prisma";
 
+type UserSessionType = {
+  id: string;
+  name: string;
+  email: string;
+};
+
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prismaClient),
   providers: [
@@ -15,7 +21,7 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials || !credentials.email || !credentials.password) {
-          throw new Error("Please enter an email and password!");
+          throw new Error("Insira o e-mail e senha!");
         }
 
         const user = await prismaClient.user.findUnique({
@@ -25,7 +31,7 @@ export const authOptions: AuthOptions = {
         });
 
         if (!user || !user?.hashedPassword) {
-          throw new Error("No user found");
+          throw new Error("Usuário não encontrado!");
         }
 
         const passwordMatch = await bcrypt.compare(
@@ -34,7 +40,7 @@ export const authOptions: AuthOptions = {
         );
 
         if (!passwordMatch) {
-          throw new Error("Incorrect password");
+          throw new Error("Senha incorreta!");
         }
 
         return user;
@@ -43,43 +49,28 @@ export const authOptions: AuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      console.log("JWT Callback", { token, user });
-      if (user) {
+      if (user)
         return {
           ...token,
           user,
         };
-      }
+
       return token;
     },
-    async session({ session, user, token }) {
-      const newUser = token as {
-        user: {
-          id: string;
-        };
-      };
-      console.log(
-        "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nKAAAARALEO",
-        "session: ",
-        session,
-        "user: ",
-        user,
-        "token: ",
-        token,
-      );
-
+    async session({ session, user: userSession, token }) {
       if (token) {
-        session.user = { ...session.user, id: newUser.user.id } as {
-          id: string;
-          name: string;
-          email: string;
+        const { user } = token as {
+          user: {
+            id: string;
+          };
         };
+
+        session.user = { ...session.user, id: user.id } as UserSessionType;
       } else {
-        session.user = { ...session.user, id: user.id } as {
-          id: string;
-          name: string;
-          email: string;
-        };
+        session.user = {
+          ...session.user,
+          id: userSession.id,
+        } as UserSessionType;
       }
 
       return session;

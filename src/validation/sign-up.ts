@@ -1,30 +1,28 @@
 import {
-  MAX_CHAR_LENGTH,
-  MIN_CHAR_LENGTH,
-  REQUIRED_FIELD,
+  FORM_INSERT_VALID_EMAIL,
+  FORM_MAX_CHAR_LENGTH,
+  FORM_MIN_CHAR_LENGTH,
+  FORM_REQUIRED_FIELD,
 } from "@/constants/form";
 import { z } from "zod";
 
 export const signUpFormSchema = z.object({
   name: z.string({
-    required_error: REQUIRED_FIELD,
+    required_error: FORM_REQUIRED_FIELD,
   }),
   email: z
     .string({
-      required_error: REQUIRED_FIELD,
+      required_error: FORM_REQUIRED_FIELD,
     })
     .email({
-      message: "Please enter a valid email address.",
+      message: FORM_INSERT_VALID_EMAIL,
     }),
   password: z
     .string({
-      required_error: REQUIRED_FIELD,
+      required_error: FORM_REQUIRED_FIELD,
     })
-    .min(8, MIN_CHAR_LENGTH + 8)
-    .max(50, MAX_CHAR_LENGTH + 50),
-  confirmPassword: z.string({
-    required_error: REQUIRED_FIELD,
-  }),
+    .min(8, FORM_MIN_CHAR_LENGTH(8))
+    .max(50, FORM_MAX_CHAR_LENGTH(50)),
 });
 
 export type SignUpFormData = z.infer<typeof signUpFormSchema>;
