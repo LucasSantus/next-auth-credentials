@@ -1,4 +1,5 @@
 "use server";
+
 import { prismaClient } from "@/lib/prisma";
 import { SignUpFormData } from "@/validation/sign-up";
 import * as bcrypt from "bcrypt";

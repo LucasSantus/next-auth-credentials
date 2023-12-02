@@ -111,7 +111,7 @@ export function SignInForm({}: SignInFormProps) {
           />
 
           <div className="flex justify-end">
-            <AuthLink title="Esqueci minha senha" href="/reset-password" />
+            <AuthLink title="Esqueci minha senha" href="/forget-password" />
           </div>
 
           <Button

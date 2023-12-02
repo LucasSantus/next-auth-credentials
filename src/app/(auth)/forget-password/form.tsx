@@ -1,6 +1,6 @@
 "use client";
 
-import { actionResetPassword } from "@/actions/auth/reset-password";
+import { actionForgetPassword } from "@/actions/auth/forget-password";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,20 +17,20 @@ import {
   generateSuccessToastOptions,
 } from "@/utils/toast";
 import {
-  ResetPasswordFormData,
-  resetPasswordFormSchema,
-} from "@/validation/reset-password";
+  ForgetPasswordFormData,
+  forgetPasswordFormSchema,
+} from "@/validation/forget-password";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-interface ResetPasswordFormProps {}
+interface ForgetPasswordFormProps {}
 
-export function ResetPasswordForm({}: ResetPasswordFormProps) {
+export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
   // const router = useRouter();
 
-  const form = useForm<ResetPasswordFormData>({
-    resolver: zodResolver(resetPasswordFormSchema),
+  const form = useForm<ForgetPasswordFormData>({
+    resolver: zodResolver(forgetPasswordFormSchema),
     defaultValues: {
       email: "admin@admin.com",
     },
@@ -42,17 +42,17 @@ export function ResetPasswordForm({}: ResetPasswordFormProps) {
     formState: { isSubmitting },
   } = form;
 
-  async function onSubmit(values: ResetPasswordFormData) {
+  async function onSubmit(values: ForgetPasswordFormData) {
     const toastId = toast.loading(FORM_STORING_INFORMATION);
 
     try {
-      await actionResetPassword(values);
+      await actionForgetPassword(values);
 
       toast.update(
         toastId,
         generateSuccessToastOptions({
           autoClose: 6000,
-          render: "Será enviado um e-mail no teu cú",
+          render: "Ops, enfiei o e-mail no seu cú!",
         }),
       );
     } catch (error) {
@@ -86,7 +86,7 @@ export function ResetPasswordForm({}: ResetPasswordFormProps) {
 
           <Button
             type="submit"
-            aria-label="reset password of user"
+            aria-label="forget password of user"
             isLoading={isSubmitting}
           >
             Recuperar

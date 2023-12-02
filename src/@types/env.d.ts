@@ -7,5 +7,8 @@ declare namespace NodeJS {
     // NEXT AUTH
     NEXTAUTH_SECRET: string;
     NEXTAUTH_URL: string;
+
+    // RESEND
+    RESEND_API_KEY: string;
   }
 }
