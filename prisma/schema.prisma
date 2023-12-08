@@ -36,22 +36,23 @@ model Session {
 }
 
 model User {
-  id               String    @id @default(cuid())
-  name             String?
-  email            String?   @unique
-  emailVerified    DateTime?
-  image            String?
-  hashedPassword   String
-  resetToken       String?
-  resetTokenExpiry Int?
-  accounts         Account[]
-  sessions         Session[]
+  id                String              @id @default(cuid())
+  name              String?
+  email             String?             @unique
+  emailVerified     DateTime?
+  image             String?
+  hashedPassword    String
+  accounts          Account[]
+  sessions          Session[]
+  VerificationToken VerificationToken[]
 }
 
 model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+  identifier  String
+  token       String   @unique
+  tokenExpiry DateTime
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
 
   @@unique([identifier, token])
 }

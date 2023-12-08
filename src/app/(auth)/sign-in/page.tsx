@@ -1,9 +1,14 @@
 import { authOptions } from "@/lib/auth";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { AuthLink } from "../_components/auth-link";
 import { AuthTitle } from "../_components/auth-title";
 import { SignInForm } from "./form";
+
+export const metadata: Metadata = {
+  title: "Log In",
+};
 
 export default async function SignIn() {
   const session = await getServerSession(authOptions);

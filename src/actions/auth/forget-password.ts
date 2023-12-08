@@ -30,8 +30,17 @@ export async function actionForgetPassword({ email }: ForgetPasswordFormData) {
 
   const passwordResetExpires = Date.now() + 60 * 60 * 10;
 
-  user.resetToken = passwordResetToken;
-  user.resetTokenExpiry = passwordResetExpires;
+  const verificationToken = await prismaClient.verificationToken.create({
+    data: {
+      token: passwordResetToken,
+      tokenExpiry: new Date(passwordResetExpires),
+      userId: user.id,
+      identifier: "reset-password",
+    },
+  });
+
+  if (!verificationToken)
+    throw new Error("Ops, ocorreu um erro na criação do token!");
 
   const url = process.env.NEXTAUTH_URL + "/reset-password/" + resetToken;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { actionForgetPassword } from "@/actions/auth/forget-password";
+import { actionResetPassword } from "@/actions/auth/reset-password";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,22 +17,27 @@ import {
   generateSuccessToastOptions,
 } from "@/utils/toast";
 import {
-  ForgetPasswordFormData,
-  forgetPasswordFormSchema,
-} from "@/validation/forget-password";
+  ResetPasswordFormData,
+  resetPasswordFormSchema,
+} from "@/validation/reset-password";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-interface ForgetPasswordFormProps {}
+interface ResetPasswordFormProps {
+  email: string;
+}
 
-export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
-  // const router = useRouter();
+export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
+  const router = useRouter();
 
-  const form = useForm<ForgetPasswordFormData>({
-    resolver: zodResolver(forgetPasswordFormSchema),
+  const form = useForm<ResetPasswordFormData>({
+    resolver: zodResolver(resetPasswordFormSchema),
     defaultValues: {
-      email: "admin@admin.com",
+      email,
+      password: "",
+      confirmPassword: "",
     },
   });
 
@@ -42,11 +47,11 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
     formState: { isSubmitting },
   } = form;
 
-  async function onSubmit(values: ForgetPasswordFormData) {
+  async function onSubmit(values: ResetPasswordFormData) {
     const toastId = toast.loading(FORM_STORING_INFORMATION);
 
     try {
-      await actionForgetPassword(values);
+      await actionResetPassword(values);
 
       toast.update(
         toastId,
@@ -55,6 +60,8 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
           render: "Ops, enfiei o e-mail no seu cú!",
         }),
       );
+
+      router.push("/sign-in");
     } catch (error) {
       if (error instanceof Error) {
         toast.update(
@@ -71,22 +78,39 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
         <div className="grid gap-2">
           <FormField
             control={control}
-            name="email"
+            name="password"
             disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>E-mail</FormLabel>
+                <FormLabel>Senha</FormLabel>
                 <FormControl>
-                  <Input placeholder="Digite o e-mail: " {...field} />
+                  <Input placeholder="Digite a senha: " {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
+          <FormField
+            control={control}
+            name="confirmPassword"
+            disabled={isSubmitting}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirmação de Senha</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Digite a confirmação de senha: "
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <Button
             type="submit"
-            aria-label="forget password of user"
+            aria-label="reset password of user"
             isLoading={isSubmitting}
           >
             Recuperar

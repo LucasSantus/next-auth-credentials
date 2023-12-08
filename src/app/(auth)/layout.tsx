@@ -1,12 +1,4 @@
-import type { Metadata } from "next";
 import { ReactNode } from "react";
-
-export const metadata: Metadata = {
-  title: {
-    absolute: "Autenticação | Credentials",
-    template: "%s | Autenticação | Credentials",
-  },
-};
 
 interface AuthLayoutProps {
   children: ReactNode;

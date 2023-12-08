@@ -11,7 +11,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FORM_STORING_INFORMATION } from "@/constants/form";
 import {
   generateErrorToastOptions,
   generateSuccessToastOptions,
@@ -43,7 +42,9 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
   } = form;
 
   async function onSubmit(values: ForgetPasswordFormData) {
-    const toastId = toast.loading(FORM_STORING_INFORMATION);
+    const toastId = toast.loading(
+      "Preparando para enviar o e-mail com as informações necessárias!",
+    );
 
     try {
       await actionForgetPassword(values);
@@ -52,7 +53,7 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
         toastId,
         generateSuccessToastOptions({
           autoClose: 6000,
-          render: "Ops, enfiei o e-mail no seu cú!",
+          render: "O e-mail foi enviado!",
         }),
       );
     } catch (error) {
