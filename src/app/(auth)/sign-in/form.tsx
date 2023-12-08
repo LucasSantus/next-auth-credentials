@@ -30,9 +30,10 @@ export function SignInForm({}: SignInFormProps) {
   const form = useForm<SignInFormData>({
     resolver: zodResolver(signInFormSchema),
     defaultValues: {
-      email: "admin@admin.com",
-      password: "1234567890",
+      email: "",
+      password: "",
     },
+    mode: "onBlur",
   });
 
   const {

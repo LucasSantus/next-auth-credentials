@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { authOptions } from "@/lib/auth";
+import { UserIcon } from "lucide-react";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -8,7 +9,7 @@ import { AuthTitle } from "../_components/auth-title";
 import { ForgetPasswordForm } from "./form";
 
 export const metadata: Metadata = {
-  title: "Forget Password",
+  title: "Recuperar Senha",
 };
 
 export default async function ForgetPassword() {
@@ -20,6 +21,7 @@ export default async function ForgetPassword() {
       <AuthTitle
         title="Recuperação de conta"
         description="Digite seu e-mail abaixo para recuperar sua conta"
+        icon={UserIcon}
       />
 
       <ForgetPasswordForm />

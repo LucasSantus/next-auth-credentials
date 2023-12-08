@@ -1,5 +1,9 @@
 "use server";
 
+import {
+  EMAIL_DONT_REGISTERED_ON_SYSTEM,
+  ERROR_VALUES_VALIDATION,
+} from "@/constants/globals";
 import { prismaClient } from "@/lib/prisma";
 import { ResetPasswordFormData } from "@/validation/reset-password";
 import * as bcrypt from "bcrypt";
@@ -8,11 +12,7 @@ export async function actionResetPassword({
   email,
   password,
 }: ResetPasswordFormData) {
-  if (!email || !password) {
-    throw new Error(
-      "Ops, parece que algo deu errado. Por favor, verifique os dados fornecidos e tente novamente.",
-    );
-  }
+  if (!email || !password) throw new Error(ERROR_VALUES_VALIDATION);
 
   const user = await prismaClient.user.findUnique({
     where: {
@@ -20,9 +20,7 @@ export async function actionResetPassword({
     },
   });
 
-  if (!user) {
-    throw new Error("Desculpe, este e-mail não está cadastrado no sistema.");
-  }
+  if (!user) throw new Error(EMAIL_DONT_REGISTERED_ON_SYSTEM);
 
   const hashedPassword = await bcrypt.hash(password, 10);
 

@@ -20,19 +20,21 @@ import {
   forgetPasswordFormSchema,
 } from "@/validation/forget-password";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 interface ForgetPasswordFormProps {}
 
 export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
-  // const router = useRouter();
+  const router = useRouter();
 
   const form = useForm<ForgetPasswordFormData>({
     resolver: zodResolver(forgetPasswordFormSchema),
     defaultValues: {
-      email: "admin@admin.com",
+      email: "",
     },
+    mode: "onBlur",
   });
 
   const {
@@ -43,7 +45,7 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
 
   async function onSubmit(values: ForgetPasswordFormData) {
     const toastId = toast.loading(
-      "Preparando para enviar o e-mail com as informações necessárias!",
+      "Enviando e-mail com as informações da recuperação da conta!",
     );
 
     try {
@@ -52,10 +54,20 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
       toast.update(
         toastId,
         generateSuccessToastOptions({
-          autoClose: 6000,
+          autoClose: 2900,
           render: "O e-mail foi enviado!",
         }),
       );
+
+      toast.info("Você está sendo redirecionado...", {
+        autoClose: 2900,
+      });
+
+      new Promise(() => {
+        setTimeout(() => {
+          router.push("/sign-in");
+        }, 3000);
+      });
     } catch (error) {
       if (error instanceof Error) {
         toast.update(

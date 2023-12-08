@@ -1,4 +1,5 @@
 import { authOptions } from "@/lib/auth";
+import { LogInIcon } from "lucide-react";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -19,6 +20,7 @@ export default async function SignIn() {
       <AuthTitle
         title="Log In"
         description="Insira os dados abaixo para fazer login em sua conta"
+        icon={LogInIcon}
       />
 
       <SignInForm />

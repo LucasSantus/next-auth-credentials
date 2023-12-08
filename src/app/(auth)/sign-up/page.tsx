@@ -1,4 +1,5 @@
 import { authOptions } from "@/lib/auth";
+import { KeyRound } from "lucide-react";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -19,6 +20,7 @@ export default async function SignUp() {
       <AuthTitle
         title="Crie sua conta"
         description="Insira os dados abaixo para criar sua conta"
+        icon={KeyRound}
       />
 
       <SignUpForm />

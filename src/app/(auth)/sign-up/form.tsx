@@ -32,13 +32,13 @@ export function SignUpForm({}: SearchFormProps) {
   const router = useRouter();
 
   const form = useForm<SignUpFormData>({
-    mode: "onBlur",
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
-      name: "Admin",
-      email: "admin@admin.com",
+      name: "Lucas Santos",
+      email: "leos.developer@gmail.com",
       password: "1234567890",
     },
+    mode: "onBlur",
   });
 
   const {

@@ -1,16 +1,16 @@
 "use server";
 
+import {
+  EMAIL_DONT_REGISTERED_ON_SYSTEM,
+  ERROR_VALUES_VALIDATION,
+} from "@/constants/globals";
 import { prismaClient } from "@/lib/prisma";
 import { resend } from "@/lib/resend";
 import { ForgetPasswordFormData } from "@/validation/forget-password";
 import * as crypto from "crypto";
 
 export async function actionForgetPassword({ email }: ForgetPasswordFormData) {
-  if (!email) {
-    throw new Error(
-      "Ops, parece que algo deu errado. Por favor, verifique os dados fornecidos e tente novamente.",
-    );
-  }
+  if (!email) throw new Error(ERROR_VALUES_VALIDATION);
 
   const user = await prismaClient.user.findUnique({
     where: {
@@ -18,17 +18,22 @@ export async function actionForgetPassword({ email }: ForgetPasswordFormData) {
     },
   });
 
-  if (!user) {
-    throw new Error("Desculpe, este e-mail não está cadastrado no sistema.");
-  }
+  if (!user) throw new Error(EMAIL_DONT_REGISTERED_ON_SYSTEM);
 
+  await prismaClient.verificationToken.deleteMany({
+    where: {
+      user: {
+        email,
+      },
+    },
+  });
+
+  const passwordResetExpires = Date.now() + 60 * 60 * 10;
   const resetToken = crypto.randomBytes(20).toString("hex");
   const passwordResetToken = crypto
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
-
-  const passwordResetExpires = Date.now() + 60 * 60 * 10;
 
   const verificationToken = await prismaClient.verificationToken.create({
     data: {
