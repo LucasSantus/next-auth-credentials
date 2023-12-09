@@ -1,9 +1,11 @@
-import { authOptions } from "@/lib/auth";
 import { User, VerificationToken } from "@prisma/client";
 import { KeyRound } from "lucide-react";
 import { Metadata } from "next";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
+import {
+  AuthLayout,
+  AuthLayoutContent,
+  AuthLayoutImage,
+} from "../../_components/auth-layout";
 import { AuthTitle } from "../../_components/auth-title";
 import { ResetPasswordForm } from "./form";
 
@@ -31,35 +33,41 @@ interface ForgetPasswordProps {
   };
 }
 
-export default async function ResetPassword({ params }: ForgetPasswordProps) {
-  const session = await getServerSession(authOptions);
-  if (session) redirect("/");
-
+export default async function ResetPassword({
+  params,
+}: ForgetPasswordProps): Promise<JSX.Element> {
   const verificationToken = await getVerifyToken({ params });
 
   if (!verificationToken || !verificationToken?.user.email) {
     return (
-      <div className="grid gap-4">
-        <AuthTitle
-          title="Recuperação de conta"
-          description="Tivemos problemas ao tentar recuperar seus dados."
-          icon={KeyRound}
-        />
+      <AuthLayout>
+        <AuthLayoutImage>teste</AuthLayoutImage>
+        <AuthLayoutContent rowInverse>
+          <AuthTitle
+            title="Recuperação de conta"
+            description="Tivemos problemas ao tentar recuperar seus dados."
+            icon={KeyRound}
+          />
 
-        <span>E-mail de usuário não foi encontrado!</span>
-      </div>
+          <span>E-mail de usuário não foi encontrado!</span>
+        </AuthLayoutContent>
+      </AuthLayout>
     );
   }
 
   return (
-    <div className="grid gap-4">
-      <AuthTitle
-        title="Recuperação de conta"
-        description="Digite os dados abaixo para resetar sua senha."
-        icon={KeyRound}
-      />
+    <AuthLayout>
+      <AuthLayoutImage>teste</AuthLayoutImage>
 
-      <ResetPasswordForm email={verificationToken.user.email} />
-    </div>
+      <AuthLayoutContent rowInverse>
+        <AuthTitle
+          title="Recuperação de conta"
+          description="Digite os dados abaixo para resetar sua senha."
+          icon={KeyRound}
+        />
+
+        <ResetPasswordForm email={verificationToken.user.email} />
+      </AuthLayoutContent>
+    </AuthLayout>
   );
 }

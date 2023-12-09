@@ -9,9 +9,11 @@ export const signInFormSchema = z.object({
     .email({
       message: FORM_INSERT_VALID_EMAIL,
     }),
-  password: z.string({
-    required_error: FORM_REQUIRED_FIELD,
-  }),
+  password: z
+    .string({
+      required_error: FORM_REQUIRED_FIELD,
+    })
+    .min(1, "Insira a senha!"),
 });
 
 export type SignInFormData = z.infer<typeof signInFormSchema>;

@@ -17,7 +17,11 @@ import { useForm } from "react-hook-form";
 interface SearchFormProps {}
 
 import { actionSignUp } from "@/actions/auth/sign-up";
-import { FORM_STORING_INFORMATION } from "@/constants/form";
+import {
+  FORM_DATA_HAS_BEEN_STORED,
+  FORM_STORING_INFORMATION,
+  YOU_ARE_BEING_REDIRECTED,
+} from "@/constants/form";
 import {
   generateErrorToastOptions,
   generateSuccessToastOptions,
@@ -56,11 +60,19 @@ export function SignUpForm({}: SearchFormProps) {
       toast.update(
         toastId,
         generateSuccessToastOptions({
-          render: "Os dados foram armazenados com êxito!",
+          render: FORM_DATA_HAS_BEEN_STORED,
         }),
       );
 
-      router.push("/");
+      toast.info(YOU_ARE_BEING_REDIRECTED, {
+        autoClose: 2900,
+      });
+
+      new Promise(() => {
+        setTimeout(() => {
+          router.push("/sign-in");
+        }, 3000);
+      });
     } catch (error) {
       if (error instanceof Error) {
         toast.update(

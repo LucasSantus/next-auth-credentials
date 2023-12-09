@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { YOU_ARE_BEING_REDIRECTED } from "@/constants/form";
 import {
   generateErrorToastOptions,
   generateSuccessToastOptions,
@@ -59,7 +60,7 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
         }),
       );
 
-      toast.info("Você está sendo redirecionado...", {
+      toast.info(YOU_ARE_BEING_REDIRECTED, {
         autoClose: 2900,
       });
 

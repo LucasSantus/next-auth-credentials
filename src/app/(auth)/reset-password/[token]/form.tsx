@@ -11,7 +11,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FORM_STORING_INFORMATION } from "@/constants/form";
+import {
+  FORM_DATA_HAS_BEEN_STORED,
+  FORM_STORING_INFORMATION,
+  YOU_ARE_BEING_REDIRECTED,
+} from "@/constants/form";
 import {
   generateErrorToastOptions,
   generateSuccessToastOptions,
@@ -57,12 +61,20 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
       toast.update(
         toastId,
         generateSuccessToastOptions({
-          autoClose: 6000,
-          render: "Ops, enfiei o e-mail no seu cú!",
+          autoClose: 2900,
+          render: FORM_DATA_HAS_BEEN_STORED,
         }),
       );
 
-      router.push("/sign-in");
+      toast.info(YOU_ARE_BEING_REDIRECTED, {
+        autoClose: 2900,
+      });
+
+      new Promise(() => {
+        setTimeout(() => {
+          router.push("/sign-in");
+        }, 3000);
+      });
     } catch (error) {
       if (error instanceof Error) {
         toast.update(

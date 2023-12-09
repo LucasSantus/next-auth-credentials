@@ -7,9 +7,11 @@ import {
 import { z } from "zod";
 
 export const signUpFormSchema = z.object({
-  name: z.string({
-    required_error: FORM_REQUIRED_FIELD,
-  }),
+  name: z
+    .string({
+      required_error: FORM_REQUIRED_FIELD,
+    })
+    .min(1, "Insira o nome completo!"),
   email: z
     .string({
       required_error: FORM_REQUIRED_FIELD,
