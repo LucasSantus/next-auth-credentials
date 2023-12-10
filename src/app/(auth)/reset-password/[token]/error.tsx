@@ -22,7 +22,7 @@ export default function ResetPasswordErrorHandling({
   return (
     <AuthLayout>
       <AuthLayoutImage>teste</AuthLayoutImage>
-      <AuthLayoutContent rowInverse>
+      <AuthLayoutContent>
         <AuthTitle
           title="Resetar Senha"
           description="Ops, houve um problema ao tentar acessar as informações!"

@@ -42,7 +42,7 @@ export default async function ResetPassword({
     return (
       <AuthLayout>
         <AuthLayoutImage>teste</AuthLayoutImage>
-        <AuthLayoutContent rowInverse>
+        <AuthLayoutContent>
           <AuthTitle
             title="Recuperação de conta"
             description="Tivemos problemas ao tentar recuperar seus dados."
@@ -59,7 +59,7 @@ export default async function ResetPassword({
     <AuthLayout>
       <AuthLayoutImage>teste</AuthLayoutImage>
 
-      <AuthLayoutContent rowInverse>
+      <AuthLayoutContent>
         <AuthTitle
           title="Recuperação de conta"
           description="Digite os dados abaixo para resetar sua senha."

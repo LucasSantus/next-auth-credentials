@@ -1,9 +1,6 @@
-import { cn } from "@/lib/utils";
 import { PropsWithChildren } from "react";
 
-interface AuthLayoutProps extends PropsWithChildren {
-  rowInverse?: boolean;
-}
+interface AuthLayoutProps extends PropsWithChildren {}
 
 function AuthLayout({ children }: AuthLayoutProps): JSX.Element {
   return (
@@ -11,33 +8,21 @@ function AuthLayout({ children }: AuthLayoutProps): JSX.Element {
   );
 }
 
-interface AuthLayoutImageProps extends PropsWithChildren {
-  rowInverse?: boolean;
-}
+interface AuthLayoutImageProps extends PropsWithChildren {}
 
 function AuthLayoutImage({ children }: AuthLayoutImageProps): JSX.Element {
   return (
-    <div className="hidden h-full bg-zinc-900 p-10 text-white lg:grid">
+    <div className="hidden h-full items-center justify-center bg-zinc-900 p-10 text-white lg:grid">
       {children}
     </div>
   );
 }
 
-interface AuthLayoutContentProps extends PropsWithChildren {
-  rowInverse?: boolean;
-}
+interface AuthLayoutContentProps extends PropsWithChildren {}
 
-function AuthLayoutContent({
-  children,
-  rowInverse = false,
-}: AuthLayoutContentProps): JSX.Element {
+function AuthLayoutContent({ children }: AuthLayoutContentProps): JSX.Element {
   return (
-    <div
-      className={cn(
-        "flex items-start justify-center bg-white py-5 sm:items-center lg:p-8",
-        rowInverse && "order-first",
-      )}
-    >
+    <div className="flex items-start justify-center bg-white py-5 sm:items-center lg:p-8">
       <div className="container max-w-md">
         <div className="grid gap-4">{children}</div>
       </div>

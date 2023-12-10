@@ -18,7 +18,7 @@ export default function SignUp(): JSX.Element {
     <AuthLayout>
       <AuthLayoutImage>teste</AuthLayoutImage>
 
-      <AuthLayoutContent rowInverse>
+      <AuthLayoutContent>
         <AuthTitle
           title="Crie sua conta"
           description="Insira os dados abaixo para criar sua conta"

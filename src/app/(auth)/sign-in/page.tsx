@@ -1,3 +1,4 @@
+import { SignInImage } from "@/components/icons/SignIn";
 import { LogInIcon } from "lucide-react";
 import { Metadata } from "next";
 import {
@@ -16,7 +17,9 @@ export const metadata: Metadata = {
 export default function SignIn(): JSX.Element {
   return (
     <AuthLayout>
-      <AuthLayoutImage>teste</AuthLayoutImage>
+      <AuthLayoutImage>
+        <SignInImage className="max-w-lg" />
+      </AuthLayoutImage>
 
       <AuthLayoutContent>
         <AuthTitle

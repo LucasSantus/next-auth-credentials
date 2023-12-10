@@ -29,7 +29,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <body
         suppressHydrationWarning
-        className={cn("min-h-screen bg-custom-gray-800", inter.className)}
+        className={cn("min-h-screen", inter.className)}
       >
         <NextTopLoader height={4} showSpinner={false} />
         <Providers>
