@@ -2,12 +2,8 @@
 
 import { KeyRound } from "lucide-react";
 import { useEffect } from "react";
-import {
-  AuthLayout,
-  AuthLayoutContent,
-  AuthLayoutImage,
-} from "../../_components/auth-layout";
 import { AuthTitle } from "../../_components/auth-title";
+import { AuthenticationLayout } from "../../_components/authentication-layout";
 
 export default function ResetPasswordErrorHandling({
   error,
@@ -20,16 +16,13 @@ export default function ResetPasswordErrorHandling({
   }, [error]);
 
   return (
-    <AuthLayout>
-      <AuthLayoutImage>teste</AuthLayoutImage>
-      <AuthLayoutContent>
-        <AuthTitle
-          title="Resetar Senha"
-          description="Ops, houve um problema ao tentar acessar as informações!"
-          icon={KeyRound}
-        />
-        <span>{JSON.stringify(error)}</span>
-      </AuthLayoutContent>
-    </AuthLayout>
+    <AuthenticationLayout>
+      <AuthTitle
+        title="Resetar Senha"
+        description="Ops, houve um problema ao tentar acessar as informações!"
+        icon={KeyRound}
+      />
+      <span>{JSON.stringify(error)}</span>
+    </AuthenticationLayout>
   );
 }

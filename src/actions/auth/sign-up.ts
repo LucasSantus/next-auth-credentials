@@ -1,9 +1,7 @@
 "use server";
 
-import {
-  EMAIL_REGISTERED_ON_SYSTEM,
-  ERROR_VALUES_VALIDATION,
-} from "@/constants/globals";
+
+import { EMAIL_REGISTERED_ON_SYSTEM, ERROR_VALUES_VALIDATION } from "@/constants/form";
 import { prismaClient } from "@/lib/prisma";
 import { SignUpFormData } from "@/validation/sign-up";
 import * as bcrypt from "bcrypt";

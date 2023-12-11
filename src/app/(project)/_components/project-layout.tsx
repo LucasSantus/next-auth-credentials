@@ -1,7 +1,7 @@
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
 import { Session } from "next-auth";
 import { PropsWithChildren } from "react";
-import { Footer } from "./footer";
-import { Header } from "./header";
 
 interface ProjectLayoutProps extends PropsWithChildren {
   session: Session | null;

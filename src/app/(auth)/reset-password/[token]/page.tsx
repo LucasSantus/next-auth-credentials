@@ -1,12 +1,8 @@
 import { User, VerificationToken } from "@prisma/client";
 import { KeyRound } from "lucide-react";
 import { Metadata } from "next";
-import {
-  AuthLayout,
-  AuthLayoutContent,
-  AuthLayoutImage,
-} from "../../_components/auth-layout";
 import { AuthTitle } from "../../_components/auth-title";
+import { AuthenticationLayout } from "../../_components/authentication-layout";
 import { ResetPasswordForm } from "./form";
 
 export const metadata: Metadata = {
@@ -40,34 +36,27 @@ export default async function ResetPassword({
 
   if (!verificationToken || !verificationToken?.user.email) {
     return (
-      <AuthLayout>
-        <AuthLayoutImage>teste</AuthLayoutImage>
-        <AuthLayoutContent>
-          <AuthTitle
-            title="Recuperação de conta"
-            description="Tivemos problemas ao tentar recuperar seus dados."
-            icon={KeyRound}
-          />
+      <AuthenticationLayout>
+        <AuthTitle
+          title="Recuperação de conta"
+          description="Tivemos problemas ao tentar recuperar seus dados."
+          icon={KeyRound}
+        />
 
-          <span>E-mail de usuário não foi encontrado!</span>
-        </AuthLayoutContent>
-      </AuthLayout>
+        <span>E-mail de usuário não foi encontrado!</span>
+      </AuthenticationLayout>
     );
   }
 
   return (
-    <AuthLayout>
-      <AuthLayoutImage>teste</AuthLayoutImage>
+    <AuthenticationLayout>
+      <AuthTitle
+        title="Recuperação de conta"
+        description="Digite os dados abaixo para resetar sua senha."
+        icon={KeyRound}
+      />
 
-      <AuthLayoutContent>
-        <AuthTitle
-          title="Recuperação de conta"
-          description="Digite os dados abaixo para resetar sua senha."
-          icon={KeyRound}
-        />
-
-        <ResetPasswordForm email={verificationToken.user.email} />
-      </AuthLayoutContent>
-    </AuthLayout>
+      <ResetPasswordForm email={verificationToken.user.email} />
+    </AuthenticationLayout>
   );
 }

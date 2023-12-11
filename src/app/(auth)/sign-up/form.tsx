@@ -27,10 +27,9 @@ import {
   generateSuccessToastOptions,
 } from "@/utils/toast";
 import { SignUpFormData, signUpFormSchema } from "@/validation/sign-up";
-import { Github } from "lucide-react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { AuthProviders } from "../_components/auth-providers";
 
 export function SignUpForm({}: SearchFormProps) {
   const router = useRouter();
@@ -42,7 +41,6 @@ export function SignUpForm({}: SearchFormProps) {
       email: "leos.developer@gmail.com",
       password: "1234567890",
     },
-    mode: "onBlur",
   });
 
   const {
@@ -85,7 +83,7 @@ export function SignUpForm({}: SearchFormProps) {
 
   return (
     <Form {...form}>
-      <div className="grid gap-4">
+      <div className="grid gap-2">
         <form onSubmit={handleSubmit(onSubmit)} className="grid w-full gap-2">
           <FormField
             control={control}
@@ -141,31 +139,7 @@ export function SignUpForm({}: SearchFormProps) {
           </Button>
         </form>
 
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t" />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white px-2">OU CONTINUAR COM</span>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 gap-2 xs:grid-cols-2">
-          <Button
-            className="gap-2"
-            disabled={isSubmitting}
-            onClick={() => signIn("github")}
-          >
-            <Github size={15} />
-          </Button>
-          <Button
-            className="gap-2"
-            disabled={isSubmitting}
-            onClick={() => signIn("google")}
-          >
-            <Github size={15} />
-          </Button>
-        </div>
+        <AuthProviders isLoading={isSubmitting} />
       </div>
     </Form>
   );

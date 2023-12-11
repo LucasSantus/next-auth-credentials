@@ -3,7 +3,7 @@
 import {
   EMAIL_DONT_REGISTERED_ON_SYSTEM,
   ERROR_VALUES_VALIDATION,
-} from "@/constants/globals";
+} from "@/constants/form";
 import { prismaClient } from "@/lib/prisma";
 import { ResetPasswordFormData } from "@/validation/reset-password";
 import * as bcrypt from "bcrypt";

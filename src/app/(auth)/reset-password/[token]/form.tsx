@@ -43,7 +43,6 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
       password: "",
       confirmPassword: "",
     },
-    mode: "onBlur",
   });
 
   const {

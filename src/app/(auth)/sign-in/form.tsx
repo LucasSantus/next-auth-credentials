@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { AuthLink } from "../_components/auth-link";
+import { AuthProviders } from "../_components/auth-providers";
 
 interface SignInFormProps {}
 
@@ -33,7 +34,6 @@ export function SignInForm({}: SignInFormProps) {
       email: "",
       password: "",
     },
-    mode: "onBlur",
   });
 
   const {
@@ -122,6 +122,8 @@ export function SignInForm({}: SignInFormProps) {
           >
             Entrar
           </Button>
+
+          <AuthProviders isLoading={isSubmitting} />
         </div>
       </form>
     </Form>
