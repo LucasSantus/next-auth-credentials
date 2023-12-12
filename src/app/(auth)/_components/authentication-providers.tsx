@@ -3,19 +3,23 @@ import { GithubIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { Fragment } from "react";
 
-interface AuthProvidersProps {
+interface AuthenticationProviderProps {
   isLoading: boolean;
 }
 
-export function AuthProviders({ isLoading }: AuthProvidersProps): JSX.Element {
+export function AuthenticationProviders({
+  isLoading,
+}: AuthenticationProviderProps): JSX.Element {
   return (
     <Fragment>
-      <div className="relative">
+      <div className="relative py-3">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
+          <span className="border-border w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-white px-2">OU CONTINUAR COM</span>
+          <span className="bg-card text-muted-foreground px-2">
+            OU CONTINUAR COM
+          </span>
         </div>
       </div>
 

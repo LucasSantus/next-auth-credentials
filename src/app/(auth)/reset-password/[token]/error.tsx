@@ -2,7 +2,7 @@
 
 import { KeyRound } from "lucide-react";
 import { useEffect } from "react";
-import { AuthTitle } from "../../_components/auth-title";
+import { AuthenticationDescription } from "../../_components/authentication-description";
 import { AuthenticationLayout } from "../../_components/authentication-layout";
 
 export default function ResetPasswordErrorHandling({
@@ -17,7 +17,7 @@ export default function ResetPasswordErrorHandling({
 
   return (
     <AuthenticationLayout>
-      <AuthTitle
+      <AuthenticationDescription
         title="Resetar Senha"
         description="Ops, houve um problema ao tentar acessar as informações!"
         icon={KeyRound}

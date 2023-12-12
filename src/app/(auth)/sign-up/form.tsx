@@ -29,7 +29,7 @@ import {
 import { SignUpFormData, signUpFormSchema } from "@/validation/sign-up";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { AuthProviders } from "../_components/auth-providers";
+import { AuthenticationProviders } from "../_components/authentication-providers";
 
 export function SignUpForm({}: SearchFormProps) {
   const router = useRouter();
@@ -139,7 +139,7 @@ export function SignUpForm({}: SearchFormProps) {
           </Button>
         </form>
 
-        <AuthProviders isLoading={isSubmitting} />
+        <AuthenticationProviders isLoading={isSubmitting} />
       </div>
     </Form>
   );

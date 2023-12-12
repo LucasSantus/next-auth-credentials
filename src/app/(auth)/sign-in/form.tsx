@@ -20,8 +20,8 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { AuthLink } from "../_components/auth-link";
-import { AuthProviders } from "../_components/auth-providers";
+import { AuthenticationProviders } from "../_components/authentication-providers";
+import { AuthenticationRedirect } from "../_components/authentication-redirect";
 
 interface SignInFormProps {}
 
@@ -112,7 +112,10 @@ export function SignInForm({}: SignInFormProps) {
           />
 
           <div className="flex justify-end">
-            <AuthLink title="Esqueci minha senha" href="/forget-password" />
+            <AuthenticationRedirect
+              title="Esqueci minha senha"
+              href="/forget-password"
+            />
           </div>
 
           <Button
@@ -123,7 +126,7 @@ export function SignInForm({}: SignInFormProps) {
             Entrar
           </Button>
 
-          <AuthProviders isLoading={isSubmitting} />
+          <AuthenticationProviders isLoading={isSubmitting} />
         </div>
       </form>
     </Form>

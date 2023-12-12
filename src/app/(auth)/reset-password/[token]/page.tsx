@@ -1,7 +1,7 @@
 import { User, VerificationToken } from "@prisma/client";
 import { KeyRound } from "lucide-react";
 import { Metadata } from "next";
-import { AuthTitle } from "../../_components/auth-title";
+import { AuthenticationDescription } from "../../_components/authentication-description";
 import { AuthenticationLayout } from "../../_components/authentication-layout";
 import { ResetPasswordForm } from "./form";
 
@@ -37,7 +37,7 @@ export default async function ResetPassword({
   if (!verificationToken || !verificationToken?.user.email) {
     return (
       <AuthenticationLayout>
-        <AuthTitle
+        <AuthenticationDescription
           title="Recuperação de conta"
           description="Tivemos problemas ao tentar recuperar seus dados."
           icon={KeyRound}
@@ -50,7 +50,7 @@ export default async function ResetPassword({
 
   return (
     <AuthenticationLayout>
-      <AuthTitle
+      <AuthenticationDescription
         title="Recuperação de conta"
         description="Digite os dados abaixo para resetar sua senha."
         icon={KeyRound}

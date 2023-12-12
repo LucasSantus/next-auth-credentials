@@ -1,11 +1,14 @@
 import Link from "next/link";
 
-interface AuthLinkProps {
+interface AuthenticationRedirectProps {
   title: string;
   href: string;
 }
 
-export function AuthLink({ title, href }: AuthLinkProps): JSX.Element {
+export function AuthenticationRedirect({
+  title,
+  href,
+}: AuthenticationRedirectProps): JSX.Element {
   return (
     <Link
       href={href}
