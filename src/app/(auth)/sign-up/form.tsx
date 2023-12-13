@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 interface SearchFormProps {}
 
 import { actionSignUp } from "@/actions/auth/sign-up";
+import { InputPassword } from "@/components/input-password";
 import {
   FORM_DATA_HAS_BEEN_STORED,
   FORM_STORING_INFORMATION,
@@ -93,7 +94,7 @@ export function SignUpForm({}: SearchFormProps) {
               <FormItem>
                 <FormLabel>Nome Completo</FormLabel>
                 <FormControl>
-                  <Input placeholder="Digite o nome completo: " {...field} />
+                  <Input placeholder="Digite o nome completo:" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -101,14 +102,13 @@ export function SignUpForm({}: SearchFormProps) {
           />
 
           <FormField
-            control={control}
             name="email"
             disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>E-mail</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="Digite o e-mail: " {...field} />
+                  <Input placeholder="Digite o e-mail:" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -123,7 +123,7 @@ export function SignUpForm({}: SearchFormProps) {
               <FormItem>
                 <FormLabel>Senha</FormLabel>
                 <FormControl>
-                  <Input placeholder="Digite a senha: " {...field} />
+                  <InputPassword placeholder="Digite a senha:" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

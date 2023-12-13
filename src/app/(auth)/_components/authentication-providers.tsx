@@ -1,7 +1,10 @@
+"use client";
+
+import { GitHubIcon } from "@/components/icons/GitHubIcon";
+import { GoogleIcon } from "@/components/icons/GoogleIcon";
 import { Button } from "@/components/ui/button";
-import { GithubIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 interface AuthenticationProviderProps {
   isLoading: boolean;
@@ -10,14 +13,16 @@ interface AuthenticationProviderProps {
 export function AuthenticationProviders({
   isLoading,
 }: AuthenticationProviderProps): JSX.Element {
+  const [isRedirecting, setIsRedirecting] = useState<boolean>(false);
+
   return (
     <Fragment>
       <div className="relative py-3">
         <div className="absolute inset-0 flex items-center">
-          <span className="border-border w-full border-t" />
+          <span className="w-full border-t border-border" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-card text-muted-foreground px-2">
+          <span className="bg-card px-2 text-muted-foreground">
             OU CONTINUAR COM
           </span>
         </div>
@@ -26,17 +31,33 @@ export function AuthenticationProviders({
       <div className="grid grid-cols-1 gap-2 xs:grid-cols-2">
         <Button
           className="gap-2"
-          disabled={isLoading}
-          onClick={() => signIn("github")}
+          isLoading={isLoading || isRedirecting}
+          onClick={async () => {
+            setIsRedirecting(true);
+
+            await signIn("github");
+
+            setIsRedirecting(false);
+          }}
+          variant="outline"
+          icon={<GitHubIcon />}
         >
-          <GithubIcon size={15} />
+          GitHub
         </Button>
         <Button
           className="gap-2"
-          disabled={isLoading}
-          onClick={() => signIn("google")}
+          isLoading={isLoading || isRedirecting}
+          onClick={async () => {
+            setIsRedirecting(true);
+
+            await signIn("google");
+
+            setIsRedirecting(false);
+          }}
+          variant="outline"
+          icon={<GoogleIcon />}
         >
-          <GithubIcon size={15} />
+          Google
         </Button>
       </div>
     </Fragment>

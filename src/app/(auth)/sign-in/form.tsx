@@ -1,5 +1,6 @@
 "use client";
 
+import { InputPassword } from "@/components/input-password";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -83,19 +84,19 @@ export function SignInForm({}: SignInFormProps) {
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
         <div className="grid gap-2">
           <FormField
-            control={control}
             name="email"
             disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="Digite o e-mail: " {...field} />
+                  <Input placeholder="Digite o e-mail:" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+
           <FormField
             control={control}
             name="password"
@@ -104,7 +105,7 @@ export function SignInForm({}: SignInFormProps) {
               <FormItem>
                 <FormLabel>Senha</FormLabel>
                 <FormControl>
-                  <Input placeholder="Digite a senha: " {...field} />
+                  <InputPassword placeholder="Digite a senha:" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -125,10 +126,10 @@ export function SignInForm({}: SignInFormProps) {
           >
             Entrar
           </Button>
-
-          <AuthenticationProviders isLoading={isSubmitting} />
         </div>
       </form>
+
+      <AuthenticationProviders isLoading={isSubmitting} />
     </Form>
   );
 }

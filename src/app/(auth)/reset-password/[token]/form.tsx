@@ -1,6 +1,7 @@
 "use client";
 
 import { actionResetPassword } from "@/actions/auth/reset-password";
+import { InputPassword } from "@/components/input-password";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,7 +11,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import {
   FORM_DATA_HAS_BEEN_STORED,
   FORM_STORING_INFORMATION,
@@ -96,7 +96,7 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
               <FormItem>
                 <FormLabel>Senha</FormLabel>
                 <FormControl>
-                  <Input placeholder="Digite a senha: " {...field} />
+                  <InputPassword placeholder="Digite a senha:" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -111,7 +111,7 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
               <FormItem>
                 <FormLabel>Confirmação de Senha</FormLabel>
                 <FormControl>
-                  <Input
+                  <InputPassword
                     placeholder="Digite a confirmação de senha: "
                     {...field}
                   />
@@ -120,6 +120,7 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
               </FormItem>
             )}
           />
+
           <Button
             type="submit"
             aria-label="reset password of user"
