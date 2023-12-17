@@ -19,13 +19,13 @@ const sidebarNavItems = [
   },
 ];
 
-interface SettingsLayoutProps {
+interface GlobalSettingsLayoutProps {
   children: React.ReactNode;
 }
 
-export default async function SettingsLayout({
+export default async function GlobalSettingsLayout({
   children,
-}: SettingsLayoutProps) {
+}: GlobalSettingsLayoutProps) {
   const session = await getServerSession(authOptions);
 
   return (

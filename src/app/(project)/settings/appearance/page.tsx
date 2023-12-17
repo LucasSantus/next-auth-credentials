@@ -1,18 +1,14 @@
-import { Separator } from "@/components/ui/separator";
-import { AppearanceForm } from "./appearance-form";
+import { SettingsLayout } from "../_components/settings-layout";
+import { AppearanceForm } from "./form";
 
 export default function SettingsAppearancePage() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-medium">Appearance</h3>
-        <p className="text-sm text-muted-foreground">
-          Customize the appearance of the app. Automatically switch between day
-          and night themes.
-        </p>
-      </div>
-      <Separator />
+    <SettingsLayout
+      title="Aparência"
+      description="Personalize a aparência do sistema. Alternar automaticamente entre o
+      dia e temas noturnos."
+    >
       <AppearanceForm />
-    </div>
+    </SettingsLayout>
   );
 }
