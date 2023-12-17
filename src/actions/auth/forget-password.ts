@@ -6,7 +6,7 @@ import {
 } from "@/constants/form";
 import { prismaClient } from "@/lib/prisma";
 import { resend } from "@/lib/resend";
-import { ForgetPasswordFormData } from "@/validation/forget-password";
+import { ForgetPasswordFormData } from "@/validation/auth/forget-password";
 import * as crypto from "crypto";
 
 export async function actionForgetPassword({ email }: ForgetPasswordFormData) {

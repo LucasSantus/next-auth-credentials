@@ -7,6 +7,8 @@ export const FORM_STORING_INFORMATION = "Armazenando informações...";
 export const FORM_DATA_HAS_BEEN_STORED =
   "Os dados foram armazenados com êxito!";
 
+export const FORM_DATA_HAS_BEEN_UPDATED = "Os dados foram alterados com êxito!";
+
 export const ERROR_VALUES_VALIDATION =
   "Ops, parece que algo deu errado. Por favor, verifique os dados fornecidos e tente novamente.";
 

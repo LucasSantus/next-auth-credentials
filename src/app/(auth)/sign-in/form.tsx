@@ -12,11 +12,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useCustomRouter } from "@/hooks/useCustomRouter";
-import {
-  generateErrorToastOptions,
-  generateSuccessToastOptions,
-} from "@/utils/toast";
-import { SignInFormData, signInFormSchema } from "@/validation/sign-in";
+import toastOptions from "@/utils/toast";
+import { SignInFormData, signInFormSchema } from "@/validation/auth/sign-in";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
@@ -54,14 +51,11 @@ export function SignInForm({}: SignInFormProps) {
       });
 
       if (!!response && response.error) {
-        toast.update(
-          toastId,
-          generateErrorToastOptions({ render: response.error }),
-        );
+        toast.update(toastId, toastOptions.error({ render: response.error }));
       } else {
         toast.update(
           toastId,
-          generateSuccessToastOptions({
+          toastOptions.success({
             autoClose: 100,
             render: "Redirecionando...",
           }),
@@ -71,10 +65,7 @@ export function SignInForm({}: SignInFormProps) {
       }
     } catch (error) {
       if (error instanceof Error) {
-        toast.update(
-          toastId,
-          generateErrorToastOptions({ render: error.message }),
-        );
+        toast.update(toastId, toastOptions.error({ render: error.message }));
       }
     }
   }

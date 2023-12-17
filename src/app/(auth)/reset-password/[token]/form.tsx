@@ -17,14 +17,11 @@ import {
   YOU_ARE_BEING_REDIRECTED,
 } from "@/constants/form";
 import { useCustomRouter } from "@/hooks/useCustomRouter";
-import {
-  generateErrorToastOptions,
-  generateSuccessToastOptions,
-} from "@/utils/toast";
+import toastOptions from "@/utils/toast";
 import {
   ResetPasswordFormData,
   resetPasswordFormSchema,
-} from "@/validation/reset-password";
+} from "@/validation/auth/reset-password";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -59,7 +56,7 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
 
       toast.update(
         toastId,
-        generateSuccessToastOptions({
+        toastOptions.success({
           autoClose: 2900,
           render: FORM_DATA_HAS_BEEN_STORED,
         }),
@@ -76,10 +73,7 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
       });
     } catch (error) {
       if (error instanceof Error) {
-        toast.update(
-          toastId,
-          generateErrorToastOptions({ render: error.message }),
-        );
+        toast.update(toastId, toastOptions.error({ render: error.message }));
       }
     }
   }

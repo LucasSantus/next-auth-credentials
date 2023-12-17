@@ -24,11 +24,8 @@ import {
   YOU_ARE_BEING_REDIRECTED,
 } from "@/constants/form";
 import { useCustomRouter } from "@/hooks/useCustomRouter";
-import {
-  generateErrorToastOptions,
-  generateSuccessToastOptions,
-} from "@/utils/toast";
-import { SignUpFormData, signUpFormSchema } from "@/validation/sign-up";
+import toastOptions from "@/utils/toast";
+import { SignUpFormData, signUpFormSchema } from "@/validation/auth/sign-up";
 import { toast } from "react-toastify";
 import { AuthenticationProviders } from "../_components/authentication-providers";
 
@@ -38,9 +35,9 @@ export function SignUpForm({}: SearchFormProps) {
   const form = useForm<SignUpFormData>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
-      name: "Lucas Santos",
-      email: "leos.developer@gmail.com",
-      password: "1234567890",
+      name: "",
+      email: "",
+      password: "",
     },
   });
 
@@ -58,7 +55,7 @@ export function SignUpForm({}: SearchFormProps) {
 
       toast.update(
         toastId,
-        generateSuccessToastOptions({
+        toastOptions.success({
           render: FORM_DATA_HAS_BEEN_STORED,
         }),
       );
@@ -74,10 +71,7 @@ export function SignUpForm({}: SearchFormProps) {
       });
     } catch (error) {
       if (error instanceof Error) {
-        toast.update(
-          toastId,
-          generateErrorToastOptions({ render: error.message }),
-        );
+        toast.update(toastId, toastOptions.error({ render: error.message }));
       }
     }
   }

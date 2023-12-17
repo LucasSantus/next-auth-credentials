@@ -13,14 +13,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { YOU_ARE_BEING_REDIRECTED } from "@/constants/form";
 import { useCustomRouter } from "@/hooks/useCustomRouter";
-import {
-  generateErrorToastOptions,
-  generateSuccessToastOptions,
-} from "@/utils/toast";
+import toastOptions from "@/utils/toast";
+
 import {
   ForgetPasswordFormData,
   forgetPasswordFormSchema,
-} from "@/validation/forget-password";
+} from "@/validation/auth/forget-password";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -54,7 +52,7 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
 
       toast.update(
         toastId,
-        generateSuccessToastOptions({
+        toastOptions.success({
           autoClose: 2900,
           render: "O e-mail foi enviado!",
         }),
@@ -71,10 +69,7 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
       });
     } catch (error) {
       if (error instanceof Error) {
-        toast.update(
-          toastId,
-          generateErrorToastOptions({ render: error.message }),
-        );
+        toast.update(toastId, toastOptions.error({ render: error.message }));
       }
     }
   }

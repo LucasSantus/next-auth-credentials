@@ -1,28 +1,34 @@
 import { ToastContent, UpdateOptions } from "react-toastify";
 
-type ToastUpdateType = {
+interface ToastUpdateType {
   autoClose?: number;
   render: ToastContent<unknown>;
-};
+}
+
+type UpdateOptionsType = UpdateOptions<unknown>;
 
 class ToastOptions {
-  static defaultDelay: number | undefined = 3000;
+  static readonly defaultDelay: number | undefined = 3000;
+
+  private static generateToastOptions(
+    type: "success" | "error",
+    { render, autoClose = this.defaultDelay }: ToastUpdateType,
+  ): UpdateOptionsType {
+    return {
+      type,
+      isLoading: false,
+      autoClose,
+      render,
+    };
+  }
 
   /**
    * Gera opções para exibir um toast de sucesso.
    * @param render Conteúdo do toast.
    * @returns Opções de atualização para o componente de toast.
    */
-  static success({
-    render,
-    autoClose = this.defaultDelay,
-  }: ToastUpdateType): UpdateOptions<unknown> {
-    return {
-      type: "success",
-      isLoading: false,
-      autoClose,
-      render,
-    };
+  static success(fields: ToastUpdateType): UpdateOptionsType {
+    return this.generateToastOptions("success", fields);
   }
 
   /**
@@ -30,52 +36,11 @@ class ToastOptions {
    * @param render Conteúdo do toast.
    * @returns Opções de atualização para o componente de toast.
    */
-  static error({
-    render,
-    autoClose = this.defaultDelay,
-  }: ToastUpdateType): UpdateOptions<unknown> {
-    return {
-      type: "error",
-      isLoading: false,
-      autoClose,
-      render,
-    };
+  static error(fields: ToastUpdateType): UpdateOptionsType {
+    return this.generateToastOptions("error", fields);
   }
 }
 
-export const toastOptions = new ToastOptions();
+const toastOptions = ToastOptions;
 
-
-/**
- * Gera opções para exibir um toast de sucesso.
- * @param render Conteúdo do toast.
- * @returns Opções de atualização para o componente de toast.
- */
-export function generateSuccessToastOptions({
-  render,
-  autoClose = 2000,
-}: ToastUpdateType): UpdateOptions<unknown> {
-  return {
-    type: "success",
-    isLoading: false,
-    autoClose,
-    render,
-  };
-}
-
-/**
- * Gera opções para exibir um toast de erro.
- * @param render Conteúdo do toast.
- * @returns Opções de atualização para o componente de toast.
- */
-export function generateErrorToastOptions({
-  render,
-  autoClose = 4000,
-}: ToastUpdateType): UpdateOptions<unknown> {
-  return {
-    type: "error",
-    isLoading: false,
-    autoClose,
-    render,
-  };
-}
+export default toastOptions;

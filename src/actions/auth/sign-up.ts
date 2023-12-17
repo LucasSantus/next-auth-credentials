@@ -1,9 +1,11 @@
 "use server";
 
-
-import { EMAIL_REGISTERED_ON_SYSTEM, ERROR_VALUES_VALIDATION } from "@/constants/form";
+import {
+  EMAIL_REGISTERED_ON_SYSTEM,
+  ERROR_VALUES_VALIDATION,
+} from "@/constants/form";
 import { prismaClient } from "@/lib/prisma";
-import { SignUpFormData } from "@/validation/sign-up";
+import { SignUpFormData } from "@/validation/auth/sign-up";
 import * as bcrypt from "bcrypt";
 
 export async function actionSignUp({ name, email, password }: SignUpFormData) {

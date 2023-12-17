@@ -5,7 +5,7 @@ import {
   ERROR_VALUES_VALIDATION,
 } from "@/constants/form";
 import { prismaClient } from "@/lib/prisma";
-import { ResetPasswordFormData } from "@/validation/reset-password";
+import { ResetPasswordFormData } from "@/validation/auth/reset-password";
 import * as bcrypt from "bcrypt";
 
 export async function actionResetPassword({

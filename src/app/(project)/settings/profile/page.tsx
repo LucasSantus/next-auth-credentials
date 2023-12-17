@@ -1,19 +1,27 @@
-"use client";
+import { Separator } from "@/components/ui/separator";
+import { authOptions } from "@/lib/auth";
+import { ProfileFormData } from "@/validation/settings/profile";
+import { getServerSession } from "next-auth";
+import { ProfileForm } from "./form";
 
-import { Separator } from "@radix-ui/react-separator";
-import { ProfileForm } from "./profile-form";
+export default async function Profile() {
+  const session = await getServerSession(authOptions);
 
-export default function SettingsProfilePage() {
+  const defaultValues: ProfileFormData = {
+    name: session?.user.name ?? "",
+    email: session?.user.email ?? "",
+  };
+
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium">Profile</h3>
+        <h3 className="text-lg font-medium">Perfil</h3>
         <p className="text-sm text-muted-foreground">
-          This is how others will see you on the site.
+          É assim que outras pessoas verão você no site.
         </p>
       </div>
       <Separator />
-      <ProfileForm />
+      <ProfileForm defaultValues={defaultValues} />
     </div>
   );
 }
