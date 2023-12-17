@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useCustomRouter } from "@/hooks/useCustomRouter";
 import { LogOut, User } from "lucide-react";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
@@ -21,6 +22,8 @@ interface HeaderProps {
 }
 
 export function Header({ session }: HeaderProps): JSX.Element {
+  const router = useCustomRouter();
+
   function userInitialLetters(session: Session) {
     if (session.user.name) {
       const name = session.user.name.split(" ");
@@ -57,9 +60,27 @@ export function Header({ session }: HeaderProps): JSX.Element {
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => router.push("/settings/profile")}
+              >
                 <User className="mr-2 h-4 w-4" />
-                <span>Profile</span>
+                <span>Perfil</span>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuGroup>
+              <DropdownMenuItem
+                onClick={() => router.push("/settings/account")}
+              >
+                <User className="mr-2 h-4 w-4" />
+                <span>Conta</span>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuGroup>
+              <DropdownMenuItem
+                onClick={() => router.push("/settings/appearance")}
+              >
+                <User className="mr-2 h-4 w-4" />
+                <span>Aparência</span>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
