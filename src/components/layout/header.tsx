@@ -23,31 +23,24 @@ interface HeaderProps {
 export function Header({ session }: HeaderProps): JSX.Element {
   function userInitialLetters(session: Session) {
     if (session.user.name) {
-      const names = session.user.name.split(" ");
-      const firstName = names[0][0];
-      const lastName = names[names.length - 1][0];
-      return `${firstName}${lastName}`;
+      const name = session.user.name.split(" ");
+      const firstName = name[0][0];
+      const lastName = name[name.length - 1][0];
+      return firstName + lastName;
     }
   }
+
+  const hasSession = !session || !session.user;
 
   return (
     <header className="flex h-20 items-center justify-between">
       <Link href="/">
-        <Button variant="link" className="text-white">
+        <Button variant="link" className="p-0 text-white">
           Todo List
         </Button>
       </Link>
 
-      {!session || !session.user ? (
-        <div>
-          <Link href="/sign-in">
-            <Button>Login</Button>
-          </Link>
-          <Link href="/sign-up">
-            <Button>Registrar</Button>
-          </Link>
-        </div>
-      ) : (
+      {!hasSession && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar>

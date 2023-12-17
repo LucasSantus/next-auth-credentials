@@ -16,6 +16,7 @@ import {
   FORM_STORING_INFORMATION,
   YOU_ARE_BEING_REDIRECTED,
 } from "@/constants/form";
+import { useCustomRouter } from "@/hooks/useCustomRouter";
 import {
   generateErrorToastOptions,
   generateSuccessToastOptions,
@@ -25,7 +26,6 @@ import {
   resetPasswordFormSchema,
 } from "@/validation/reset-password";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -34,7 +34,7 @@ interface ResetPasswordFormProps {
 }
 
 export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const form = useForm<ResetPasswordFormData>({
     resolver: zodResolver(resetPasswordFormSchema),

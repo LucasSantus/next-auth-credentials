@@ -25,6 +25,5 @@ export function bounceHorizontalAnimation({
         delay: duration * delay,
       },
     },
-    exit: { x: positioning, opacity: 0 },
   };
 }

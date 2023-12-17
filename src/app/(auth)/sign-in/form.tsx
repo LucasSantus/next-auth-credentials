@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useCustomRouter } from "@/hooks/useCustomRouter";
 import {
   generateErrorToastOptions,
   generateSuccessToastOptions,
@@ -18,7 +19,6 @@ import {
 import { SignInFormData, signInFormSchema } from "@/validation/sign-in";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { AuthenticationProviders } from "../_components/authentication-providers";
@@ -27,7 +27,7 @@ import { AuthenticationRedirect } from "../_components/authentication-redirect";
 interface SignInFormProps {}
 
 export function SignInForm({}: SignInFormProps) {
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const form = useForm<SignInFormData>({
     resolver: zodResolver(signInFormSchema),

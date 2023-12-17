@@ -23,17 +23,17 @@ import {
   FORM_STORING_INFORMATION,
   YOU_ARE_BEING_REDIRECTED,
 } from "@/constants/form";
+import { useCustomRouter } from "@/hooks/useCustomRouter";
 import {
   generateErrorToastOptions,
   generateSuccessToastOptions,
 } from "@/utils/toast";
 import { SignUpFormData, signUpFormSchema } from "@/validation/sign-up";
-import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { AuthenticationProviders } from "../_components/authentication-providers";
 
 export function SignUpForm({}: SearchFormProps) {
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const form = useForm<SignUpFormData>({
     resolver: zodResolver(signUpFormSchema),

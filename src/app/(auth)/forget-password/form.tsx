@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { YOU_ARE_BEING_REDIRECTED } from "@/constants/form";
+import { useCustomRouter } from "@/hooks/useCustomRouter";
 import {
   generateErrorToastOptions,
   generateSuccessToastOptions,
@@ -21,14 +22,13 @@ import {
   forgetPasswordFormSchema,
 } from "@/validation/forget-password";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 interface ForgetPasswordFormProps {}
 
 export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const form = useForm<ForgetPasswordFormData>({
     resolver: zodResolver(forgetPasswordFormSchema),
