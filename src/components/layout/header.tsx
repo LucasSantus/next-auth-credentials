@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useCustomRouter } from "@/hooks/useCustomRouter";
-import { LogOutIcon, SettingsIcon } from "lucide-react";
+import { LogOutIcon, SettingsIcon, UserIcon } from "lucide-react";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
@@ -24,21 +24,12 @@ interface HeaderProps {
 export function Header({ session }: HeaderProps): JSX.Element {
   const router = useCustomRouter();
 
-  function userInitialLetters(session: Session) {
-    if (session.user.name) {
-      const name = session.user.name.split(" ");
-      const firstName = name[0][0];
-      const lastName = name[name.length - 1][0];
-      return firstName + lastName;
-    }
-  }
-
   const hasSession = !session || !session.user;
 
   return (
     <header className="flex h-20 items-center justify-between">
       <Link href="/">
-        <Button variant="link" className="p-0 text-foreground">
+        <Button variant="link" className="p-0 text-lg text-foreground">
           Todo List
         </Button>
       </Link>
@@ -52,7 +43,7 @@ export function Header({ session }: HeaderProps): JSX.Element {
                 src={session.user.image ?? ""}
               />
               <AvatarFallback className="cursor-pointer">
-                {userInitialLetters(session)}
+                <UserIcon />
               </AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
