@@ -40,7 +40,7 @@ export function AppearanceForm() {
   function onSubmit(data: AppearanceFormData) {
     setTheme(data.theme);
 
-    toast.success("tomou na jabiraca");
+    toast.success("Alteração salva com sucesso!");
   }
 
   return (
@@ -52,7 +52,9 @@ export function AppearanceForm() {
           render={({ field }) => (
             <FormItem className="space-y-1">
               <FormLabel>Theme</FormLabel>
-              <FormDescription>Selecione o tema para o painel.</FormDescription>
+              <FormDescription>
+                Selecione o tema para o sistema.
+              </FormDescription>
               <FormMessage />
               <RadioGroup
                 onValueChange={field.onChange}

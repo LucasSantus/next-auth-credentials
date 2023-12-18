@@ -23,16 +23,23 @@ import {
   ProfileFormData,
   profileFormSchema,
 } from "@/validation/settings/profile";
+import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
 interface ProfileFormProps {
-  defaultValues: ProfileFormData;
+  session: Session | null;
 }
 
-export function ProfileForm({ defaultValues }: ProfileFormProps) {
+export function ProfileForm({}: ProfileFormProps) {
+  const { data: session } = useSession();
+
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues,
+    defaultValues: {
+      name: session?.user?.name ?? "",
+      email: session?.user?.email ?? "",
+    },
     mode: "onChange",
   });
 
@@ -81,12 +88,11 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
 
         <FormField
           name="email"
-          disabled
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Digite o e-mail:" {...field} />
+                <Input placeholder="Digite o e-mail:" readOnly {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

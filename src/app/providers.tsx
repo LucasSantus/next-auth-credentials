@@ -9,12 +9,7 @@ import { NavigationEvents } from "./navigation-events";
 
 export function Providers({ children }: PropsWithChildren) {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      // disableTransitionOnChange
-    >
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <SessionProvider>
         <NextTopLoader
           color="#2299DD"

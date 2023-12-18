@@ -16,12 +16,7 @@ export default async function Profile() {
       title="Perfil"
       description="É assim que outras pessoas verão você no site."
     >
-      <ProfileForm
-        defaultValues={{
-          name: session?.user.name ?? "",
-          email: session?.user.email ?? "",
-        }}
-      />
+      <ProfileForm session={session} />
     </SettingsLayout>
   );
 }
