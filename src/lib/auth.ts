@@ -1,3 +1,4 @@
+import { USER_NOT_FOUND } from "@/constants/form";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import * as bcrypt from "bcrypt";
 import { AuthOptions } from "next-auth";
@@ -41,7 +42,7 @@ export const authOptions: AuthOptions = {
         });
 
         if (!user || !user?.hashedPassword) {
-          throw new Error("Usuário não encontrado!");
+          throw new Error(USER_NOT_FOUND);
         }
 
         const passwordMatch = await bcrypt.compare(

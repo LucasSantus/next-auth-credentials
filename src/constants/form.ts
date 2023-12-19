@@ -20,6 +20,8 @@ export const EMAIL_REGISTERED_ON_SYSTEM =
 
 export const YOU_ARE_BEING_REDIRECTED = "Você está sendo redirecionado...";
 
+export const USER_NOT_FOUND = "Usuário não encontrado!";
+
 /**
  * Returns a message indicating the minimum allowed character length.
  * @param value The number that represents the desired minimum length.

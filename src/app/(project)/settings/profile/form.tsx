@@ -23,24 +23,38 @@ import {
   ProfileFormData,
   profileFormSchema,
 } from "@/validation/settings/profile";
-import { Session } from "next-auth";
-import { useSession } from "next-auth/react";
+import { User } from "@prisma/client";
+import { useQuery } from "@tanstack/react-query";
+import { MailX, Mailbox } from "lucide-react";
 import { toast } from "react-toastify";
+import { getUserById } from "../../../../actions/get/get-user-by-id";
 
 interface ProfileFormProps {
-  session: Session | null;
+  id: string;
 }
 
-export function ProfileForm({}: ProfileFormProps) {
-  const { data: session } = useSession();
+export function ProfileForm({ id }: ProfileFormProps) {
+  const { data: profile, isLoading } = useQuery({
+    queryKey: ["profile", id],
+    queryFn: async () => {
+      try {
+        return await getUserById(id);
+      } catch (error) {
+        if (error instanceof Error) {
+          toast.error(error.message);
+        }
+        return {} as User;
+      }
+    },
+  });
 
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues: {
-      name: session?.user?.name ?? "",
-      email: session?.user?.email ?? "",
-    },
     mode: "onChange",
+    values: {
+      name: profile?.name ?? "",
+      email: profile?.email ?? "",
+    },
   });
 
   const {
@@ -74,12 +88,18 @@ export function ProfileForm({}: ProfileFormProps) {
         <FormField
           control={control}
           name="name"
-          disabled={isSubmitting}
+          disabled={isSubmitting || isLoading}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nome Completo</FormLabel>
               <FormControl>
-                <Input placeholder="Digite o nome completo:" {...field} />
+                <Input
+                  placeholder="Digite o nome completo:"
+                  isLoading={isLoading}
+                  startComponent={<MailX className="h-5 w-5" />}
+                  endComponent={<Mailbox className="h-5 w-5" />}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -87,12 +107,18 @@ export function ProfileForm({}: ProfileFormProps) {
         />
 
         <FormField
+          control={control}
           name="email"
+          disabled
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Digite o e-mail:" readOnly {...field} />
+                <Input
+                  placeholder="Digite o e-mail:"
+                  isLoading={isLoading}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
