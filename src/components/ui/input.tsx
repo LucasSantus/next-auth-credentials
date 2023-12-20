@@ -16,7 +16,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ref,
   ) => {
     const componentClass =
-      "absolute bottom-0 top-0 z-10 flex h-full w-10 items-center justify-center rounded-md";
+      "absolute bottom-0 top-0 z-10 flex h-full w-10 items-center justify-center";
 
     return (
       <div className="relative">
@@ -35,7 +35,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {!!startComponent && (
           <div
             className={cn(
-              "left-0 border border-input bg-background",
+              "left-0 rounded-l-md border-y border-l border-input bg-background",
               componentClass,
             )}
           >
@@ -51,7 +51,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           !!endComponent && (
             <div
               className={cn(
-                "right-0 border border-input bg-background",
+                "right-0 rounded-r-md border-y border-r border-input bg-background",
                 componentClass,
               )}
             >

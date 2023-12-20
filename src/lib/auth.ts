@@ -59,7 +59,11 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
+      if (trigger === "update" && !!session) {
+        token.name = session?.name;
+      }
+
       if (user)
         return {
           ...token,
@@ -68,19 +72,21 @@ export const authOptions: AuthOptions = {
 
       return token;
     },
-    async session({ session, user: userSession, token }) {
+    async session({ session, user, token, newSession, trigger }) {
       if (token) {
-        const { user } = token as {
+        const { user: userToken } = token as {
           user: {
             id: string;
           };
         };
 
-        session.user = { ...session.user, id: user.id } as UserSessionType;
+        session.user = { ...session.user, id: userToken.id } as UserSessionType;
+      } else if (trigger === "update" && !!newSession) {
+        session.user.name = newSession.name;
       } else {
         session.user = {
           ...session.user,
-          id: userSession.id,
+          id: user.id,
         } as UserSessionType;
       }
 

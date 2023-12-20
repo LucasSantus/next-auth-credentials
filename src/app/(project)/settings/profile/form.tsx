@@ -18,6 +18,7 @@ import {
   FORM_DATA_HAS_BEEN_UPDATED,
   FORM_STORING_INFORMATION,
 } from "@/constants/form";
+import { useCustomRouter } from "@/hooks/useCustomRouter";
 import toastOptions from "@/utils/toast";
 import {
   ProfileFormData,
@@ -25,7 +26,8 @@ import {
 } from "@/validation/settings/profile";
 import { User } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-import { MailX, Mailbox } from "lucide-react";
+import { User2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import { getUserById } from "../../../../actions/get/get-user-by-id";
 
@@ -34,15 +36,18 @@ interface ProfileFormProps {
 }
 
 export function ProfileForm({ id }: ProfileFormProps) {
+  const router = useCustomRouter();
+
+  const { update } = useSession();
+
   const { data: profile, isLoading } = useQuery({
     queryKey: ["profile", id],
     queryFn: async () => {
       try {
         return await getUserById(id);
       } catch (error) {
-        if (error instanceof Error) {
-          toast.error(error.message);
-        }
+        if (error instanceof Error) toast.error(error.message);
+
         return {} as User;
       }
     },
@@ -69,12 +74,16 @@ export function ProfileForm({ id }: ProfileFormProps) {
     try {
       await actionUpdateProfile(values);
 
+      await update(values);
+
       toast.update(
         toastId,
         toastOptions.success({
           render: FORM_DATA_HAS_BEEN_UPDATED,
         }),
       );
+
+      router.refresh();
     } catch (error) {
       if (error instanceof Error) {
         toast.update(toastId, toastOptions.error({ render: error.message }));
@@ -96,8 +105,8 @@ export function ProfileForm({ id }: ProfileFormProps) {
                 <Input
                   placeholder="Digite o nome completo:"
                   isLoading={isLoading}
-                  startComponent={<MailX className="h-5 w-5" />}
-                  endComponent={<Mailbox className="h-5 w-5" />}
+                  startComponent={<User2 className="h-5 w-5" />}
+                  endComponent={<User2 className="h-5 w-5" />}
                   {...field}
                 />
               </FormControl>
