@@ -55,7 +55,7 @@ export function Header({ session }: HeaderProps): JSX.Element {
                 onClick={() => router.push("/settings/profile")}
               >
                 <SettingsIcon className="mr-2 h-4 w-4" />
-                <span>Configurações</span>
+                <span>Conta</span>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

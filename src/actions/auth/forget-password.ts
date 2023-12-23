@@ -4,10 +4,11 @@ import {
   EMAIL_DONT_REGISTERED_ON_SYSTEM,
   ERROR_VALUES_VALIDATION,
 } from "@/constants/form";
+import { enviromentVariable } from "@/env";
 import { prismaClient } from "@/lib/prisma";
 import { resend } from "@/lib/resend";
+import generateHash from "@/utils/hash";
 import { ForgetPasswordFormData } from "@/validation/auth/forget-password";
-import * as crypto from "crypto";
 
 export async function actionForgetPassword({ email }: ForgetPasswordFormData) {
   if (!email) throw new Error(ERROR_VALUES_VALIDATION);
@@ -29,11 +30,8 @@ export async function actionForgetPassword({ email }: ForgetPasswordFormData) {
   });
 
   const passwordResetExpires = Date.now() + 60 * 60 * 10;
-  const resetToken = crypto.randomBytes(20).toString("hex");
-  const passwordResetToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
+  const resetToken = generateHash.randomBytes();
+  const passwordResetToken = generateHash.createHash(resetToken);
 
   const verificationToken = await prismaClient.verificationToken.create({
     data: {
@@ -47,10 +45,10 @@ export async function actionForgetPassword({ email }: ForgetPasswordFormData) {
   if (!verificationToken)
     throw new Error("Ops, ocorreu um erro na criação do token!");
 
-  const url = process.env.NEXTAUTH_URL + "/reset-password/" + resetToken;
+  const url = enviromentVariable.NEXTAUTH_URL + "/reset-password/" + resetToken;
 
   resend.emails.send({
-    from: "onboarding@resend.dev",
+    from: enviromentVariable.RESEND_TO_EMAIL,
     to: email,
     subject: "Recuperação de Senha",
     html: url,

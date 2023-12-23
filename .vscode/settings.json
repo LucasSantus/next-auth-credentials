@@ -30,14 +30,14 @@
   "javascript.updateImportsOnFileMove.enabled": "always",
 
   // others
-  "breadcrumbs.enabled": true,
-  "typescript.suggest.autoImports": true,
-  "emmet.syntaxProfiles": {
-    "javascript": "jsx"
-  },
-  "emmet.includeLanguages": {
-    "javascript": "javascriptreact"
-  },
+  // "breadcrumbs.enabled": true,
+  // "typescript.suggest.autoImports": true,
+  // "emmet.syntaxProfiles": {
+  //   "javascript": "jsx"
+  // },
+  // "emmet.includeLanguages": {
+  //   "javascript": "javascriptreact"
+  // },
 
   // prisma
   "[prisma]": {

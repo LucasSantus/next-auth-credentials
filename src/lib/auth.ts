@@ -1,7 +1,9 @@
 import { USER_NOT_FOUND } from "@/constants/form";
+import { enviromentVariable } from "@/env";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import * as bcrypt from "bcrypt";
 import { AuthOptions } from "next-auth";
+import { Adapter } from "next-auth/adapters";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
@@ -14,20 +16,20 @@ type UserSessionType = {
 };
 
 export const authOptions: AuthOptions = {
-  adapter: PrismaAdapter(prismaClient),
+  adapter: PrismaAdapter(prismaClient) as Adapter,
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: enviromentVariable.GOOGLE_CLIENT_ID,
+      clientSecret: enviromentVariable.GOOGLE_CLIENT_SECRET,
     }),
     GitHubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+      clientId: enviromentVariable.GITHUB_ID,
+      clientSecret: enviromentVariable.GITHUB_SECRET,
     }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "jsmith" },
+        email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {

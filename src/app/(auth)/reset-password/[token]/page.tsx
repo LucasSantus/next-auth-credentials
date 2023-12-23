@@ -1,6 +1,10 @@
-import { User, VerificationToken } from "@prisma/client";
+import {
+  VerifyTokenResponse,
+  getVerifyToken,
+} from "@/actions/get/get-verify-token";
 import { KeyRound } from "lucide-react";
 import { Metadata } from "next";
+import { toast } from "react-toastify";
 import { AuthenticationDescription } from "../../_components/authentication-description";
 import { AuthenticationLayout } from "../../_components/authentication-layout";
 import { ResetPasswordForm } from "./form";
@@ -9,18 +13,16 @@ export const metadata: Metadata = {
   title: "Resetar Senha",
 };
 
-const getVerifyToken = async ({ params }: ForgetPasswordProps) => {
-  const response = await fetch(
-    process.env.NEXTAUTH_URL + "/api/auth/verify-token?token=" + params.token,
-  ).then(
-    async (response) =>
-      (await response.json()) as {
-        user: User;
-        verificationToken: VerificationToken;
-      },
-  );
+const getData = async ({
+  params,
+}: ForgetPasswordProps): Promise<VerifyTokenResponse> => {
+  try {
+    return await getVerifyToken(params.token);
+  } catch (error) {
+    if (error instanceof Error) toast.error(error.message);
 
-  return response;
+    return {} as VerifyTokenResponse;
+  }
 };
 
 interface ForgetPasswordProps {
@@ -32,7 +34,7 @@ interface ForgetPasswordProps {
 export default async function ResetPassword({
   params,
 }: ForgetPasswordProps): Promise<JSX.Element> {
-  const verificationToken = await getVerifyToken({ params });
+  const verificationToken = await getData({ params });
 
   if (!verificationToken || !verificationToken?.user.email) {
     return (
