@@ -11,7 +11,7 @@ export interface VerifyTokenResponse {
   verificationToken: VerificationToken;
 }
 
-export async function getVerifyToken(
+export async function getActionVerifyToken(
   token: string,
 ): Promise<VerifyTokenResponse> {
   if (!token) {

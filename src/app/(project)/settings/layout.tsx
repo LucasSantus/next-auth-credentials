@@ -6,10 +6,6 @@ import { SettingsSidebar } from "./_components/settings-sidebar";
 
 const sidebarNavItems = [
   {
-    title: "Perfil",
-    href: "/settings/profile",
-  },
-  {
     title: "Conta",
     href: "/settings/account",
   },

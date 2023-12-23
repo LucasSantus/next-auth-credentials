@@ -10,7 +10,9 @@ import { resend } from "@/lib/resend";
 import generateHash from "@/utils/hash";
 import { ForgetPasswordFormData } from "@/validation/auth/forget-password";
 
-export async function actionForgetPassword({ email }: ForgetPasswordFormData) {
+export async function authActionForgetPassword({
+  email,
+}: ForgetPasswordFormData) {
   if (!email) throw new Error(ERROR_VALUES_VALIDATION);
 
   const user = await prismaClient.user.findUnique({

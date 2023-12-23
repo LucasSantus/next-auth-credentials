@@ -12,7 +12,7 @@ export function AuthenticationLayout({
     <Fragment>
       <div className="flex h-screen flex-col items-center justify-start bg-background px-2 py-3 text-foreground sm:justify-center">
         <Framing
-          className="flex w-full max-w-md rounded-lg border border-border bg-card py-6 shadow-md lg:p-8"
+          className="flex w-full max-w-md rounded-lg border border-border bg-card p-4 shadow-md lg:p-8"
           {...bounceHorizontalAnimation({})}
         >
           <div className="flex w-full flex-col gap-2">{children}</div>

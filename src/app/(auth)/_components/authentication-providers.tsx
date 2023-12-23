@@ -3,7 +3,8 @@
 import { GitHubIcon } from "@/components/icons/github";
 import { GoogleIcon } from "@/components/icons/google";
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
+import { BuiltInProviderType } from "next-auth/providers/index";
+import { LiteralUnion, signIn } from "next-auth/react";
 import { Fragment, useState } from "react";
 
 interface AuthenticationProviderProps {
@@ -14,6 +15,14 @@ export function AuthenticationProviders({
   isLoading,
 }: AuthenticationProviderProps): JSX.Element {
   const [isRedirecting, setIsRedirecting] = useState<boolean>(false);
+
+  async function onHandleClick(provider: LiteralUnion<BuiltInProviderType>) {
+    setIsRedirecting(true);
+
+    await signIn(provider);
+
+    setIsRedirecting(false);
+  }
 
   return (
     <Fragment>
@@ -32,13 +41,7 @@ export function AuthenticationProviders({
         <Button
           className="gap-2"
           isLoading={isLoading || isRedirecting}
-          onClick={async () => {
-            setIsRedirecting(true);
-
-            await signIn("github");
-
-            setIsRedirecting(false);
-          }}
+          onClick={() => onHandleClick("github")}
           variant="outline"
           icon={<GitHubIcon />}
         >
@@ -47,13 +50,7 @@ export function AuthenticationProviders({
         <Button
           className="gap-2"
           isLoading={isLoading || isRedirecting}
-          onClick={async () => {
-            setIsRedirecting(true);
-
-            await signIn("google");
-
-            setIsRedirecting(false);
-          }}
+          onClick={() => onHandleClick("google")}
           variant="outline"
           icon={<GoogleIcon />}
         >

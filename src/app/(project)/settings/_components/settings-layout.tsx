@@ -1,23 +1,15 @@
-import { Separator } from "@/components/ui/separator";
 import { PropsWithChildren } from "react";
+import { SettingsHeader, SettingsHeaderProps } from "./settings-header";
 
-interface SettingsLayoutProps extends PropsWithChildren {
-  title: string;
-  description: string;
-}
+interface SettingsLayoutProps extends PropsWithChildren, SettingsHeaderProps {}
 
 export function SettingsLayout({
-  title,
-  description,
   children,
+  ...rest
 }: SettingsLayoutProps): JSX.Element {
   return (
     <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-medium">{title}</h3>
-        <p className="text-sm text-muted-foreground">{description}</p>
-      </div>
-      <Separator />
+      <SettingsHeader {...rest} />
       {children}
     </div>
   );

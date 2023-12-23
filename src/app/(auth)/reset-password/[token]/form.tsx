@@ -1,6 +1,6 @@
 "use client";
 
-import { actionResetPassword } from "@/actions/auth/reset-password";
+import { authActionResetPassword } from "@/actions/auth/reset-password";
 import { InputPassword } from "@/components/input-password";
 import { Button } from "@/components/ui/button";
 import {
@@ -52,7 +52,7 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
     const toastId = toast.loading(FORM_STORING_INFORMATION);
 
     try {
-      await actionResetPassword(values);
+      await authActionResetPassword(values);
 
       toast.update(
         toastId,

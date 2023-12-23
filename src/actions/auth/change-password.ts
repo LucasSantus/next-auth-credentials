@@ -5,13 +5,13 @@ import {
   ERROR_VALUES_VALIDATION,
 } from "@/constants/form";
 import { prismaClient } from "@/lib/prisma";
-import { ResetPasswordFormData } from "@/validation/auth/reset-password";
+import { ChangePasswordFormData } from "@/validation/auth/change-password";
 import * as bcrypt from "bcrypt";
 
-export async function authActionResetPassword({
+export async function authActionChangePassword({
   email,
   password,
-}: ResetPasswordFormData) {
+}: ChangePasswordFormData) {
   if (!email || !password) throw new Error(ERROR_VALUES_VALIDATION);
 
   const user = await prismaClient.user.findUnique({

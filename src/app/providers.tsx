@@ -45,9 +45,11 @@ export function Providers({ children }: PropsWithChildren) {
             pauseOnHover
             theme="colored"
           />
+
           <Suspense fallback={null}>
             <NavigationEvents />
           </Suspense>
+
           {children}
         </ThemeProvider>
       </QueryClientProvider>

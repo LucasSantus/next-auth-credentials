@@ -8,7 +8,11 @@ import { prismaClient } from "@/lib/prisma";
 import { SignUpFormData } from "@/validation/auth/sign-up";
 import * as bcrypt from "bcrypt";
 
-export async function actionSignUp({ name, email, password }: SignUpFormData) {
+export async function authActionSignUp({
+  name,
+  email,
+  password,
+}: SignUpFormData) {
   if (!name || !email || !password) {
     throw new Error(ERROR_VALUES_VALIDATION);
   }

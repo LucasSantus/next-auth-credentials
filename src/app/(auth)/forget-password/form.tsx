@@ -1,6 +1,6 @@
 "use client";
 
-import { actionForgetPassword } from "@/actions/auth/forget-password";
+import { authActionForgetPassword } from "@/actions/auth/forget-password";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -48,7 +48,7 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
     );
 
     try {
-      await actionForgetPassword(values);
+      await authActionForgetPassword(values);
 
       toast.update(
         toastId,

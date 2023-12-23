@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 
 interface SearchFormProps {}
 
-import { actionSignUp } from "@/actions/auth/sign-up";
+import { authActionSignUp } from "@/actions/auth/sign-up";
 import { InputPassword } from "@/components/input-password";
 import {
   FORM_DATA_HAS_BEEN_STORED,
@@ -51,7 +51,7 @@ export function SignUpForm({}: SearchFormProps) {
     const toastId = toast.loading(FORM_STORING_INFORMATION);
 
     try {
-      await actionSignUp(values);
+      await authActionSignUp(values);
 
       toast.update(
         toastId,

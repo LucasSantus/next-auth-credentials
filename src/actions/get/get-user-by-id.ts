@@ -4,7 +4,7 @@ import { USER_NOT_FOUND } from "@/constants/form";
 import { prismaClient } from "@/lib/prisma";
 import { User } from "@prisma/client";
 
-export async function getUserById(id: string): Promise<User> {
+export async function getActionUserById(id: string): Promise<User> {
   const user = await prismaClient.user.findFirst({
     where: {
       id,

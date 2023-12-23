@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { actionUpdateProfile } from "@/actions/update/update-profile";
+import { updateActionProfile } from "@/actions/update/update-profile";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -26,14 +26,16 @@ import {
 } from "@/validation/settings/profile";
 import { User } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-import { User2 } from "lucide-react";
+import { Mail, User2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-import { getUserById } from "../../../../actions/get/get-user-by-id";
+import { getActionUserById } from "../../../../actions/get/get-user-by-id";
 
 interface ProfileFormProps {
   id: string;
 }
+
+const ICON_CLASSNAMES = "h-5 w-5";
 
 export function ProfileForm({ id }: ProfileFormProps) {
   const router = useCustomRouter();
@@ -44,7 +46,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
     queryKey: ["profile", id],
     queryFn: async () => {
       try {
-        return await getUserById(id);
+        return await getActionUserById(id);
       } catch (error) {
         if (error instanceof Error) toast.error(error.message);
 
@@ -72,7 +74,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
     const toastId = toast.loading(FORM_STORING_INFORMATION);
 
     try {
-      await actionUpdateProfile(values);
+      await updateActionProfile(values);
 
       await update(values);
 
@@ -93,7 +95,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={control}
           name="name"
@@ -105,8 +107,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
                 <Input
                   placeholder="Digite o nome completo:"
                   isLoading={isLoading}
-                  startComponent={<User2 className="h-5 w-5" />}
-                  endComponent={<User2 className="h-5 w-5" />}
+                  startComponent={<User2 className={ICON_CLASSNAMES} />}
                   {...field}
                 />
               </FormControl>
@@ -126,6 +127,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
                 <Input
                   placeholder="Digite o e-mail:"
                   isLoading={isLoading}
+                  startComponent={<Mail className={ICON_CLASSNAMES} />}
                   {...field}
                 />
               </FormControl>

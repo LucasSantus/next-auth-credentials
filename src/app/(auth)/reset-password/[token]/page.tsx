@@ -1,6 +1,6 @@
 import {
   VerifyTokenResponse,
-  getVerifyToken,
+  getActionVerifyToken,
 } from "@/actions/get/get-verify-token";
 import { KeyRound } from "lucide-react";
 import { Metadata } from "next";
@@ -17,7 +17,7 @@ const getData = async ({
   params,
 }: ForgetPasswordProps): Promise<VerifyTokenResponse> => {
   try {
-    return await getVerifyToken(params.token);
+    return await getActionVerifyToken(params.token);
   } catch (error) {
     if (error instanceof Error) toast.error(error.message);
 

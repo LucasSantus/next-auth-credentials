@@ -52,7 +52,7 @@ export function Header({ session }: HeaderProps): JSX.Element {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem
-                onClick={() => router.push("/settings/profile")}
+                onClick={() => router.push("/settings/account")}
               >
                 <SettingsIcon className="mr-2 h-4 w-4" />
                 <span>Conta</span>
