@@ -56,12 +56,16 @@ export function SignInForm({}: SignInFormProps) {
         toast.update(
           toastId,
           toastOptions.success({
-            autoClose: 100,
             render: "Redirecionando...",
           }),
         );
 
-        router.push("/");
+        await new Promise((resolve) =>
+          setTimeout(() => {
+            router.push("/");
+            resolve(null);
+          }, 3000),
+        );
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -75,13 +79,17 @@ export function SignInForm({}: SignInFormProps) {
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
         <div className="grid gap-2">
           <FormField
+            control={control}
             name="email"
-            disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="Digite o e-mail:" {...field} />
+                  <Input
+                    placeholder="Digite o e-mail:"
+                    disabled={isSubmitting}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -91,12 +99,15 @@ export function SignInForm({}: SignInFormProps) {
           <FormField
             control={control}
             name="password"
-            disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Senha</FormLabel>
                 <FormControl>
-                  <InputPassword placeholder="Digite a senha:" {...field} />
+                  <InputPassword
+                    placeholder="Digite a senha:"
+                    disabled={isSubmitting}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

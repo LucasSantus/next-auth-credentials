@@ -18,7 +18,7 @@ export async function getActionVerifyToken(
     throw new Error(ERROR_VALUES_VALIDATION);
   }
 
-  const hashedToken = generateHash.createHash(token);
+  const hashedToken = await generateHash.createHash(token);
 
   const verificationToken = await prismaClient.verificationToken.findFirst({
     where: {

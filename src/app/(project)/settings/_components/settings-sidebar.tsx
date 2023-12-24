@@ -4,12 +4,11 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Fragment } from "react";
+import { SettingsSidebarNavType } from "../layout";
 
 interface SettingsSidebarProps extends React.HTMLAttributes<HTMLElement> {
-  items: {
-    href: string;
-    title: string;
-  }[];
+  items: Array<SettingsSidebarNavType>;
 }
 
 export function SettingsSidebar({
@@ -27,19 +26,22 @@ export function SettingsSidebar({
       )}
       {...props}
     >
-      {items.map((item) => (
+      {items.map(({ title, href, icon: Icon }) => (
         <Link
-          key={item.href}
-          href={item.href}
+          key={href}
+          href={href}
           className={cn(
             buttonVariants({ variant: "ghost" }),
-            pathname === item.href
+            pathname === href
               ? "bg-muted hover:bg-muted"
               : "hover:bg-transparent hover:underline",
-            "justify-start",
+            "flex justify-start gap-2",
           )}
         >
-          {item.title}
+          <Fragment>
+            {Icon}
+            {title}
+          </Fragment>
         </Link>
       ))}
     </nav>

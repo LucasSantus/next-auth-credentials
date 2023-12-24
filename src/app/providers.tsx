@@ -20,7 +20,11 @@ export function Providers({ children }: PropsWithChildren) {
   return (
     <SessionProvider refetchOnWindowFocus>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider attribute="class" defaultTheme="dark">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+        >
           <NextTopLoader
             color="#2299DD"
             initialPosition={0.08}

@@ -2,9 +2,9 @@ import {
   VerifyTokenResponse,
   getActionVerifyToken,
 } from "@/actions/get/get-verify-token";
+import { USER_NOT_FOUND } from "@/constants/form";
 import { KeyRound } from "lucide-react";
 import { Metadata } from "next";
-import { toast } from "react-toastify";
 import { AuthenticationDescription } from "../../_components/authentication-description";
 import { AuthenticationLayout } from "../../_components/authentication-layout";
 import { ResetPasswordForm } from "./form";
@@ -13,13 +13,15 @@ export const metadata: Metadata = {
   title: "Resetar Senha",
 };
 
-const getData = async ({
+const getVerifyToken = async ({
   params,
-}: ForgetPasswordProps): Promise<VerifyTokenResponse> => {
+}: ForgetPasswordProps): Promise<VerifyTokenResponse | Error> => {
   try {
-    return await getActionVerifyToken(params.token);
+    const response = await getActionVerifyToken(params.token);
+
+    return response;
   } catch (error) {
-    if (error instanceof Error) toast.error(error.message);
+    if (error instanceof Error) return error;
 
     return {} as VerifyTokenResponse;
   }
@@ -34,18 +36,37 @@ interface ForgetPasswordProps {
 export default async function ResetPassword({
   params,
 }: ForgetPasswordProps): Promise<JSX.Element> {
-  const verificationToken = await getData({ params });
+  const verificationToken = await getVerifyToken({ params });
 
-  if (!verificationToken || !verificationToken?.user.email) {
+  if (verificationToken instanceof Error)
     return (
       <AuthenticationLayout>
         <AuthenticationDescription
           title="Recuperação de conta"
-          description="Tivemos problemas ao tentar recuperar seus dados."
+          description="Ops, houve um problema ao tentar acessar as informações!"
           icon={KeyRound}
         />
 
-        <span>E-mail de usuário não foi encontrado!</span>
+        <span className="text-center text-destructive">
+          {verificationToken.message}
+        </span>
+      </AuthenticationLayout>
+    );
+
+  if (
+    !verificationToken ||
+    !verificationToken?.user ||
+    !verificationToken?.user.email
+  ) {
+    return (
+      <AuthenticationLayout>
+        <AuthenticationDescription
+          title="Recuperação de conta"
+          description="Ops, houve um problema ao tentar acessar as informações!"
+          icon={KeyRound}
+        />
+
+        <span className="text-center">{USER_NOT_FOUND}</span>
       </AuthenticationLayout>
     );
   }

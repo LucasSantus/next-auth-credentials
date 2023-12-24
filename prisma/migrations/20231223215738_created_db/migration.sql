@@ -42,7 +42,7 @@ CREATE TABLE "User" (
 CREATE TABLE "VerificationToken" (
     "identifier" TEXT NOT NULL,
     "token" TEXT NOT NULL,
-    "tokenExpiry" INTEGER NOT NULL,
+    "tokenExpiry" TIMESTAMP(3) NOT NULL,
     "userId" TEXT NOT NULL
 );
 

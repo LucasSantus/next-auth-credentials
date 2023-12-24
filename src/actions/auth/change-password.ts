@@ -1,9 +1,6 @@
 "use server";
 
-import {
-  EMAIL_DONT_REGISTERED_ON_SYSTEM,
-  ERROR_VALUES_VALIDATION,
-} from "@/constants/form";
+import { ERROR_VALUES_VALIDATION, USER_NOT_FOUND } from "@/constants/form";
 import { prismaClient } from "@/lib/prisma";
 import { ChangePasswordFormData } from "@/validation/auth/change-password";
 import * as bcrypt from "bcrypt";
@@ -11,6 +8,7 @@ import * as bcrypt from "bcrypt";
 export async function authActionChangePassword({
   email,
   password,
+  oldPassword,
 }: ChangePasswordFormData) {
   if (!email || !password) throw new Error(ERROR_VALUES_VALIDATION);
 
@@ -20,21 +18,17 @@ export async function authActionChangePassword({
     },
   });
 
-  if (!user) throw new Error(EMAIL_DONT_REGISTERED_ON_SYSTEM);
+  if (!user || !user.hashedPassword) throw new Error(USER_NOT_FOUND);
+
+  const passwordMatch = await bcrypt.compare(oldPassword, user.hashedPassword);
+
+  if (!passwordMatch) throw new Error("Senha antiga incorreta!");
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
   await prismaClient.user.update({
     where: { email },
     data: { hashedPassword },
-  });
-
-  await prismaClient.verificationToken.deleteMany({
-    where: {
-      user: {
-        email,
-      },
-    },
   });
 
   return user;

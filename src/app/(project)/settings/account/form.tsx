@@ -14,12 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  FORM_DATA_HAS_BEEN_UPDATED,
-  FORM_STORING_INFORMATION,
-} from "@/constants/form";
-import { useCustomRouter } from "@/hooks/useCustomRouter";
-import toastOptions from "@/utils/toast";
+import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import {
   ProfileFormData,
   profileFormSchema,
@@ -38,7 +33,7 @@ interface ProfileFormProps {
 const ICON_CLASSNAMES = "h-5 w-5";
 
 export function ProfileForm({ id }: ProfileFormProps) {
-  const router = useCustomRouter();
+  const { validateSubmit } = useHelperSubmit();
 
   const { update } = useSession();
 
@@ -71,26 +66,18 @@ export function ProfileForm({ id }: ProfileFormProps) {
   } = form;
 
   async function onSubmit(values: ProfileFormData) {
-    const toastId = toast.loading(FORM_STORING_INFORMATION);
+    console.log(values);
 
-    try {
-      await updateActionProfile(values);
-
-      await update(values);
-
-      toast.update(
-        toastId,
-        toastOptions.success({
-          render: FORM_DATA_HAS_BEEN_UPDATED,
-        }),
-      );
-
-      router.refresh();
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.update(toastId, toastOptions.error({ render: error.message }));
-      }
-    }
+    await validateSubmit({
+      callback: async () => {
+        await updateActionProfile(values);
+        await update(values);
+      },
+      redirect: {
+        type: "refresh",
+      },
+      showMessageYouAreRedirected: false,
+    });
   }
 
   return (
@@ -99,7 +86,6 @@ export function ProfileForm({ id }: ProfileFormProps) {
         <FormField
           control={control}
           name="name"
-          disabled={isSubmitting || isLoading}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nome Completo</FormLabel>
@@ -107,6 +93,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
                 <Input
                   placeholder="Digite o nome completo:"
                   isLoading={isLoading}
+                  disabled={isSubmitting || isLoading}
                   startComponent={<User2 className={ICON_CLASSNAMES} />}
                   {...field}
                 />
@@ -119,7 +106,6 @@ export function ProfileForm({ id }: ProfileFormProps) {
         <FormField
           control={control}
           name="email"
-          disabled
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
@@ -128,6 +114,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
                   placeholder="Digite o e-mail:"
                   isLoading={isLoading}
                   startComponent={<Mail className={ICON_CLASSNAMES} />}
+                  disabled
                   {...field}
                 />
               </FormControl>

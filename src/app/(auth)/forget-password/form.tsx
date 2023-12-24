@@ -11,9 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { YOU_ARE_BEING_REDIRECTED } from "@/constants/form";
-import { useCustomRouter } from "@/hooks/useCustomRouter";
-import toastOptions from "@/utils/toast";
+import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 
 import {
   ForgetPasswordFormData,
@@ -21,12 +19,11 @@ import {
 } from "@/validation/auth/forget-password";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 
 interface ForgetPasswordFormProps {}
 
 export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
-  const router = useCustomRouter();
+  const { validateSubmit } = useHelperSubmit();
 
   const form = useForm<ForgetPasswordFormData>({
     resolver: zodResolver(forgetPasswordFormSchema),
@@ -43,35 +40,18 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
   } = form;
 
   async function onSubmit(values: ForgetPasswordFormData) {
-    const toastId = toast.loading(
-      "Enviando e-mail com as informações da recuperação da conta!",
-    );
-
-    try {
-      await authActionForgetPassword(values);
-
-      toast.update(
-        toastId,
-        toastOptions.success({
-          autoClose: 2900,
-          render: "O e-mail foi enviado!",
-        }),
-      );
-
-      toast.info(YOU_ARE_BEING_REDIRECTED, {
-        autoClose: 2900,
-      });
-
-      new Promise(() => {
-        setTimeout(() => {
-          router.push("/sign-in");
-        }, 3000);
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.update(toastId, toastOptions.error({ render: error.message }));
-      }
-    }
+    await validateSubmit({
+      toastMessage: {
+        loadingMessage:
+          "Enviando e-mail com as informações da recuperação da conta...",
+        updateMessage: "O e-mail foi enviado!",
+      },
+      callback: async () => await authActionForgetPassword(values),
+      redirect: {
+        type: "redirect",
+        urlToRedirect: "/sign-in",
+      },
+    });
   }
 
   return (
@@ -81,12 +61,15 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
           <FormField
             control={control}
             name="email"
-            disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>E-mail</FormLabel>
                 <FormControl>
-                  <Input placeholder="Digite o e-mail: " {...field} />
+                  <Input
+                    placeholder="Digite o e-mail:"
+                    disabled={isSubmitting}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

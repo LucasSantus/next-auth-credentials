@@ -8,7 +8,7 @@ interface ToastUpdateType {
 type UpdateOptionsType = UpdateOptions<unknown>;
 
 class ToastOptions {
-  static readonly defaultDelay: number | undefined = 3000;
+  static readonly defaultDelay: number | undefined = 2900;
 
   private static generateToastOptions(
     type: "success" | "error",

@@ -13,9 +13,7 @@ export async function authActionSignUp({
   email,
   password,
 }: SignUpFormData) {
-  if (!name || !email || !password) {
-    throw new Error(ERROR_VALUES_VALIDATION);
-  }
+  if (!name || !email || !password) throw new Error(ERROR_VALUES_VALIDATION);
 
   const emailExists = await prismaClient.user.findUnique({
     where: {

@@ -11,27 +11,20 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  FORM_DATA_HAS_BEEN_STORED,
-  FORM_STORING_INFORMATION,
-  YOU_ARE_BEING_REDIRECTED,
-} from "@/constants/form";
-import { useCustomRouter } from "@/hooks/useCustomRouter";
-import toastOptions from "@/utils/toast";
+import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import {
   ResetPasswordFormData,
   resetPasswordFormSchema,
 } from "@/validation/auth/reset-password";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 
 interface ResetPasswordFormProps {
   email: string;
 }
 
 export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
-  const router = useCustomRouter();
+  const { validateSubmit } = useHelperSubmit();
 
   const form = useForm<ResetPasswordFormData>({
     resolver: zodResolver(resetPasswordFormSchema),
@@ -49,33 +42,13 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
   } = form;
 
   async function onSubmit(values: ResetPasswordFormData) {
-    const toastId = toast.loading(FORM_STORING_INFORMATION);
-
-    try {
-      await authActionResetPassword(values);
-
-      toast.update(
-        toastId,
-        toastOptions.success({
-          autoClose: 2900,
-          render: FORM_DATA_HAS_BEEN_STORED,
-        }),
-      );
-
-      toast.info(YOU_ARE_BEING_REDIRECTED, {
-        autoClose: 2900,
-      });
-
-      new Promise(() => {
-        setTimeout(() => {
-          router.push("/sign-in");
-        }, 3000);
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.update(toastId, toastOptions.error({ render: error.message }));
-      }
-    }
+    await validateSubmit({
+      callback: async () => await authActionResetPassword(values),
+      redirect: {
+        type: "redirect",
+        urlToRedirect: "/sign-in",
+      },
+    });
   }
 
   return (
@@ -85,12 +58,15 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
           <FormField
             control={control}
             name="password"
-            disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Senha</FormLabel>
                 <FormControl>
-                  <InputPassword placeholder="Digite a senha:" {...field} />
+                  <InputPassword
+                    placeholder="Digite a senha:"
+                    disabled={isSubmitting}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -100,13 +76,13 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
           <FormField
             control={control}
             name="confirmPassword"
-            disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Confirmação de Senha</FormLabel>
                 <FormControl>
                   <InputPassword
-                    placeholder="Digite a confirmação de senha: "
+                    placeholder="Digite a confirmação de senha:"
+                    disabled={isSubmitting}
                     {...field}
                   />
                 </FormControl>

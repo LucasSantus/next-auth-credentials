@@ -18,19 +18,12 @@ interface SearchFormProps {}
 
 import { authActionSignUp } from "@/actions/auth/sign-up";
 import { InputPassword } from "@/components/input-password";
-import {
-  FORM_DATA_HAS_BEEN_STORED,
-  FORM_STORING_INFORMATION,
-  YOU_ARE_BEING_REDIRECTED,
-} from "@/constants/form";
-import { useCustomRouter } from "@/hooks/useCustomRouter";
-import toastOptions from "@/utils/toast";
+import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import { SignUpFormData, signUpFormSchema } from "@/validation/auth/sign-up";
-import { toast } from "react-toastify";
 import { AuthenticationProviders } from "../_components/authentication-providers";
 
 export function SignUpForm({}: SearchFormProps) {
-  const router = useCustomRouter();
+  const { validateSubmit } = useHelperSubmit();
 
   const form = useForm<SignUpFormData>({
     resolver: zodResolver(signUpFormSchema),
@@ -48,32 +41,13 @@ export function SignUpForm({}: SearchFormProps) {
   } = form;
 
   async function onSubmit(values: SignUpFormData) {
-    const toastId = toast.loading(FORM_STORING_INFORMATION);
-
-    try {
-      await authActionSignUp(values);
-
-      toast.update(
-        toastId,
-        toastOptions.success({
-          render: FORM_DATA_HAS_BEEN_STORED,
-        }),
-      );
-
-      toast.info(YOU_ARE_BEING_REDIRECTED, {
-        autoClose: 2900,
-      });
-
-      new Promise(() => {
-        setTimeout(() => {
-          router.push("/sign-in");
-        }, 3000);
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.update(toastId, toastOptions.error({ render: error.message }));
-      }
-    }
+    await validateSubmit({
+      callback: async () => await authActionSignUp(values),
+      redirect: {
+        type: "redirect",
+        urlToRedirect: "/sign-in",
+      },
+    });
   }
 
   return (
@@ -83,12 +57,15 @@ export function SignUpForm({}: SearchFormProps) {
           <FormField
             control={control}
             name="name"
-            disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Nome Completo</FormLabel>
                 <FormControl>
-                  <Input placeholder="Digite o nome completo:" {...field} />
+                  <Input
+                    placeholder="Digite o nome completo:"
+                    disabled={isSubmitting}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -96,13 +73,17 @@ export function SignUpForm({}: SearchFormProps) {
           />
 
           <FormField
+            control={control}
             name="email"
-            disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="Digite o e-mail:" {...field} />
+                  <Input
+                    placeholder="Digite o e-mail:"
+                    disabled={isSubmitting}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -112,12 +93,15 @@ export function SignUpForm({}: SearchFormProps) {
           <FormField
             control={control}
             name="password"
-            disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Senha</FormLabel>
                 <FormControl>
-                  <InputPassword placeholder="Digite a senha:" {...field} />
+                  <InputPassword
+                    placeholder="Digite a senha:"
+                    disabled={isSubmitting}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

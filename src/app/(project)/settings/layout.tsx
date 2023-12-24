@@ -1,17 +1,34 @@
 import { Separator } from "@/components/ui/separator";
 import { authOptions } from "@/lib/auth";
+import { KeyRound, Palette, UserSquare } from "lucide-react";
 import { getServerSession } from "next-auth";
+import { ReactNode } from "react";
 import { ProjectLayout } from "../_components/project-layout";
 import { SettingsSidebar } from "./_components/settings-sidebar";
 
-const sidebarNavItems = [
+export interface SettingsSidebarNavType {
+  title: string;
+  href: string;
+  icon: ReactNode;
+}
+
+const ICON_CLASSNAMES = "w-4 h-4";
+
+const sidebarNavItems: SettingsSidebarNavType[] = [
   {
     title: "Conta",
     href: "/settings/account",
+    icon: <UserSquare className={ICON_CLASSNAMES} />,
+  },
+  {
+    title: "Chave",
+    href: "/settings/key",
+    icon: <KeyRound className={ICON_CLASSNAMES} />,
   },
   {
     title: "Aparência",
     href: "/settings/appearance",
+    icon: <Palette className={ICON_CLASSNAMES} />,
   },
 ];
 

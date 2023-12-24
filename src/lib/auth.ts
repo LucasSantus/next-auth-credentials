@@ -1,7 +1,7 @@
-import { USER_NOT_FOUND } from "@/constants/form";
+import { authActionSignIn } from "@/actions/auth/sign-in";
+import { ERROR_VALUES_VALIDATION } from "@/constants/form";
 import { enviromentVariable } from "@/env";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import * as bcrypt from "bcrypt";
 import { AuthOptions } from "next-auth";
 import { Adapter } from "next-auth/adapters";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -34,29 +34,15 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials || !credentials.email || !credentials.password) {
-          throw new Error("Insira o e-mail e senha!");
+          throw new Error(ERROR_VALUES_VALIDATION);
         }
 
-        const user = await prismaClient.user.findUnique({
-          where: {
-            email: credentials.email,
-          },
+        const userLogged = await authActionSignIn({
+          email: credentials.email,
+          password: credentials.password,
         });
 
-        if (!user || !user?.hashedPassword) {
-          throw new Error(USER_NOT_FOUND);
-        }
-
-        const passwordMatch = await bcrypt.compare(
-          credentials.password,
-          user.hashedPassword,
-        );
-
-        if (!passwordMatch) {
-          throw new Error("Senha incorreta!");
-        }
-
-        return user;
+        return userLogged;
       },
     }),
   ],
