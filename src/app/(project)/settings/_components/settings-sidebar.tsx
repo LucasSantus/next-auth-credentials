@@ -1,10 +1,13 @@
 "use client";
 
+import { Framing } from "@/components/framer-motion/framing";
+import { Presence } from "@/components/framer-motion/presence";
 import { buttonVariants } from "@/components/ui/button";
+import { TRANSITION_DURATION } from "@/constants/globals";
 import { cn } from "@/lib/utils";
+import { bounceHorizontalAnimation } from "@/utils/framer-motion/animations/bounce-horizontal";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Fragment } from "react";
 import { SettingsSidebarNavType } from "../layout";
 
 interface SettingsSidebarProps extends React.HTMLAttributes<HTMLElement> {
@@ -26,24 +29,29 @@ export function SettingsSidebar({
       )}
       {...props}
     >
-      {items.map(({ title, href, icon: Icon }) => (
-        <Link
-          key={href}
-          href={href}
-          className={cn(
-            buttonVariants({ variant: "ghost" }),
-            pathname === href
-              ? "bg-muted hover:bg-muted"
-              : "hover:bg-transparent hover:underline",
-            "flex justify-start gap-2",
-          )}
-        >
-          <Fragment>
-            {Icon}
-            {title}
-          </Fragment>
-        </Link>
-      ))}
+      <Presence>
+        {items.map(({ title, href, icon: Icon }, index) => {
+          const delay = TRANSITION_DURATION + index * 0.3 + 1;
+
+          return (
+            <Framing key={href} {...bounceHorizontalAnimation({ delay })}>
+              <Link
+                href={href}
+                className={cn(
+                  buttonVariants({ variant: "ghost" }),
+                  pathname === href
+                    ? "bg-muted hover:bg-muted"
+                    : "hover:bg-transparent hover:underline",
+                  "flex justify-start gap-2",
+                )}
+              >
+                {Icon}
+                {title}
+              </Link>
+            </Framing>
+          );
+        })}
+      </Presence>
     </nav>
   );
 }

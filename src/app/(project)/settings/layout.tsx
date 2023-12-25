@@ -1,5 +1,8 @@
+import { Framing } from "@/components/framer-motion/framing";
 import { Separator } from "@/components/ui/separator";
+import { TRANSITION_DURATION } from "@/constants/globals";
 import { authOptions } from "@/lib/auth";
+import { bounceHorizontalAnimation } from "@/utils/framer-motion/animations/bounce-horizontal";
 import { KeyRound, Palette, UserSquare } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { ReactNode } from "react";
@@ -21,8 +24,8 @@ const sidebarNavItems: SettingsSidebarNavType[] = [
     icon: <UserSquare className={ICON_CLASSNAMES} />,
   },
   {
-    title: "Chave",
-    href: "/settings/key",
+    title: "Senha",
+    href: "/settings/password",
     icon: <KeyRound className={ICON_CLASSNAMES} />,
   },
   {
@@ -41,22 +44,33 @@ export default async function GlobalSettingsLayout({
 }: GlobalSettingsLayoutProps) {
   const session = await getServerSession(authOptions);
 
+  const delayLayout = sidebarNavItems.length + TRANSITION_DURATION * 0.3;
+
   return (
     <ProjectLayout session={session}>
       <div className="space-y-6 p-10 pb-16">
-        <div className="space-y-0.5">
-          <h2 className="text-2xl font-bold tracking-tight">Configurações</h2>
-          <p className="text-muted-foreground">
-            Gerencie as configurações da sua conta e defina preferências de
-            e-mail.
-          </p>
-        </div>
-        <Separator className="my-6" />
+        <Framing className="grid gap-1" {...bounceHorizontalAnimation({})}>
+          <div>
+            <h2 className="text-2xl font-bold tracking-tight">Configurações</h2>
+            <p className="text-muted-foreground">
+              Gerencie as configurações da sua conta e defina preferências de
+              e-mail.
+            </p>
+          </div>
+          <Separator className="my-6" />
+        </Framing>
         <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
           <aside className="-mx-4 lg:w-1/5">
             <SettingsSidebar items={sidebarNavItems} />
           </aside>
-          <div className="flex-1 lg:max-w-2xl">{children}</div>
+          <Framing
+            className="flex-1 lg:max-w-2xl"
+            {...bounceHorizontalAnimation({
+              delay: delayLayout,
+            })}
+          >
+            {children}
+          </Framing>
         </div>
       </div>
     </ProjectLayout>

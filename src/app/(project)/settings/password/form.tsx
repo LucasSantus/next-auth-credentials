@@ -41,6 +41,7 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { isSubmitting },
   } = form;
 
@@ -52,6 +53,7 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
       },
       showMessageYouAreRedirected: false,
     });
+    reset();
   }
 
   return (

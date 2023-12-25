@@ -28,7 +28,7 @@ export function AppearanceForm() {
   const form = useForm<AppearanceFormData>({
     resolver: zodResolver(appearanceFormSchema),
     defaultValues: {
-      theme: theme as "light" | "dark",
+      theme: (theme as "light" | "dark") ?? "dark",
     },
   });
 

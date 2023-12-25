@@ -62,6 +62,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { isSubmitting },
   } = form;
 
@@ -78,6 +79,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
       },
       showMessageYouAreRedirected: false,
     });
+    reset();
   }
 
   return (
@@ -106,6 +108,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
         <FormField
           control={control}
           name="email"
+          disabled
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
@@ -114,7 +117,6 @@ export function ProfileForm({ id }: ProfileFormProps) {
                   placeholder="Digite o e-mail:"
                   isLoading={isLoading}
                   startComponent={<Mail className={ICON_CLASSNAMES} />}
-                  disabled
                   {...field}
                 />
               </FormControl>

@@ -12,7 +12,8 @@ type Element =
   | "h6"
   | "span"
   | "div"
-  | "footer";
+  | "footer"
+  | "main";
 
 type FramingProps = {
   as?: Element;

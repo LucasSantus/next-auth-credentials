@@ -1,10 +1,15 @@
 import { USER_NOT_FOUND } from "@/constants/form";
 import { authOptions } from "@/lib/auth";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { SettingsLayout } from "../_components/settings-layout";
 import { ChangePasswordForm } from "./form";
 
-export default async function SettingsAccountPage() {
+export const metadata: Metadata = {
+  title: "Senha",
+};
+
+export default async function SettingsPasswordPage() {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user || !session.user.email)

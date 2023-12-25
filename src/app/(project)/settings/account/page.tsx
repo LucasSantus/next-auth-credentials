@@ -1,8 +1,13 @@
 import { USER_NOT_FOUND } from "@/constants/form";
 import { authOptions } from "@/lib/auth";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { SettingsLayout } from "../_components/settings-layout";
 import { ProfileForm } from "./form";
+
+export const metadata: Metadata = {
+  title: "Conta",
+};
 
 export default async function SettingsAccountPage() {
   const session = await getServerSession(authOptions);
