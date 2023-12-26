@@ -16,19 +16,19 @@ export const EmailResetPassword = ({
 
   return (
     <EmailTemplate previewText={previewText}>
-      <Heading className="mx-0 my-8 p-0 text-center text-2xl font-normal text-black">
+      <Heading className="mx-0 my-5 p-0 text-center text-2xl font-normal text-black">
         <strong>Recuperação de Senha</strong>
       </Heading>
       <Section className="text-sm leading-6">
         <Text>Olá {username},</Text>
 
         <Text>
-          Alguém solicitou recentemente uma alteração de senha da sua conta do
+          Alguém solicitou recentemente uma alteração de senha da sua conta do{" "}
           {applicationName}. Se foi você, você pode definir uma nova senha aqui
         </Text>
       </Section>
 
-      <Section className="my-9 text-center">
+      <Section className="my-5 text-center">
         <Button
           className="rounded bg-black px-5 py-3 text-center text-sm font-semibold text-white no-underline"
           href={url}
