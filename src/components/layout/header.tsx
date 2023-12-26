@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { PROJECT_NAME } from "@/constants/config";
 import { useCustomRouter } from "@/hooks/useCustomRouter";
 import { LogOutIcon, SettingsIcon, UserIcon } from "lucide-react";
 import { Session } from "next-auth";
@@ -30,7 +31,7 @@ export function Header({ session }: HeaderProps): JSX.Element {
     <header className="flex h-20 items-center justify-between">
       <Link href="/">
         <Button variant="link" className="p-0 text-lg text-foreground">
-          Todo List
+          {PROJECT_NAME}
         </Button>
       </Link>
 
@@ -48,7 +49,7 @@ export function Header({ session }: HeaderProps): JSX.Element {
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem

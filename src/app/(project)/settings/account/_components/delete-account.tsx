@@ -36,7 +36,7 @@ export function DeleteAccount({ id }: DeleteAccountProps): JSX.Element {
 
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button
           type="button"
           aria-label="delete user"

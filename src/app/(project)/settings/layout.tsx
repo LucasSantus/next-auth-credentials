@@ -53,8 +53,7 @@ export default async function GlobalSettingsLayout({
           <div>
             <h2 className="text-2xl font-bold tracking-tight">Configurações</h2>
             <p className="text-muted-foreground">
-              Gerencie as configurações da su a conta e defina preferências de
-              e-mail.
+              Gerencie as configurações da sua conta.
             </p>
           </div>
           <Separator className="my-6" />

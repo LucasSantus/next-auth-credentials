@@ -69,6 +69,8 @@ export function ProfileForm({ id }: ProfileFormProps) {
   } = form;
 
   async function onSubmit(values: ProfileFormData) {
+    console.log(values);
+
     await validateSubmit({
       callback: async () => {
         await updateActionProfile(values);
@@ -79,7 +81,6 @@ export function ProfileForm({ id }: ProfileFormProps) {
       },
       showMessageYouAreRedirected: false,
     });
-    reset();
   }
 
   return (
@@ -106,9 +107,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
         />
 
         <FormField
-          control={control}
           name="email"
-          disabled
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
@@ -117,6 +116,8 @@ export function ProfileForm({ id }: ProfileFormProps) {
                   placeholder="Digite o e-mail:"
                   isLoading={isLoading}
                   startComponent={<Mail className={ICON_CLASSNAMES} />}
+                  readOnly
+                  className="cursor-not-allowed opacity-70"
                   {...field}
                 />
               </FormControl>

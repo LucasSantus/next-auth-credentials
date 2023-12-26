@@ -25,7 +25,7 @@ interface RootLayoutProps {
 
 export default async function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         suppressHydrationWarning
         className={cn("min-h-screen", inter.className)}
