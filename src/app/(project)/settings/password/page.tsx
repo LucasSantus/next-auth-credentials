@@ -13,7 +13,9 @@ export const metadata: Metadata = {
 export default async function SettingsPasswordPage() {
   const session = await getServerSession(authOptions);
 
-  if (!session || !session.user || !session.user.email)
+  const isAuthenticated = !!session && !!session.user;
+
+  if (!isAuthenticated || !session.user.email)
     return (
       <SettingsLayout
         title="Chave"

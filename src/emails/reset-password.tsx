@@ -37,7 +37,7 @@ export const EmailResetPassword = ({
         </Button>
       </Section>
 
-      <Hr className="mx-0 my-9 w-full border border-solid border-gray-200" />
+      <Hr className="mx-0 my-5 w-full border border-solid border-gray-200" />
 
       <Section className="text-sm leading-6 text-gray-400">
         <Text>

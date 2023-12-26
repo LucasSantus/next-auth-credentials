@@ -53,11 +53,9 @@ export default async function ResetPassword({
       </AuthenticationLayout>
     );
 
-  if (
-    !verificationToken ||
-    !verificationToken?.user ||
-    !verificationToken?.user.email
-  ) {
+  const isTokenVerified = !!verificationToken && !!verificationToken?.user;
+
+  if (!isTokenVerified || !verificationToken?.user.email) {
     return (
       <AuthenticationLayout>
         <AuthenticationDescription

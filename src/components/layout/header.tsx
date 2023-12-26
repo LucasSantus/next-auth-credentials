@@ -24,7 +24,7 @@ interface HeaderProps {
 export function Header({ session }: HeaderProps): JSX.Element {
   const router = useCustomRouter();
 
-  const hasSession = !session || !session.user;
+  const isAuthenticated = !!session && !!session.user;
 
   return (
     <header className="flex h-20 items-center justify-between">
@@ -34,7 +34,7 @@ export function Header({ session }: HeaderProps): JSX.Element {
         </Button>
       </Link>
 
-      {!hasSession && (
+      {isAuthenticated && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar>

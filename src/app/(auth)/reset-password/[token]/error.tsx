@@ -22,7 +22,7 @@ export default function ResetPasswordErrorHandling({
         description="Ops, houve um problema ao tentar acessar as informações!"
         icon={KeyRound}
       />
-      <span>{JSON.stringify(error)}</span>
+      <span className="text-destructive">{error.message}</span>
     </AuthenticationLayout>
   );
 }
