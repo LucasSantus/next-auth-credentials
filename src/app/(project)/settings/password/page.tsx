@@ -1,3 +1,4 @@
+import { RenderOnClient } from "@/components/render-on-client";
 import { USER_NOT_FOUND } from "@/constants/form";
 import { authOptions } from "@/lib/auth";
 import { Metadata } from "next";
@@ -29,7 +30,9 @@ export default async function SettingsPasswordPage() {
       title="Chave"
       description="Atualize as configurações para autenticação no sistema."
     >
-      <ChangePasswordForm email={session.user.email} />
+      <RenderOnClient>
+        <ChangePasswordForm email={session.user.email} />
+      </RenderOnClient>
     </SettingsLayout>
   );
 }

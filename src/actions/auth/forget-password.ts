@@ -1,9 +1,11 @@
 "use server";
 
+import { PROJECT_NAME } from "@/constants/config";
 import {
   EMAIL_DONT_REGISTERED_ON_SYSTEM,
   ERROR_VALUES_VALIDATION,
 } from "@/constants/form";
+import EmailResetPassword from "@/emails/reset-password";
 import { enviromentVariable } from "@/env";
 import { prismaClient } from "@/lib/prisma";
 import { resend } from "@/lib/resend";
@@ -21,7 +23,7 @@ export async function authActionForgetPassword({
     },
   });
 
-  if (!user) throw new Error(EMAIL_DONT_REGISTERED_ON_SYSTEM);
+  if (!user || !user.name) throw new Error(EMAIL_DONT_REGISTERED_ON_SYSTEM);
 
   await prismaClient.verificationToken.deleteMany({
     where: {
@@ -53,6 +55,10 @@ export async function authActionForgetPassword({
     from: enviromentVariable.RESEND_TO_EMAIL,
     to: email,
     subject: "Recuperação de Senha",
-    html: url,
+    react: EmailResetPassword({
+      applicationName: PROJECT_NAME,
+      username: user.name,
+      url,
+    }),
   });
 }

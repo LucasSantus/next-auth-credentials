@@ -1,3 +1,4 @@
+import { RenderOnClient } from "@/components/render-on-client";
 import { USER_NOT_FOUND } from "@/constants/form";
 import { authOptions } from "@/lib/auth";
 import { Metadata } from "next";
@@ -29,7 +30,9 @@ export default async function SettingsAccountPage() {
       title="Conta"
       description="Atualize as configurações da sua conta."
     >
-      <ProfileForm id={session.user.id} />
+      <RenderOnClient>
+        <ProfileForm id={session.user.id} />
+      </RenderOnClient>
     </SettingsLayout>
   );
 }

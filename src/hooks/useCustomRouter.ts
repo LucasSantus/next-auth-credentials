@@ -10,5 +10,9 @@ export function useCustomRouter(): ReturnType<typeof useNextRouter> {
       NProgress.start();
       router.push(href, options);
     },
+    back: () => {
+      NProgress.start();
+      router.back();
+    },
   };
 }

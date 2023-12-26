@@ -48,6 +48,10 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
         type: "redirect",
         urlToRedirect: "/sign-in",
       },
+      toastMessage: {
+        loadingMessage: "Senha está sendo resetada!",
+        updateMessage: "Senha resetada com sucesso!",
+      },
     });
   }
 

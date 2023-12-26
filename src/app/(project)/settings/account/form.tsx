@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 
 import { updateActionProfile } from "@/actions/update/update-profile";
 import { Button } from "@/components/ui/button";
+
 import {
   Form,
   FormControl,
@@ -25,6 +26,7 @@ import { Mail, User2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import { getActionUserById } from "../../../../actions/get/get-user-by-id";
+import { DeleteAccount } from "./_components/delete-account";
 
 interface ProfileFormProps {
   id: string;
@@ -67,8 +69,6 @@ export function ProfileForm({ id }: ProfileFormProps) {
   } = form;
 
   async function onSubmit(values: ProfileFormData) {
-    console.log(values);
-
     await validateSubmit({
       callback: async () => {
         await updateActionProfile(values);
@@ -125,13 +125,17 @@ export function ProfileForm({ id }: ProfileFormProps) {
           )}
         />
 
-        <Button
-          type="submit"
-          aria-label="Submit for update user data"
-          isLoading={isSubmitting}
-        >
-          Salvar
-        </Button>
+        <div className="flex justify-between">
+          <Button
+            type="submit"
+            aria-label="Submit for update user data"
+            isLoading={isSubmitting}
+          >
+            Salvar
+          </Button>
+
+          <DeleteAccount id={id} />
+        </div>
       </form>
     </Form>
   );

@@ -47,6 +47,10 @@ export function SignUpForm({}: SearchFormProps) {
         type: "redirect",
         urlToRedirect: "/sign-in",
       },
+      toastMessage: {
+        loadingMessage: "Usuário está sendo criado!",
+        updateMessage: "Usuário criado com sucesso!",
+      },
     });
   }
 

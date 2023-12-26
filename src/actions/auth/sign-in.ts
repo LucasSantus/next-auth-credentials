@@ -16,6 +16,8 @@ export async function authActionSignIn({ email, password }: SignInFormData) {
 
   if (!user || !user?.hashedPassword) throw new Error(USER_NOT_FOUND);
 
+  if (user.deletedAt) throw new Error("Usuário deletado!");
+
   const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
 
   if (!passwordMatch) throw new Error("Senha incorreta!");
