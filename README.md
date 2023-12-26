@@ -1,9 +1,5 @@
 <h1 align="center">Next Auth Credentials</h1>
 
-<h6 align="center">
-  If you want to view the system, click on <a href="https://next-auth-credentials.vercel.app/">here</a>.
-</h6>
-
 <h3 id="about">:information_source: About</h3>
 
 > This project was developed using Nextjs, React, TypeScript, TailwindCSS.
