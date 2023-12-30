@@ -1,6 +1,6 @@
 "use client";
 
-import { authActionResetPassword } from "@/actions/auth/reset-password";
+import { authResetPasswordServer } from "@/actions/auth/reset-password";
 import { InputPassword } from "@/components/input-password";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,7 +43,7 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
 
   async function onSubmit(values: ResetPasswordFormData) {
     await validateSubmit({
-      callback: async () => await authActionResetPassword(values),
+      callback: async () => await authResetPasswordServer(values),
       redirect: {
         type: "redirect",
         urlToRedirect: "/sign-in",

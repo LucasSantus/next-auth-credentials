@@ -1,50 +1,60 @@
+import { getAccountByUserIdServer } from "@/actions/get/get-account-by-user-id";
 import { Framing } from "@/components/framer-motion/framing";
 import { Separator } from "@/components/ui/separator";
 import { TRANSITION_DURATION } from "@/constants/globals";
-import { authOptions } from "@/lib/auth";
 import { bounceHorizontalAnimation } from "@/utils/framer-motion/animations/bounce-horizontal";
-import { KeyRound, Palette, UserSquare } from "lucide-react";
-import { getServerSession } from "next-auth";
+import { isSessionAuthenticated } from "@/utils/isAuthenticated";
 import { ReactNode } from "react";
 import { ProjectLayout } from "../_components/project-layout";
 import { SettingsSidebar } from "./_components/settings-sidebar";
+import { sidebarNavItems } from "./nav-items";
+
+import { ACCOUNT_NOT_FOUND } from "@/constants/form";
+import { Account } from "@prisma/client";
 
 export interface SettingsSidebarNavType {
   title: string;
   href: string;
   icon: ReactNode;
+  provider: "all" | "credentials";
 }
-
-const ICON_CLASSNAMES = "w-4 h-4";
-
-const sidebarNavItems: SettingsSidebarNavType[] = [
-  {
-    title: "Conta",
-    href: "/settings/account",
-    icon: <UserSquare className={ICON_CLASSNAMES} />,
-  },
-  {
-    title: "Senha",
-    href: "/settings/password",
-    icon: <KeyRound className={ICON_CLASSNAMES} />,
-  },
-  {
-    title: "Aparência",
-    href: "/settings/appearance",
-    icon: <Palette className={ICON_CLASSNAMES} />,
-  },
-];
 
 interface GlobalSettingsLayoutProps {
   children: React.ReactNode;
 }
 
+async function getAccount(userId: string): Promise<Account | null> {
+  try {
+    return await getAccountByUserIdServer(userId);
+  } catch (error) {
+    return null;
+  }
+}
+
 export default async function GlobalSettingsLayout({
   children,
 }: GlobalSettingsLayoutProps) {
-  const session = await getServerSession(authOptions);
+  const { session, isAuthenticated } = await isSessionAuthenticated();
 
-  const delayLayout = sidebarNavItems.length + TRANSITION_DURATION * 0.3;
+  if (!isAuthenticated)
+    return (
+      <ProjectLayout session={session}>
+        <div className="flex h-full w-full items-center justify-center">
+          <span className="text-destructive">{session.user.id}</span>
+        </div>
+      </ProjectLayout>
+    );
+
+  const account = getAccount(session.user.id);
+
+  if (!account)
+    return (
+      <ProjectLayout session={session}>
+        <div className="flex h-full w-full items-center justify-center">
+          <span className="text-destructive">{ACCOUNT_NOT_FOUND}</span>
+        </div>
+      </ProjectLayout>
+    );
 
   return (
     <ProjectLayout session={session}>
@@ -65,7 +75,7 @@ export default async function GlobalSettingsLayout({
           <Framing
             className="flex-1 lg:max-w-2xl"
             {...bounceHorizontalAnimation({
-              delay: delayLayout,
+              delay: sidebarNavItems.length + TRANSITION_DURATION * 0.3 + 1,
             })}
           >
             {children}

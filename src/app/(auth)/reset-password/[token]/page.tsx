@@ -1,6 +1,6 @@
 import {
   VerifyTokenResponse,
-  getActionVerifyToken,
+  getVerifyTokenServer,
 } from "@/actions/get/get-verify-token";
 import { USER_NOT_FOUND } from "@/constants/form";
 import { KeyRound } from "lucide-react";
@@ -17,7 +17,7 @@ const getVerifyToken = async ({
   params,
 }: ForgetPasswordProps): Promise<VerifyTokenResponse | Error> => {
   try {
-    const response = await getActionVerifyToken(params.token);
+    const response = await getVerifyTokenServer(params.token);
 
     return response;
   } catch (error) {

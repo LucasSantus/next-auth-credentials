@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { updateActionProfile } from "@/actions/update/update-profile";
+import { updateProfileServer } from "@/actions/update/update-profile";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -25,7 +25,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Mail, User2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-import { getActionUserById } from "../../../../actions/get/get-user-by-id";
+import { getUserByIdServer } from "../../../../actions/get/get-user-by-id";
 import { DeleteAccount } from "./_components/delete-account";
 
 interface ProfileFormProps {
@@ -43,7 +43,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
     queryKey: ["profile", id],
     queryFn: async () => {
       try {
-        return await getActionUserById(id);
+        return await getUserByIdServer(id);
       } catch (error) {
         if (error instanceof Error) toast.error(error.message);
 
@@ -64,16 +64,13 @@ export function ProfileForm({ id }: ProfileFormProps) {
   const {
     handleSubmit,
     control,
-    reset,
     formState: { isSubmitting },
   } = form;
 
   async function onSubmit(values: ProfileFormData) {
-    console.log(values);
-
     await validateSubmit({
       callback: async () => {
-        await updateActionProfile(values);
+        await updateProfileServer(values);
         await update(values);
       },
       redirect: {

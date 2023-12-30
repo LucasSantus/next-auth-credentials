@@ -1,4 +1,4 @@
-import { authActionSignIn } from "@/actions/auth/sign-in";
+import { authSignInServer } from "@/actions/auth/sign-in";
 import { ERROR_VALUES_VALIDATION } from "@/constants/form";
 import { enviromentVariable } from "@/env";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -37,7 +37,7 @@ export const authOptions: AuthOptions = {
           throw new Error(ERROR_VALUES_VALIDATION);
         }
 
-        const userLogged = await authActionSignIn({
+        const userLogged = await authSignInServer({
           email: credentials.email,
           password: credentials.password,
         });

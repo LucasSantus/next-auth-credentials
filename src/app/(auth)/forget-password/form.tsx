@@ -1,6 +1,6 @@
 "use client";
 
-import { authActionForgetPassword } from "@/actions/auth/forget-password";
+import { authForgetPasswordServer } from "@/actions/auth/forget-password";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -46,7 +46,7 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
           "Enviando e-mail com as informações da recuperação da conta...",
         updateMessage: "O e-mail foi enviado!",
       },
-      callback: async () => await authActionForgetPassword(values),
+      callback: async () => await authForgetPasswordServer(values),
       redirect: {
         type: "redirect",
         urlToRedirect: "/sign-in",

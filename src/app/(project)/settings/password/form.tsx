@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { authActionChangePassword } from "@/actions/auth/change-password";
+import { authChangePasswordServer } from "@/actions/auth/change-password";
 import { InputPassword } from "@/components/input-password";
 import { Button } from "@/components/ui/button";
 import {
@@ -47,7 +47,7 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
 
   async function onSubmit(values: ChangePasswordFormData) {
     await validateSubmit({
-      callback: async () => await authActionChangePassword(values),
+      callback: async () => await authChangePasswordServer(values),
       redirect: {
         type: "refresh",
       },

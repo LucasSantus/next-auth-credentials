@@ -3,7 +3,7 @@
 import { ERROR_VALUES_VALIDATION, USER_NOT_FOUND } from "@/constants/form";
 import { prismaClient } from "@/lib/prisma";
 
-export async function deleteActionUserById(id: string) {
+export async function deleteUserByIdServer(id: string) {
   if (!id) throw new Error(ERROR_VALUES_VALIDATION);
 
   const emailExists = await prismaClient.user.findUnique({

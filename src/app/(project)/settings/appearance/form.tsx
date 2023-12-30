@@ -20,6 +20,7 @@ import {
   appearanceFormSchema,
 } from "@/validation/settings/appearance";
 import { useTheme } from "next-themes";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 export function AppearanceForm() {
@@ -27,7 +28,7 @@ export function AppearanceForm() {
 
   const form = useForm<AppearanceFormData>({
     resolver: zodResolver(appearanceFormSchema),
-    defaultValues: {
+    values: {
       theme: (theme as "light" | "dark") ?? "dark",
     },
   });
@@ -43,6 +44,12 @@ export function AppearanceForm() {
 
     toast.success(FORM_DATA_HAS_BEEN_UPDATED);
   }
+
+  useEffect(() => {
+    if (theme === "system") {
+      setTheme("dark");
+    }
+  }, [setTheme, theme]);
 
   return (
     <Form {...form}>

@@ -8,7 +8,7 @@ import { prismaClient } from "@/lib/prisma";
 import { SignUpFormData } from "@/validation/auth/sign-up";
 import * as bcrypt from "bcrypt";
 
-export async function authActionSignUp({
+export async function authSignUpServer({
   name,
   email,
   password,

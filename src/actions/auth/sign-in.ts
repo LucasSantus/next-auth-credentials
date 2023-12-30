@@ -5,7 +5,7 @@ import { prismaClient } from "@/lib/prisma";
 import { SignInFormData } from "@/validation/auth/sign-in";
 import * as bcrypt from "bcrypt";
 
-export async function authActionSignIn({ email, password }: SignInFormData) {
+export async function authSignInServer({ email, password }: SignInFormData) {
   if (!email || !password) throw new Error(ERROR_VALUES_VALIDATION);
 
   const user = await prismaClient.user.findUnique({

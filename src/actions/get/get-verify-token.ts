@@ -11,12 +11,10 @@ export interface VerifyTokenResponse {
   verificationToken: VerificationToken;
 }
 
-export async function getActionVerifyToken(
+export async function getVerifyTokenServer(
   token: string,
 ): Promise<VerifyTokenResponse> {
-  if (!token) {
-    throw new Error(ERROR_VALUES_VALIDATION);
-  }
+  if (!token) throw new Error(ERROR_VALUES_VALIDATION);
 
   const hashedToken = await generateHash.createHash(token);
 

@@ -8,7 +8,7 @@ import { prismaClient } from "@/lib/prisma";
 import { ResetPasswordFormData } from "@/validation/auth/reset-password";
 import * as bcrypt from "bcrypt";
 
-export async function authActionResetPassword({
+export async function authResetPasswordServer({
   email,
   password,
 }: ResetPasswordFormData) {

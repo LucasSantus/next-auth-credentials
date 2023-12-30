@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 
 interface SearchFormProps {}
 
-import { authActionSignUp } from "@/actions/auth/sign-up";
+import { authSignUpServer } from "@/actions/auth/sign-up";
 import { InputPassword } from "@/components/input-password";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import { SignUpFormData, signUpFormSchema } from "@/validation/auth/sign-up";
@@ -42,7 +42,7 @@ export function SignUpForm({}: SearchFormProps) {
 
   async function onSubmit(values: SignUpFormData) {
     await validateSubmit({
-      callback: async () => await authActionSignUp(values),
+      callback: async () => await authSignUpServer(values),
       redirect: {
         type: "redirect",
         urlToRedirect: "/sign-in",

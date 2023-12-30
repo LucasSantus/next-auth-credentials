@@ -7,7 +7,7 @@ import {
 import { prismaClient } from "@/lib/prisma";
 import { ProfileFormData } from "@/validation/settings/profile";
 
-export async function updateActionProfile({ name, email }: ProfileFormData) {
+export async function updateProfileServer({ name, email }: ProfileFormData) {
   if (!name || !email) {
     throw new Error(ERROR_VALUES_VALIDATION);
   }

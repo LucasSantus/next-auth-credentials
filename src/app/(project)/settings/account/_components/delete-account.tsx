@@ -1,4 +1,4 @@
-import { deleteActionUserById } from "@/actions/delete/delete-user-by-id";
+import { deleteUserByIdServer } from "@/actions/delete/delete-user-by-id";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
@@ -19,7 +19,7 @@ export function DeleteAccount({ id }: DeleteAccountProps): JSX.Element {
     setIsDeleting(true);
     await validateSubmit({
       callback: async () => {
-        await deleteActionUserById(id);
+        await deleteUserByIdServer(id);
         await signOut();
       },
       redirect: {

@@ -5,7 +5,7 @@ import { prismaClient } from "@/lib/prisma";
 import { ChangePasswordFormData } from "@/validation/auth/change-password";
 import * as bcrypt from "bcrypt";
 
-export async function authActionChangePassword({
+export async function authChangePasswordServer({
   email,
   password,
   oldPassword,

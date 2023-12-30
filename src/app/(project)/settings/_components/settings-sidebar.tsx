@@ -10,25 +10,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SettingsSidebarNavType } from "../layout";
 
-interface SettingsSidebarProps extends React.HTMLAttributes<HTMLElement> {
+interface SettingsSidebarProps {
   items: Array<SettingsSidebarNavType>;
 }
 
-export function SettingsSidebar({
-  className,
-  items,
-  ...props
-}: SettingsSidebarProps) {
+export function SettingsSidebar({ items }: SettingsSidebarProps) {
   const pathname = usePathname();
 
   return (
-    <nav
-      className={cn(
-        "flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1",
-        className,
-      )}
-      {...props}
-    >
+    <nav className={cn("flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1")}>
       <Presence>
         {items.map(({ title, href, icon: Icon }, index) => {
           const delay = TRANSITION_DURATION + index * 0.3 + 1;

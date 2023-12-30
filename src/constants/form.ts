@@ -22,6 +22,8 @@ export const YOU_ARE_BEING_REDIRECTED = "Você está sendo redirecionado...";
 
 export const USER_NOT_FOUND = "Usuário não encontrado!";
 
+export const ACCOUNT_NOT_FOUND = "Conta não encontrada!";
+
 /**
  * Returns a message indicating the minimum allowed character length.
  * @param value The number that represents the desired minimum length.

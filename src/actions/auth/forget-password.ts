@@ -12,7 +12,7 @@ import { resend } from "@/lib/resend";
 import generateHash from "@/utils/hash";
 import { ForgetPasswordFormData } from "@/validation/auth/forget-password";
 
-export async function authActionForgetPassword({
+export async function authForgetPasswordServer({
   email,
 }: ForgetPasswordFormData) {
   if (!email) throw new Error(ERROR_VALUES_VALIDATION);
