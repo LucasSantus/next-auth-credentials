@@ -19,10 +19,6 @@ export const envSchema = z.object({
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
 
-  //GITHUB
-  GITHUB_ID: z.string(),
-  GITHUB_SECRET: z.string(),
-
   // RESEND
   RESEND_API_KEY: z.string(),
   RESEND_TO_EMAIL: z.string().default("onboarding@resend.dev"),

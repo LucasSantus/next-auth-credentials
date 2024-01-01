@@ -1,6 +1,5 @@
 "use client";
 
-import { GitHubIcon } from "@/components/icons/github";
 import { GoogleIcon } from "@/components/icons/google";
 import { Button } from "@/components/ui/button";
 import { BuiltInProviderType } from "next-auth/providers/index";
@@ -37,26 +36,15 @@ export function AuthenticationProviders({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-2 xs:grid-cols-2">
-        <Button
-          className="gap-2"
-          isLoading={isLoading || isRedirecting}
-          onClick={() => onHandleClick("github")}
-          variant="outline"
-          icon={<GitHubIcon />}
-        >
-          GitHub
-        </Button>
-        <Button
-          className="gap-2"
-          isLoading={isLoading || isRedirecting}
-          onClick={() => onHandleClick("google")}
-          variant="outline"
-          icon={<GoogleIcon />}
-        >
-          Google
-        </Button>
-      </div>
+      <Button
+        className="gap-2"
+        isLoading={isLoading || isRedirecting}
+        onClick={() => onHandleClick("google")}
+        variant="outline"
+        icon={<GoogleIcon />}
+      >
+        Google
+      </Button>
     </Fragment>
   );
 }
