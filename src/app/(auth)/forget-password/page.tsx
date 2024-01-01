@@ -1,8 +1,8 @@
 import { Separator } from "@/components/ui/separator";
 import { UserIcon } from "lucide-react";
 import { Metadata } from "next";
+import { Fragment } from "react";
 import { AuthenticationDescription } from "../_components/authentication-description";
-import { AuthenticationLayout } from "../_components/authentication-layout";
 import { AuthenticationRedirect } from "../_components/authentication-redirect";
 import { DontAlreadyAccount } from "../_components/dont-already-account";
 import { ForgetPasswordForm } from "./form";
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function ForgetPassword(): JSX.Element {
   return (
-    <AuthenticationLayout>
+    <Fragment>
       <AuthenticationDescription
         title="Recuperação de conta"
         description="Digite seu e-mail abaixo para recuperar sua conta"
@@ -28,10 +28,10 @@ export default function ForgetPassword(): JSX.Element {
         <Separator className="w-36" />
 
         <div className="flex gap-1">
-          <span className="text-muted-foreground text-sm">Voltar para o</span>
+          <span className="text-sm text-muted-foreground">Voltar para o</span>
           <AuthenticationRedirect title="Log In" href="/sign-in" />
         </div>
       </div>
-    </AuthenticationLayout>
+    </Fragment>
   );
 }

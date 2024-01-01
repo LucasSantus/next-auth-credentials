@@ -1,8 +1,8 @@
 import { KeyRound } from "lucide-react";
 import { Metadata } from "next";
+import { Fragment } from "react";
 import { AlreadyAccount } from "../_components/already-account";
 import { AuthenticationDescription } from "../_components/authentication-description";
-import { AuthenticationLayout } from "../_components/authentication-layout";
 import { SignUpForm } from "./form";
 
 export const metadata: Metadata = {
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function SignUp(): JSX.Element {
   return (
-    <AuthenticationLayout>
+    <Fragment>
       <AuthenticationDescription
         title="Crie sua conta"
         description="Insira os dados abaixo para criar sua nova conta"
@@ -21,6 +21,6 @@ export default function SignUp(): JSX.Element {
       <SignUpForm />
 
       <AlreadyAccount />
-    </AuthenticationLayout>
+    </Fragment>
   );
 }

@@ -53,7 +53,7 @@ export function useHelperSubmit(): HelperSubmitResponse {
 
       if (showMessageYouAreRedirected)
         toast.info(YOU_ARE_BEING_REDIRECTED, {
-          autoClose: 2900,
+          autoClose: 3900,
         });
 
       await new Promise((resolve) =>
@@ -65,11 +65,14 @@ export function useHelperSubmit(): HelperSubmitResponse {
           }
 
           resolve(null);
-        }, 3000),
+        }, 4000),
       );
     } catch (error) {
       if (error instanceof Error) {
-        toast.update(toastId, toastOptions.error({ render: error.message }));
+        toast.update(
+          toastId,
+          toastOptions.error({ render: error.message, autoClose: 4000 }),
+        );
       }
     }
   }

@@ -22,7 +22,7 @@ export async function authChangePasswordServer({
 
   const passwordMatch = await bcrypt.compare(oldPassword, user.hashedPassword);
 
-  if (!passwordMatch) throw new Error("Senha antiga incorreta!");
+  if (!passwordMatch) throw new Error("Sua senha antiga está incorreta!");
 
   const hashedPassword = await bcrypt.hash(password, 10);
 

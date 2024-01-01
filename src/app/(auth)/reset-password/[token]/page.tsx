@@ -5,8 +5,8 @@ import {
 import { USER_NOT_FOUND } from "@/constants/form";
 import { KeyRound } from "lucide-react";
 import { Metadata } from "next";
+import { Fragment } from "react";
 import { AuthenticationDescription } from "../../_components/authentication-description";
-import { AuthenticationLayout } from "../../_components/authentication-layout";
 import { ResetPasswordForm } from "./form";
 
 export const metadata: Metadata = {
@@ -40,7 +40,7 @@ export default async function ResetPassword({
 
   if (verificationToken instanceof Error)
     return (
-      <AuthenticationLayout>
+      <Fragment>
         <AuthenticationDescription
           title="Recuperação de conta"
           description="Ops, houve um problema ao tentar acessar as informações!"
@@ -50,14 +50,14 @@ export default async function ResetPassword({
         <span className="text-center text-destructive">
           {verificationToken.message}
         </span>
-      </AuthenticationLayout>
+      </Fragment>
     );
 
   const isTokenVerified = !!verificationToken && !!verificationToken?.user;
 
   if (!isTokenVerified || !verificationToken?.user.email) {
     return (
-      <AuthenticationLayout>
+      <Fragment>
         <AuthenticationDescription
           title="Recuperação de conta"
           description="Ops, houve um problema ao tentar acessar as informações!"
@@ -65,12 +65,12 @@ export default async function ResetPassword({
         />
 
         <span className="text-center">{USER_NOT_FOUND}</span>
-      </AuthenticationLayout>
+      </Fragment>
     );
   }
 
   return (
-    <AuthenticationLayout>
+    <Fragment>
       <AuthenticationDescription
         title="Recuperação de conta"
         description="Digite os dados abaixo para resetar sua senha."
@@ -78,6 +78,6 @@ export default async function ResetPassword({
       />
 
       <ResetPasswordForm email={verificationToken.user.email} />
-    </AuthenticationLayout>
+    </Fragment>
   );
 }

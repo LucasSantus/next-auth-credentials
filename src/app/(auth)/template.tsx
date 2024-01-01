@@ -1,13 +1,21 @@
 import { Framing } from "@/components/framer-motion/framing";
 import { Footer } from "@/components/layout/footer";
+import { authOptions } from "@/lib/auth";
 import { bounceHorizontalAnimation } from "@/utils/framer-motion/animations/bounce-horizontal";
-import { Fragment, PropsWithChildren } from "react";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { Fragment, ReactNode } from "react";
 
-interface AuthenticationLayoutProps extends PropsWithChildren {}
+interface AuthenticationTemplateProps {
+  children: ReactNode;
+}
 
-export function AuthenticationLayout({
+export default async function AuthenticationTemplate({
   children,
-}: AuthenticationLayoutProps): JSX.Element {
+}: AuthenticationTemplateProps) {
+  const session = await getServerSession(authOptions);
+  if (session) redirect("/");
+
   return (
     <Fragment>
       <div className="flex h-screen flex-col items-center justify-start bg-background px-2 py-3 text-foreground sm:justify-center">

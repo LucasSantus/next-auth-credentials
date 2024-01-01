@@ -1,9 +1,8 @@
 "use client";
 
 import { KeyRound } from "lucide-react";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { AuthenticationDescription } from "../../_components/authentication-description";
-import { AuthenticationLayout } from "../../_components/authentication-layout";
 
 export default function ResetPasswordErrorHandling({
   error,
@@ -16,13 +15,13 @@ export default function ResetPasswordErrorHandling({
   }, [error]);
 
   return (
-    <AuthenticationLayout>
+    <Fragment>
       <AuthenticationDescription
         title="Resetar Senha"
         description="Ops, houve um problema ao tentar acessar as informações!"
         icon={KeyRound}
       />
       <span className="text-destructive">{error.message}</span>
-    </AuthenticationLayout>
+    </Fragment>
   );
 }
