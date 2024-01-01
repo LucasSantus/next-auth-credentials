@@ -2,11 +2,12 @@
 
 import { PROJECT_NAME } from "@/constants/config";
 import {
+  ACCOUNT_NOT_FOUND,
   EMAIL_DONT_REGISTERED_ON_SYSTEM,
   ERROR_VALUES_VALIDATION,
 } from "@/constants/form";
 import EmailResetPassword from "@/emails/reset-password";
-import { enviromentVariable } from "@/env";
+import { env } from "@/env";
 import { prismaClient } from "@/lib/prisma";
 import { resend } from "@/lib/resend";
 import generateHash from "@/utils/hash";
@@ -24,6 +25,19 @@ export async function authForgetPasswordServer({
   });
 
   if (!user || !user.name) throw new Error(EMAIL_DONT_REGISTERED_ON_SYSTEM);
+
+  const account = await prismaClient.account.findFirst({
+    where: {
+      userId: user.id,
+    },
+  });
+
+  if (!account || !account.provider) throw new Error(ACCOUNT_NOT_FOUND);
+
+  if (account.provider !== "credentials")
+    throw new Error(
+      `Entre em contato com seu provedor ${account.provider} para recuperação de sua conta!`,
+    );
 
   await prismaClient.verificationToken.deleteMany({
     where: {
@@ -49,10 +63,10 @@ export async function authForgetPasswordServer({
   if (!verificationToken)
     throw new Error("Ops, ocorreu um erro na criação do token!");
 
-  const url = enviromentVariable.NEXTAUTH_URL + "/reset-password/" + resetToken;
+  const url = env.NEXTAUTH_URL + "/reset-password/" + resetToken;
 
   resend.emails.send({
-    from: enviromentVariable.RESEND_TO_EMAIL,
+    from: env.RESEND_TO_EMAIL,
     to: email,
     subject: "Recuperação de Senha",
     react: EmailResetPassword({

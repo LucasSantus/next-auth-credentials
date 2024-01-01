@@ -1,13 +1,3 @@
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
-import { ProjectLayout } from "./_components/project-layout";
-
 export default async function Home() {
-  const session = await getServerSession(authOptions);
-
-  return (
-    <ProjectLayout session={session}>
-      <span className="text-2xl font-bold">Home</span>
-    </ProjectLayout>
-  );
+  return <span className="text-2xl font-bold">Home</span>;
 }

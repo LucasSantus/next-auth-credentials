@@ -14,7 +14,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useHelperSubmit } from "@/hooks/useHelperSubmit";
+
+import { useHelperSubmit } from "@/hooks/use-helper-submit";
 import {
   ChangePasswordFormData,
   changePasswordFormSchema,

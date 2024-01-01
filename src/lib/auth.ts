@@ -1,6 +1,6 @@
 import { authSignInServer } from "@/actions/auth/sign-in";
 import { ERROR_VALUES_VALIDATION } from "@/constants/form";
-import { enviromentVariable } from "@/env";
+import { env } from "@/env";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { AuthOptions } from "next-auth";
 import { Adapter } from "next-auth/adapters";
@@ -19,12 +19,12 @@ export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prismaClient) as Adapter,
   providers: [
     GoogleProvider({
-      clientId: enviromentVariable.GOOGLE_CLIENT_ID,
-      clientSecret: enviromentVariable.GOOGLE_CLIENT_SECRET,
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
     GitHubProvider({
-      clientId: enviromentVariable.GITHUB_ID,
-      clientSecret: enviromentVariable.GITHUB_SECRET,
+      clientId: env.GITHUB_ID,
+      clientSecret: env.GITHUB_SECRET,
     }),
     CredentialsProvider({
       name: "Credentials",

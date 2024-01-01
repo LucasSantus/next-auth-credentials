@@ -2,19 +2,24 @@ import { Framing } from "@/components/framer-motion/framing";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { TRANSITION_DURATION } from "@/constants/globals";
+import { authOptions } from "@/lib/auth";
+import "@/styles/globals.css";
+import "@/styles/reset.css";
 import { bounceHorizontalAnimation } from "@/utils/framer-motion/animations/bounce-horizontal";
-import { Session } from "next-auth";
+import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { PropsWithChildren } from "react";
 
-interface ProjectLayoutProps extends PropsWithChildren {
-  session: Session | null;
+import { ReactNode } from "react";
+
+interface GlobalProjectLayoutProps {
+  children: ReactNode;
 }
 
-export function ProjectLayout({
+export default async function GlobalProjectLayout({
   children,
-  session,
-}: ProjectLayoutProps): JSX.Element {
+}: GlobalProjectLayoutProps) {
+  const session = await getServerSession(authOptions);
+
   if (!session || !session.user) redirect("/sign-in");
 
   return (

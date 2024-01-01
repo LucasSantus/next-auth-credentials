@@ -1,7 +1,7 @@
 import { deleteUserByIdServer } from "@/actions/delete/delete-user-by-id";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { useHelperSubmit } from "@/hooks/useHelperSubmit";
+import { useHelperSubmit } from "@/hooks/use-helper-submit";
 import { XCircle } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useState } from "react";

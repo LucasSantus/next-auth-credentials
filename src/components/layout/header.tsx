@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PROJECT_NAME } from "@/constants/config";
-import { useCustomRouter } from "@/hooks/useCustomRouter";
+import { useCustomRouter } from "@/hooks/use-custom-router";
 import { LogOutIcon, SettingsIcon, UserIcon } from "lucide-react";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
