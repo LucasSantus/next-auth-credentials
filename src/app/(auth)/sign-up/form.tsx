@@ -18,7 +18,7 @@ interface SearchFormProps {}
 
 import { authSignUpServer } from "@/actions/auth/sign-up";
 import { InputPassword } from "@/components/input-password";
-import { useHelperSubmit } from "@/hooks/use-helper-submit";
+import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import { SignUpFormData, signUpFormSchema } from "@/validation/auth/sign-up";
 import { AuthenticationProviders } from "../_components/authentication-providers";
 

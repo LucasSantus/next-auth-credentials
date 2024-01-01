@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const envSchema = z.object({
+export const enviromentVariableSchema = z.object({
   // NEXT
   PORT: z.string().default("3000"),
   NODE_ENV: z
@@ -24,12 +24,14 @@ export const envSchema = z.object({
   RESEND_TO_EMAIL: z.string().default("onboarding@resend.dev"),
 });
 
-const envParsed = envSchema.safeParse(process.env);
+const enviromentVariableParsed = enviromentVariableSchema.safeParse(
+  process.env,
+);
 
-if (!envParsed.success) {
+if (!enviromentVariableParsed.success) {
   console.log("Oops, there was a problem loading the environment variables!");
-  console.error(envParsed.error.issues);
+  console.error(enviromentVariableParsed.error.issues);
   process.exit(1);
 }
 
-export const env = envParsed.data;
+export const enviromentVariable = enviromentVariableParsed.data;

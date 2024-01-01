@@ -11,7 +11,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useHelperSubmit } from "@/hooks/use-helper-submit";
+import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import {
   ResetPasswordFormData,
   resetPasswordFormSchema,

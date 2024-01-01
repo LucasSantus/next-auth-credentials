@@ -35,7 +35,7 @@ export async function authSignUpServer({
 
   await prismaClient.account.create({
     data: {
-      provider: "credentials",
+      provider: "Credentials",
       type: "credentials",
       providerAccountId: crypto.randomUUID(),
       userId: user.id,

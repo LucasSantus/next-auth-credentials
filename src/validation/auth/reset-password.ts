@@ -23,7 +23,7 @@ export const resetPasswordFormSchema = z
   })
   .refine(({ password, confirmPassword }) => password === confirmPassword, {
     path: ["confirmPassword"],
-    message: "As senhas não se coincidem!",
+    message: "As senhas não se coincidem",
   });
 
 export type ResetPasswordFormData = z.infer<typeof resetPasswordFormSchema>;

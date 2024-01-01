@@ -5,7 +5,7 @@ import {
 } from "@/constants/form";
 import toastOptions from "@/utils/toast";
 import { toast } from "react-toastify";
-import { useCustomRouter } from "./use-custom-router";
+import { useCustomRouter } from "./useCustomRouter";
 
 interface ValidateSubmitProps {
   toastMessage?: {
@@ -53,7 +53,7 @@ export function useHelperSubmit(): HelperSubmitResponse {
 
       if (showMessageYouAreRedirected)
         toast.info(YOU_ARE_BEING_REDIRECTED, {
-          autoClose: 3900,
+          autoClose: 2900,
         });
 
       await new Promise((resolve) =>
@@ -65,14 +65,11 @@ export function useHelperSubmit(): HelperSubmitResponse {
           }
 
           resolve(null);
-        }, 4000),
+        }, 3000),
       );
     } catch (error) {
       if (error instanceof Error) {
-        toast.update(
-          toastId,
-          toastOptions.error({ render: error.message, autoClose: 5000 }),
-        );
+        toast.update(toastId, toastOptions.error({ render: error.message }));
       }
     }
   }

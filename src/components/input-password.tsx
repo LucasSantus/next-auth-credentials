@@ -32,7 +32,6 @@ const InputPassword = React.forwardRef<HTMLInputElement, InputPasswordProps>(
               aria-disabled={disabled}
               aria-label="show and hide password"
               aria-labelledby="show and hide password"
-              className="rounded-bl-none rounded-tl-none"
             >
               {isShow ? (
                 <EyeIcon className="h-4 w-4" />
