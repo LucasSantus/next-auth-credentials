@@ -1,29 +1,14 @@
-import * as React from "react";
-import { Input, InputProps } from "./ui/input";
+import { forwardRef } from "react";
+import { PatternFormat, PatternFormatProps } from "react-number-format";
+import { Input } from "./ui/input";
 
-export interface InputMaskProps extends InputProps {
-  onMask: (value: string) => string;
-}
+export interface InputMaskProps extends PatternFormatProps {}
 
-const InputMask = React.forwardRef<HTMLInputElement, InputMaskProps>(
-  ({ onChange, onMask, ...rest }, ref) => {
-    const onHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const formattedValue = onMask(event.target.value);
-
-      const newEvent = {
-        ...event,
-        target: {
-          ...event.target,
-          value: formattedValue,
-        },
-      };
-
-      if (onChange) onChange(newEvent);
-    };
-
-    return <Input ref={ref} {...rest} onChange={onHandleChange} />;
-  },
-);
+const InputMask = forwardRef<HTMLInputElement, InputMaskProps>((props, ref) => {
+  return (
+    <PatternFormat getInputRef={ref} customInput={Input} mask="_" {...props} />
+  );
+});
 InputMask.displayName = "InputMask";
 
 export { InputMask };
