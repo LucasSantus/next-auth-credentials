@@ -23,7 +23,3 @@ const InputNumeric = forwardRef<HTMLInputElement, InputNumericProps>(
 InputNumeric.displayName = "InputNumeric";
 
 export { InputNumeric };
-
-{
-  /* <PatternFormat customInput={Input} mask="_" {...props} />; */
-}
