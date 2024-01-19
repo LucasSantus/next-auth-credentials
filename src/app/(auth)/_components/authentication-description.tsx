@@ -18,7 +18,7 @@ export function AuthenticationDescription({
         <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
       </div>
 
-      <span className="text-muted-foreground text-sm">{description}</span>
+      <span className="text-sm text-muted-foreground">{description}</span>
     </div>
   );
 }

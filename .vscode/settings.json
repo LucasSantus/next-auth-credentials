@@ -9,38 +9,19 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.parameterHints.enabled": true,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": "always"
+    "source.organizeImports": "always",
+    "source.fixAll": "always"
   },
-
-  // prettier
-  "prettier.arrowParens": "always",
-  "prettier.printWidth": 120,
-  "prettier.trailingComma": "all",
-  "prettier.bracketSpacing": true,
-  "prettier.enable": true,
-  "prettier.singleQuote": false,
-  "prettier.tabWidth": 2,
-  "prettier.semi": true,
-  "prettier.jsxSingleQuote": false,
-  "prettier.bracketSameLine": false,
-  "prettier.endOfLine": "auto",
 
   // javascript
   "javascript.suggest.autoImports": true,
   "javascript.updateImportsOnFileMove.enabled": "always",
 
-  // others
-  // "breadcrumbs.enabled": true,
-  // "typescript.suggest.autoImports": true,
-  // "emmet.syntaxProfiles": {
-  //   "javascript": "jsx"
-  // },
-  // "emmet.includeLanguages": {
-  //   "javascript": "javascriptreact"
-  // },
-
   // prisma
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
-  }
+  },
+
+  // others
+  "explorer.compactFolders": false
 }
