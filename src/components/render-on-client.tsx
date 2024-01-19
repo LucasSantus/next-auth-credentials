@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, PropsWithChildren, useEffect, useState } from "react";
+import { Loader } from "./loader";
 
 interface RenderOnClientProps extends PropsWithChildren {}
 
@@ -11,5 +12,5 @@ export function RenderOnClient({ children }: RenderOnClientProps) {
     setIsClient(true);
   }, []);
 
-  return <Fragment>{isClient ? children : null}</Fragment>;
+  return <Fragment>{isClient ? children : <Loader />}</Fragment>;
 }
