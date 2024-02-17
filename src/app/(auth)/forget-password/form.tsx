@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 
 import {
@@ -18,6 +19,7 @@ import {
   forgetPasswordFormSchema,
 } from "@/validation/auth/forget-password";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SendHorizontalIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 interface ForgetPasswordFormProps {}
@@ -77,6 +79,7 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
             type="submit"
             aria-label="forget password of user"
             isLoading={isSubmitting}
+            icon={<SendHorizontalIcon className={ICON_SIZE} />}
           >
             Recuperar
           </Button>

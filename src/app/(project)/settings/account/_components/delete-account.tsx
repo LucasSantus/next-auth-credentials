@@ -1,8 +1,9 @@
 import { deleteUserByIdServer } from "@/actions/delete/delete-user-by-id";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
-import { XCircle } from "lucide-react";
+import { Trash2Icon, XCircle } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 
@@ -39,6 +40,7 @@ export function DeleteAccount({ id }: DeleteAccountProps): JSX.Element {
           aria-label="delete user"
           isLoading={isDeleting}
           variant="destructive"
+          icon={<Trash2Icon className={ICON_SIZE} />}
         >
           Deletar Conta
         </Button>
@@ -62,6 +64,7 @@ export function DeleteAccount({ id }: DeleteAccountProps): JSX.Element {
           variant="destructive"
           isLoading={isDeleting}
           onClick={onHandleDeleteUser}
+          icon={<Trash2Icon className={ICON_SIZE} />}
         >
           Deletar
         </Button>

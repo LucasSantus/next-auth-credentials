@@ -11,9 +11,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ICON_SIZE } from "@/constants/globals";
 import { useCustomRouter } from "@/hooks/useCustomRouter";
 import { SignInFormData, signInFormSchema } from "@/validation/auth/sign-in";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LogIn } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -125,6 +127,7 @@ export function SignInForm({}: SignInFormProps) {
             type="submit"
             aria-label="log-in in system"
             isLoading={isSubmitting}
+            icon={<LogIn className={ICON_SIZE} />}
           >
             Entrar
           </Button>

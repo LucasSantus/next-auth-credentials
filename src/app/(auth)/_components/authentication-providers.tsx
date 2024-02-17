@@ -15,7 +15,9 @@ export function AuthenticationProviders({
 }: AuthenticationProviderProps): JSX.Element {
   const [isRedirecting, setIsRedirecting] = useState<boolean>(false);
 
-  async function onHandleClick(provider: LiteralUnion<BuiltInProviderType>) {
+  async function onHandleSelectedProvider(
+    provider: LiteralUnion<BuiltInProviderType>,
+  ) {
     setIsRedirecting(true);
 
     await signIn(provider);
@@ -37,9 +39,8 @@ export function AuthenticationProviders({
       </div>
 
       <Button
-        className="gap-2"
         isLoading={isLoading || isRedirecting}
-        onClick={() => onHandleClick("google")}
+        onClick={() => onHandleSelectedProvider("google")}
         variant="outline"
         icon={<GoogleIcon />}
       >

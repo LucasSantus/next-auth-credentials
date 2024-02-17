@@ -14,11 +14,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import {
   ChangePasswordFormData,
   changePasswordFormSchema,
 } from "@/validation/auth/change-password";
+import { SaveIcon } from "lucide-react";
 
 interface ProfileFormProps {
   email: string;
@@ -115,6 +117,7 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
           type="submit"
           aria-label="Submit for update user data"
           isLoading={isSubmitting}
+          icon={<SaveIcon className={ICON_SIZE} />}
         >
           Salvar
         </Button>

@@ -15,10 +15,12 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FORM_DATA_HAS_BEEN_UPDATED } from "@/constants/form";
+import { ICON_SIZE } from "@/constants/globals";
 import {
   AppearanceFormData,
   appearanceFormSchema,
 } from "@/validation/settings/appearance";
+import { SaveIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect } from "react";
 import { toast } from "sonner";
@@ -130,6 +132,7 @@ export function AppearanceForm() {
           type="submit"
           aria-label="Submit for update user data"
           isLoading={isSubmitting}
+          icon={<SaveIcon className={ICON_SIZE} />}
         >
           Salvar
         </Button>

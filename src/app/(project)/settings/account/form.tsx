@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import {
   ProfileFormData,
@@ -22,7 +23,7 @@ import {
 } from "@/validation/settings/profile";
 import { User } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-import { Mail, User2 } from "lucide-react";
+import { Mail, SaveIcon, User2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { getUserByIdServer } from "../../../../actions/get/get-user-by-id";
@@ -125,6 +126,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
             type="submit"
             aria-label="Submit for update user data"
             isLoading={isSubmitting}
+            icon={<SaveIcon className={ICON_SIZE} />}
           >
             Salvar
           </Button>

@@ -1,7 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { ICON_SIZE } from "@/constants/globals";
 import { ErrorHandlingType } from "@/types/error-handling";
+import { RefreshCcwIcon } from "lucide-react";
 import { useEffect } from "react";
 
 export default function ErrorHandling({ error, reset }: ErrorHandlingType) {
@@ -14,7 +16,12 @@ export default function ErrorHandling({ error, reset }: ErrorHandlingType) {
       <h2 className="text-center text-sm font-medium text-red-600">
         Ocorreu um erro inesperado!
       </h2>
-      <Button onClick={() => reset()}>Tentar Novamente</Button>
+      <Button
+        onClick={() => reset()}
+        icon={<RefreshCcwIcon className={ICON_SIZE} />}
+      >
+        Tentar Novamente
+      </Button>
     </div>
   );
 }

@@ -11,12 +11,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import {
   ResetPasswordFormData,
   resetPasswordFormSchema,
 } from "@/validation/auth/reset-password";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { MailIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 interface ResetPasswordFormProps {
@@ -96,6 +98,7 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
             type="submit"
             aria-label="reset password of user"
             isLoading={isSubmitting}
+            icon={<MailIcon className={ICON_SIZE} />}
           >
             Recuperar
           </Button>
