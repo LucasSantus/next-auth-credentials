@@ -13,7 +13,7 @@ export default function NotFound() {
         sizes="100vw"
       />
 
-      <p>Ooops, esta url solicitada não foi encontrada no sistema.</p>
+      <p>Ooops, a url solicitada não foi encontrada no sistema.</p>
       <Link
         href="/"
         className="text-sm text-blue-600 hover:text-blue-500 hover:underline"
