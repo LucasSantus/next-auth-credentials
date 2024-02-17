@@ -1,4 +1,5 @@
 "use client";
+import { Toaster } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
@@ -37,11 +38,11 @@ export function Providers({ children }: PropsWithChildren) {
         >
           <NextTopLoader
             color="#2299DD"
-            initialPosition={0.08}
+            initialPosition={0.10}
             crawlSpeed={200}
             height={3}
             crawl={true}
-            showSpinner={true}
+            showSpinner={false}
             speed={200}
             zIndex={9999}
             showAtBottom={false}
@@ -59,6 +60,8 @@ export function Providers({ children }: PropsWithChildren) {
             pauseOnHover
             theme="colored"
           />
+
+          <Toaster />
 
           {children}
         </ThemeProvider>
