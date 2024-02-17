@@ -13,22 +13,19 @@ interface DeleteAccountProps {
 export function DeleteAccount({ id }: DeleteAccountProps): JSX.Element {
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
-  const { validateSubmit } = useHelperSubmit();
+  const { showToastBeforeSubmit } = useHelperSubmit();
 
   async function onHandleDeleteUser() {
     setIsDeleting(true);
-    await validateSubmit({
+    await showToastBeforeSubmit({
       callback: async () => {
         await deleteUserByIdServer(id);
         await signOut();
       },
-      redirect: {
-        type: "redirect",
-        urlToRedirect: "/",
-      },
-      toastMessage: {
-        loadingMessage: "Deletando o usuário",
-        updateMessage: "Usuário foi deletado com sucesso!",
+      urlToRedirect: "/",
+      message: {
+        loading: "Deletando o usuário",
+        success: "Usuário foi deletado com sucesso!",
       },
     });
     setIsDeleting(false);

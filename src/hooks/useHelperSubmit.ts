@@ -3,79 +3,66 @@ import {
   FORM_STORING_INFORMATION,
   YOU_ARE_BEING_REDIRECTED,
 } from "@/constants/form";
-import toastOptions from "@/utils/toast";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { useCustomRouter } from "./useCustomRouter";
 
-interface ValidateSubmitProps {
-  toastMessage?: {
-    loadingMessage?: string;
-    updateMessage?: string;
+interface ToastBeforeSubmitProps {
+  message?: {
+    loading?: string;
+    success?: string;
   };
   callback: () => void;
-  redirect:
-    | {
-        type: "redirect";
-        urlToRedirect: string;
-      }
-    | {
-        type: "refresh";
-      };
+  urlToRedirect?: string;
   showMessageYouAreRedirected?: boolean;
 }
 
 interface HelperSubmitResponse {
-  validateSubmit: (props: ValidateSubmitProps) => void;
+  showToastBeforeSubmit: (props: ToastBeforeSubmitProps) => void;
 }
 
 export function useHelperSubmit(): HelperSubmitResponse {
   const router = useCustomRouter();
 
-  async function validateSubmit({
-    toastMessage,
+  async function showToastBeforeSubmit({
+    message,
     callback,
-    redirect,
+    urlToRedirect,
     showMessageYouAreRedirected = true,
-  }: ValidateSubmitProps) {
-    const toastId = toast.loading(
-      toastMessage?.loadingMessage ?? FORM_STORING_INFORMATION,
-    );
+  }: ToastBeforeSubmitProps) {
+    const toastId = toast.loading(message?.loading ?? FORM_STORING_INFORMATION);
 
     try {
       await callback();
 
-      toast.update(
-        toastId,
-        toastOptions.success({
-          render: toastMessage?.updateMessage ?? FORM_DATA_HAS_BEEN_UPDATED,
-        }),
-      );
+      toast.success(message?.success ?? FORM_DATA_HAS_BEEN_UPDATED, {
+        id: toastId,
+      });
 
       if (showMessageYouAreRedirected)
         toast.info(YOU_ARE_BEING_REDIRECTED, {
-          autoClose: 3900,
+          duration: 2500,
         });
 
       await new Promise((resolve) =>
         setTimeout(() => {
-          if (redirect.type === "redirect") {
-            router.push(redirect.urlToRedirect);
-          } else if (redirect.type === "refresh") {
+          if (urlToRedirect) {
+            router.push(urlToRedirect);
+          } else {
             router.refresh();
           }
 
           resolve(null);
-        }, 4000),
+        }, 3000),
       );
     } catch (error) {
       if (error instanceof Error) {
-        toast.update(
-          toastId,
-          toastOptions.error({ render: error.message, autoClose: 4000 }),
-        );
+        toast.error(error.message, {
+          id: toastId,
+          duration: 4000,
+        });
       }
     }
   }
 
-  return { validateSubmit };
+  return { showToastBeforeSubmit };
 }

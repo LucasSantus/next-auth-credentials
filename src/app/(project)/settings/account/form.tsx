@@ -24,7 +24,7 @@ import { User } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import { Mail, User2 } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { getUserByIdServer } from "../../../../actions/get/get-user-by-id";
 import { DeleteAccount } from "./_components/delete-account";
 
@@ -35,12 +35,12 @@ interface ProfileFormProps {
 const ICON_CLASSNAMES = "h-5 w-5";
 
 export function ProfileForm({ id }: ProfileFormProps) {
-  const { validateSubmit } = useHelperSubmit();
+  const { showToastBeforeSubmit } = useHelperSubmit();
 
   const { update } = useSession();
 
   const { data: profile, isLoading } = useQuery({
-    queryKey: ["profile", id],
+    queryKey: ["user-profile", id],
     queryFn: async () => {
       try {
         return await getUserByIdServer(id);
@@ -68,13 +68,10 @@ export function ProfileForm({ id }: ProfileFormProps) {
   } = form;
 
   async function onSubmit(values: ProfileFormData) {
-    await validateSubmit({
+    showToastBeforeSubmit({
       callback: async () => {
         await updateProfileServer(values);
         await update(values);
-      },
-      redirect: {
-        type: "refresh",
       },
       showMessageYouAreRedirected: false,
     });

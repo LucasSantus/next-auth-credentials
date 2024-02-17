@@ -24,7 +24,7 @@ interface ResetPasswordFormProps {
 }
 
 export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
-  const { validateSubmit } = useHelperSubmit();
+  const { showToastBeforeSubmit } = useHelperSubmit();
 
   const form = useForm<ResetPasswordFormData>({
     resolver: zodResolver(resetPasswordFormSchema),
@@ -42,15 +42,12 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
   } = form;
 
   async function onSubmit(values: ResetPasswordFormData) {
-    await validateSubmit({
+    await showToastBeforeSubmit({
       callback: async () => await authResetPasswordServer(values),
-      redirect: {
-        type: "redirect",
-        urlToRedirect: "/sign-in",
-      },
-      toastMessage: {
-        loadingMessage: "Senha está sendo resetada!",
-        updateMessage: "Senha resetada com sucesso!",
+      urlToRedirect: "/sign-in",
+      message: {
+        loading: "Senha está sendo resetada!",
+        success: "Senha resetada com sucesso!",
       },
     });
   }

@@ -23,7 +23,7 @@ import { useForm } from "react-hook-form";
 interface ForgetPasswordFormProps {}
 
 export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
-  const { validateSubmit } = useHelperSubmit();
+  const { showToastBeforeSubmit } = useHelperSubmit();
 
   const form = useForm<ForgetPasswordFormData>({
     resolver: zodResolver(forgetPasswordFormSchema),
@@ -40,17 +40,14 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
   } = form;
 
   async function onSubmit(values: ForgetPasswordFormData) {
-    await validateSubmit({
-      toastMessage: {
-        loadingMessage:
+    await showToastBeforeSubmit({
+      message: {
+        loading:
           "Enviando e-mail com as informações da recuperação da conta...",
-        updateMessage: "O e-mail foi enviado!",
+        success: "O e-mail foi enviado!",
       },
       callback: async () => await authForgetPasswordServer(values),
-      redirect: {
-        type: "redirect",
-        urlToRedirect: "/sign-in",
-      },
+      urlToRedirect: "/sign-in",
     });
   }
 

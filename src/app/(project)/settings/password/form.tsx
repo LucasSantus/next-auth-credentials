@@ -25,7 +25,7 @@ interface ProfileFormProps {
 }
 
 export function ChangePasswordForm({ email }: ProfileFormProps) {
-  const { validateSubmit } = useHelperSubmit();
+  const { showToastBeforeSubmit } = useHelperSubmit();
 
   const form = useForm<ChangePasswordFormData>({
     resolver: zodResolver(changePasswordFormSchema),
@@ -46,13 +46,11 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
   } = form;
 
   async function onSubmit(values: ChangePasswordFormData) {
-    await validateSubmit({
+    showToastBeforeSubmit({
       callback: async () => await authChangePasswordServer(values),
-      redirect: {
-        type: "refresh",
-      },
       showMessageYouAreRedirected: false,
     });
+
     reset();
   }
 

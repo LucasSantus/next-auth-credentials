@@ -21,7 +21,7 @@ import {
 } from "@/validation/settings/appearance";
 import { useTheme } from "next-themes";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 export function AppearanceForm() {
   const { theme, setTheme } = useTheme();
