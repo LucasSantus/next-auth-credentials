@@ -2,13 +2,18 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
+import { usePathname, useSearchParams } from "next/navigation";
 import NextTopLoader from "nextjs-toploader";
-import { PropsWithChildren, Suspense, useState } from "react";
+import nProgress from "nprogress";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { NavigationEvents } from "./navigation-events";
 
 export function Providers({ children }: PropsWithChildren) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // 
   const [queryClient] = useState(() => {
     return new QueryClient({
       defaultOptions: {
@@ -16,6 +21,11 @@ export function Providers({ children }: PropsWithChildren) {
       },
     });
   });
+
+  // 
+  useEffect(() => {
+    nProgress.done();
+  }, [pathname, searchParams]);
 
   return (
     <SessionProvider refetchOnWindowFocus>
@@ -49,10 +59,6 @@ export function Providers({ children }: PropsWithChildren) {
             pauseOnHover
             theme="colored"
           />
-
-          <Suspense fallback={null}>
-            <NavigationEvents />
-          </Suspense>
 
           {children}
         </ThemeProvider>

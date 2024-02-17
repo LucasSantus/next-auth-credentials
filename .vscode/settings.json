@@ -2,20 +2,12 @@
   // editor
   "editor.wordWrap": "on",
   "editor.tabSize": 2,
-  "editor.bracketPairColorization.enabled": true,
   "editor.minimap.enabled": true,
   "editor.formatOnSave": true,
-  "editor.semanticHighlighting.enabled": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.parameterHints.enabled": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports": "always",
-    "source.fixAll": "always"
   },
-
-  // javascript
-  "javascript.suggest.autoImports": true,
-  "javascript.updateImportsOnFileMove.enabled": "always",
 
   // prisma
   "[prisma]": {
