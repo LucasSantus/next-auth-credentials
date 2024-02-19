@@ -31,6 +31,12 @@ export function useHelperSubmit(): HelperSubmitResponse {
   }: ToastBeforeSubmitProps) {
     const toastId = toast.loading(message?.loading ?? FORM_STORING_INFORMATION);
 
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        resolve(null);
+      }, 7000),
+    );
+
     try {
       await callback();
 

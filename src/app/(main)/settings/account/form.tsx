@@ -69,7 +69,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
   } = form;
 
   async function onSubmit(values: ProfileFormData) {
-    showToastBeforeSubmit({
+    await showToastBeforeSubmit({
       callback: async () => {
         await updateProfileServer(values);
         await update(values);
@@ -121,7 +121,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
           )}
         />
 
-        <div className="flex justify-between">
+        <div className="flex justify-start gap-2">
           <Button
             type="submit"
             aria-label="Submit for update user data"

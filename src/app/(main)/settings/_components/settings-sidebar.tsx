@@ -29,10 +29,8 @@ export function SettingsSidebar({ items }: SettingsSidebarProps) {
                 href={href}
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
-                  pathname === href
-                    ? "bg-muted hover:bg-muted"
-                    : "hover:bg-transparent hover:underline",
-                  "flex justify-start gap-2",
+                  "flex justify-start gap-2 hover:bg-muted",
+                  pathname === href && "bg-muted/70 hover:bg-muted",
                 )}
               >
                 {Icon}

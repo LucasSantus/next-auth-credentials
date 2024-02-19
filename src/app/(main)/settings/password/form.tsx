@@ -43,17 +43,14 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
   const {
     handleSubmit,
     control,
-    reset,
     formState: { isSubmitting },
   } = form;
 
   async function onSubmit(values: ChangePasswordFormData) {
-    showToastBeforeSubmit({
+    await showToastBeforeSubmit({
       callback: async () => await authChangePasswordServer(values),
       showMessageYouAreRedirected: false,
     });
-
-    reset();
   }
 
   return (
@@ -68,7 +65,7 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
               <FormControl>
                 <InputPassword
                   placeholder="Digite a senha antiga:"
-                  disabled={isSubmitting}
+                  isLoading={isSubmitting}
                   {...field}
                 />
               </FormControl>
@@ -86,7 +83,7 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
               <FormControl>
                 <InputPassword
                   placeholder="Digite a nova senha:"
-                  disabled={isSubmitting}
+                  isLoading={isSubmitting}
                   {...field}
                 />
               </FormControl>
@@ -104,7 +101,7 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
               <FormControl>
                 <InputPassword
                   placeholder="Digite a confirmação de nova senha:"
-                  disabled={isSubmitting}
+                  isLoading={isSubmitting}
                   {...field}
                 />
               </FormControl>
