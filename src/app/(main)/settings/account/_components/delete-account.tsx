@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
-import { Trash2Icon, XCircle } from "lucide-react";
+import { Trash2Icon, XCircleIcon } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 
@@ -47,7 +47,7 @@ export function DeleteAccount({ id }: DeleteAccountProps): JSX.Element {
       </DialogTrigger>
       <DialogContent className="bg-card p-7">
         <div className="flex flex-col items-center justify-center gap-2 text-center">
-          <XCircle size={80} className="text-destructive" />
+          <XCircleIcon size={80} className="text-destructive" />
 
           <span className="text-3xl font-semibold text-foreground">
             Tem certeza?

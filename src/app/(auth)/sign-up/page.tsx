@@ -1,4 +1,4 @@
-import { KeyRound } from "lucide-react";
+import { KeyRoundIcon } from "lucide-react";
 import { Metadata } from "next";
 import { Fragment } from "react";
 import { AlreadyAccount } from "../_components/already-account";
@@ -15,7 +15,7 @@ export default function SignUp(): JSX.Element {
       <AuthenticationDescription
         title="Crie sua conta"
         description="Insira os dados abaixo para criar sua nova conta"
-        icon={KeyRound}
+        icon={KeyRoundIcon}
       />
 
       <SignUpForm />

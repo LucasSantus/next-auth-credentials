@@ -5,7 +5,12 @@ import { Separator } from "@/components/ui/separator";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { isBrowser } from "@/utils/is-browser";
-import { ChevronRight, Inbox, LucideIcon, Settings } from "lucide-react";
+import {
+  ChevronRightIcon,
+  InboxIcon,
+  LucideIcon,
+  SettingsIcon,
+} from "lucide-react";
 import { Fragment, useState } from "react";
 import { SidenavItem } from "./sidenav-item";
 
@@ -26,7 +31,7 @@ const menuOptions: MenuOptions[] = [
     items: [
       {
         path: "/dashboard",
-        icon: Inbox,
+        icon: InboxIcon,
         text: "Dashboard",
       },
     ],
@@ -36,17 +41,17 @@ const menuOptions: MenuOptions[] = [
     items: [
       {
         path: "/inbox",
-        icon: Inbox,
+        icon: InboxIcon,
         text: "Inbox",
       },
       {
         path: "/billing",
-        icon: Inbox,
+        icon: InboxIcon,
         text: "Billing",
       },
       {
         path: "/notifications",
-        icon: Inbox,
+        icon: InboxIcon,
         text: "Notifications",
       },
     ],
@@ -55,18 +60,18 @@ const menuOptions: MenuOptions[] = [
     title: "Settings",
     items: [
       {
-        path: "/settings",
-        icon: Settings,
+        path: "/settings/account",
+        icon: SettingsIcon,
         text: "General Settings",
       },
       {
         path: "/privacy",
-        icon: Inbox,
+        icon: InboxIcon,
         text: "Privacy",
       },
       {
         path: "/logs",
-        icon: Inbox,
+        icon: InboxIcon,
         text: "Logs",
       },
     ],
@@ -118,7 +123,7 @@ export default function SideNav() {
 
           {!mobileWidth && (
             <Button onClick={toggleSidebar} variant="secondary" className="p-2">
-              <ChevronRight
+              <ChevronRightIcon
                 className={cn(
                   "h-5 w-5 transition-all delay-500 duration-500 ease-out",
                   isCollapsed && "rotate-180",

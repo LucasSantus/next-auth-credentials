@@ -23,7 +23,7 @@ import {
 } from "@/validation/settings/profile";
 import { User } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-import { Mail, SaveIcon, User2 } from "lucide-react";
+import { MailIcon, SaveIcon, User2Icon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { getUserByIdServer } from "../../../../actions/get/get-user-by-id";
@@ -92,7 +92,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
                   placeholder="Digite o nome completo:"
                   isLoading={isLoading}
                   disabled={isSubmitting || isLoading}
-                  startComponent={<User2 className={ICON_CLASSNAMES} />}
+                  startComponent={<User2Icon className={ICON_CLASSNAMES} />}
                   {...field}
                 />
               </FormControl>
@@ -110,7 +110,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
                 <Input
                   placeholder="Digite o e-mail:"
                   isLoading={isLoading}
-                  startComponent={<Mail className={ICON_CLASSNAMES} />}
+                  startComponent={<MailIcon className={ICON_CLASSNAMES} />}
                   readOnly
                   className="cursor-not-allowed opacity-70"
                   {...field}

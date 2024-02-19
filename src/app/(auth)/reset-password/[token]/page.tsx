@@ -3,7 +3,7 @@ import {
   getVerifyTokenServer,
 } from "@/actions/get/get-verify-token";
 import { USER_NOT_FOUND } from "@/constants/form";
-import { KeyRound } from "lucide-react";
+import { KeyRoundIcon } from "lucide-react";
 import { Metadata } from "next";
 import { Fragment } from "react";
 import { AuthenticationDescription } from "../../_components/authentication-description";
@@ -44,7 +44,7 @@ export default async function ResetPassword({
         <AuthenticationDescription
           title="Recuperação de conta"
           description="Ops, houve um problema ao tentar acessar as informações!"
-          icon={KeyRound}
+          icon={KeyRoundIcon}
         />
 
         <span className="text-center text-destructive">
@@ -61,7 +61,7 @@ export default async function ResetPassword({
         <AuthenticationDescription
           title="Recuperação de conta"
           description="Ops, houve um problema ao tentar acessar as informações!"
-          icon={KeyRound}
+          icon={KeyRoundIcon}
         />
 
         <span className="text-center">{USER_NOT_FOUND}</span>
@@ -74,7 +74,7 @@ export default async function ResetPassword({
       <AuthenticationDescription
         title="Recuperação de conta"
         description="Digite os dados abaixo para resetar sua senha."
-        icon={KeyRound}
+        icon={KeyRoundIcon}
       />
 
       <ResetPasswordForm email={verificationToken.user.email} />

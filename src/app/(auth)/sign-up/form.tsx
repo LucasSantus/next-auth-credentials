@@ -21,7 +21,7 @@ import { InputPassword } from "@/components/input-password";
 import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import { SignUpFormData, signUpFormSchema } from "@/validation/auth/sign-up";
-import { Save } from "lucide-react";
+import { SaveIcon } from "lucide-react";
 import { AuthenticationProviders } from "../_components/authentication-providers";
 
 export function SignUpForm({}: SearchFormProps) {
@@ -115,7 +115,7 @@ export function SignUpForm({}: SearchFormProps) {
             type="submit"
             aria-label="Submit for create new user"
             isLoading={isSubmitting}
-            icon={<Save className={ICON_SIZE} />}
+            icon={<SaveIcon className={ICON_SIZE} />}
           >
             Salvar
           </Button>
