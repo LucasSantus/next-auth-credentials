@@ -12,22 +12,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PROJECT_NAME } from "@/constants/config";
+import { ICON_SIZE } from "@/constants/globals";
 import { useCustomRouter } from "@/hooks/useCustomRouter";
-import {
-  LayoutDashboardIcon,
-  LogOutIcon,
-  SettingsIcon,
-  UserIcon,
-} from "lucide-react";
+import { SidebarItemsType } from "@/types/sidebar-items-type";
+import { LogOutIcon, UserIcon } from "lucide-react";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 
 interface HeaderProps {
   session: Session | null;
+  items: SidebarItemsType[];
 }
 
-export function Header({ session }: HeaderProps): JSX.Element {
+export function Header({ session, items }: HeaderProps): JSX.Element {
   const router = useCustomRouter();
 
   const isAuthenticated = !!session && !!session.user;
@@ -58,22 +56,25 @@ export function Header({ session }: HeaderProps): JSX.Element {
               <DropdownMenuLabel>
                 {session.user.name ?? "Minha Conta"}
               </DropdownMenuLabel>
+
               <DropdownMenuSeparator />
+
               <DropdownMenuGroup>
-                <DropdownMenuItem onClick={() => router.push("/dashboard")}>
-                  <LayoutDashboardIcon className="mr-2 h-4 w-4" />
-                  <span>Voltar para Dashboard</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => router.push("/settings/account")}
-                >
-                  <SettingsIcon className="mr-2 h-4 w-4" />
-                  <span>Conta</span>
-                </DropdownMenuItem>
+                {items.map(({ href, icon, title }) => (
+                  <DropdownMenuItem
+                    key={href}
+                    onClick={() => router.push(href)}
+                    className="space-x-2"
+                  >
+                    {icon}
+                    <span>{title}</span>
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuGroup>
+
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => signOut()}>
-                <LogOutIcon className="mr-2 h-4 w-4" />
+              <DropdownMenuItem onClick={() => signOut()} className="space-x-2">
+                <LogOutIcon className={ICON_SIZE} />
                 <span>Log out</span>
               </DropdownMenuItem>
             </DropdownMenuContent>

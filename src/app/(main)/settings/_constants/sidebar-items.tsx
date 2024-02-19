@@ -1,8 +1,8 @@
 import { ICON_SIZE } from "@/constants/globals";
+import { SidebarItemsType } from "@/types/sidebar-items-type";
 import { KeyRound, Palette, UserSquare } from "lucide-react";
-import { SettingsSidebarNavType } from "./layout";
 
-export const sidebarNavItems: SettingsSidebarNavType[] = [
+export const sidebarItems: Array<SidebarItemsType> = [
   {
     title: "Conta",
     href: "/settings/account",

@@ -8,14 +8,13 @@ import { bounceHorizontalAnimation } from "@/utils/framer-motion/animations/boun
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
+import { headerItems } from "./_constants/header-items";
 
-interface ProjectTemplateProps {
+interface ProjectLayoutProps {
   children: ReactNode;
 }
 
-export default async function ProjectTemplate({
-  children,
-}: ProjectTemplateProps) {
+export default async function ProjectLayout({ children }: ProjectLayoutProps) {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) redirect("/sign-in");
@@ -23,11 +22,10 @@ export default async function ProjectTemplate({
   return (
     <div className="flex">
       <SideNav />
-
       <main className="flex-grow">
         <div className="flex min-h-screen text-foreground">
           <div className="flex w-full flex-col">
-            <Header session={session} />
+            <Header session={session} items={headerItems} />
 
             <div className="container flex max-w-screen-2xl flex-1 flex-col p-4">
               <Framing

@@ -5,13 +5,13 @@ import { Presence } from "@/components/framer-motion/presence";
 import { buttonVariants } from "@/components/ui/button";
 import { TRANSITION_DURATION } from "@/constants/globals";
 import { cn } from "@/lib/utils";
+import { SidebarItemsType } from "@/types/sidebar-items-type";
 import { bounceHorizontalAnimation } from "@/utils/framer-motion/animations/bounce-horizontal";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SettingsSidebarNavType } from "../layout";
 
 interface SettingsSidebarProps {
-  items: Array<SettingsSidebarNavType>;
+  items: Array<SidebarItemsType>;
 }
 
 export function SettingsSidebar({ items }: SettingsSidebarProps) {
@@ -20,7 +20,7 @@ export function SettingsSidebar({ items }: SettingsSidebarProps) {
   return (
     <nav className={cn("flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1")}>
       <Presence>
-        {items.map(({ title, href, icon: Icon }, index) => {
+        {items.map(({ title, href, icon }, index) => {
           const delay = TRANSITION_DURATION + index * 0.3 + 1;
 
           return (
@@ -33,7 +33,7 @@ export function SettingsSidebar({ items }: SettingsSidebarProps) {
                   pathname === href && "bg-muted/70 hover:bg-muted",
                 )}
               >
-                {Icon}
+                {icon}
                 {title}
               </Link>
             </Framing>
