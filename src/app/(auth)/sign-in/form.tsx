@@ -11,13 +11,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ICON_SIZE } from "@/constants/globals";
 import { useCustomRouter } from "@/hooks/useCustomRouter";
-import toastOptions from "@/utils/toast";
 import { SignInFormData, signInFormSchema } from "@/validation/auth/sign-in";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LogInIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { AuthenticationProviders } from "../_components/authentication-providers";
 import { AuthenticationRedirect } from "../_components/authentication-redirect";
 
@@ -51,14 +52,13 @@ export function SignInForm({}: SignInFormProps) {
       });
 
       if (!!response && response.error) {
-        toast.update(toastId, toastOptions.error({ render: response.error }));
+        toast.error(response.error, {
+          id: toastId,
+        });
       } else {
-        toast.update(
-          toastId,
-          toastOptions.success({
-            render: "Redirecionando...",
-          }),
-        );
+        toast.success("Redirecionando...", {
+          id: toastId,
+        });
 
         await new Promise((resolve) =>
           setTimeout(() => {
@@ -69,7 +69,9 @@ export function SignInForm({}: SignInFormProps) {
       }
     } catch (error) {
       if (error instanceof Error) {
-        toast.update(toastId, toastOptions.error({ render: error.message }));
+        toast.error(error.message, {
+          id: toastId,
+        });
       }
     }
   }
@@ -125,6 +127,7 @@ export function SignInForm({}: SignInFormProps) {
             type="submit"
             aria-label="log-in in system"
             isLoading={isSubmitting}
+            icon={<LogInIcon className={ICON_SIZE} />}
           >
             Entrar
           </Button>

@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 
 import {
@@ -18,12 +19,13 @@ import {
   forgetPasswordFormSchema,
 } from "@/validation/auth/forget-password";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SendHorizontalIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 interface ForgetPasswordFormProps {}
 
 export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
-  const { validateSubmit } = useHelperSubmit();
+  const { showToastBeforeSubmit } = useHelperSubmit();
 
   const form = useForm<ForgetPasswordFormData>({
     resolver: zodResolver(forgetPasswordFormSchema),
@@ -40,17 +42,14 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
   } = form;
 
   async function onSubmit(values: ForgetPasswordFormData) {
-    await validateSubmit({
-      toastMessage: {
-        loadingMessage:
+    await showToastBeforeSubmit({
+      message: {
+        loading:
           "Enviando e-mail com as informações da recuperação da conta...",
-        updateMessage: "O e-mail foi enviado!",
+        success: "O e-mail foi enviado!",
       },
       callback: async () => await authForgetPasswordServer(values),
-      redirect: {
-        type: "redirect",
-        urlToRedirect: "/sign-in",
-      },
+      urlToRedirect: "/sign-in",
     });
   }
 
@@ -80,6 +79,7 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
             type="submit"
             aria-label="forget password of user"
             isLoading={isSubmitting}
+            icon={<SendHorizontalIcon className={ICON_SIZE} />}
           >
             Recuperar
           </Button>

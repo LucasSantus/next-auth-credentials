@@ -1,8 +1,9 @@
 import { deleteUserByIdServer } from "@/actions/delete/delete-user-by-id";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
-import { XCircle } from "lucide-react";
+import { Trash2Icon, XCircleIcon } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 
@@ -13,22 +14,19 @@ interface DeleteAccountProps {
 export function DeleteAccount({ id }: DeleteAccountProps): JSX.Element {
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
-  const { validateSubmit } = useHelperSubmit();
+  const { showToastBeforeSubmit } = useHelperSubmit();
 
   async function onHandleDeleteUser() {
     setIsDeleting(true);
-    await validateSubmit({
+    await showToastBeforeSubmit({
       callback: async () => {
         await deleteUserByIdServer(id);
         await signOut();
       },
-      redirect: {
-        type: "redirect",
-        urlToRedirect: "/",
-      },
-      toastMessage: {
-        loadingMessage: "Deletando o usuário",
-        updateMessage: "Usuário foi deletado com sucesso!",
+      urlToRedirect: "/",
+      message: {
+        loading: "Deletando o usuário",
+        success: "Usuário foi deletado com sucesso!",
       },
     });
     setIsDeleting(false);
@@ -42,13 +40,14 @@ export function DeleteAccount({ id }: DeleteAccountProps): JSX.Element {
           aria-label="delete user"
           isLoading={isDeleting}
           variant="destructive"
+          icon={<Trash2Icon className={ICON_SIZE} />}
         >
           Deletar Conta
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-card p-7">
         <div className="flex flex-col items-center justify-center gap-2 text-center">
-          <XCircle size={80} className="text-destructive" />
+          <XCircleIcon size={80} className="text-destructive" />
 
           <span className="text-3xl font-semibold text-foreground">
             Tem certeza?
@@ -65,6 +64,7 @@ export function DeleteAccount({ id }: DeleteAccountProps): JSX.Element {
           variant="destructive"
           isLoading={isDeleting}
           onClick={onHandleDeleteUser}
+          icon={<Trash2Icon className={ICON_SIZE} />}
         >
           Deletar
         </Button>

@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import * as React from "react";
 import { DayPicker } from "react-day-picker";
 
@@ -55,10 +55,10 @@ function Calendar({
       }}
       components={{
         IconLeft: ({ ...props }) => (
-          <ChevronLeft className="h-4 w-4" {...props} />
+          <ChevronLeftIcon className="h-4 w-4" {...props} />
         ),
         IconRight: ({ ...props }) => (
-          <ChevronRight className="h-4 w-4" {...props} />
+          <ChevronRightIcon className="h-4 w-4" {...props} />
         ),
       }}
       {...props}

@@ -38,7 +38,6 @@ Used tools:
 - [React Hook Form v7.45.4](https://react-hook-form.com/)
 - [Zod v3.22.2](https://github.com/colinhacks/zod)
 - [Axios v1.4.0](https://axios-http.com/ptbr/docs/intro)
-- [React Toastify v9.1.3](https://fkhadra.github.io/react-toastify/introduction)
 
 ---
 

@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import {
   ProfileFormData,
@@ -22,9 +23,9 @@ import {
 } from "@/validation/settings/profile";
 import { User } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-import { Mail, User2 } from "lucide-react";
+import { MailIcon, SaveIcon, User2Icon } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { getUserByIdServer } from "../../../../actions/get/get-user-by-id";
 import { DeleteAccount } from "./_components/delete-account";
 
@@ -35,12 +36,12 @@ interface ProfileFormProps {
 const ICON_CLASSNAMES = "h-5 w-5";
 
 export function ProfileForm({ id }: ProfileFormProps) {
-  const { validateSubmit } = useHelperSubmit();
+  const { showToastBeforeSubmit } = useHelperSubmit();
 
   const { update } = useSession();
 
   const { data: profile, isLoading } = useQuery({
-    queryKey: ["profile", id],
+    queryKey: ["user-profile", id],
     queryFn: async () => {
       try {
         return await getUserByIdServer(id);
@@ -68,13 +69,10 @@ export function ProfileForm({ id }: ProfileFormProps) {
   } = form;
 
   async function onSubmit(values: ProfileFormData) {
-    await validateSubmit({
+    await showToastBeforeSubmit({
       callback: async () => {
         await updateProfileServer(values);
         await update(values);
-      },
-      redirect: {
-        type: "refresh",
       },
       showMessageYouAreRedirected: false,
     });
@@ -94,7 +92,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
                   placeholder="Digite o nome completo:"
                   isLoading={isLoading}
                   disabled={isSubmitting || isLoading}
-                  startComponent={<User2 className={ICON_CLASSNAMES} />}
+                  startComponent={<User2Icon className={ICON_CLASSNAMES} />}
                   {...field}
                 />
               </FormControl>
@@ -112,7 +110,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
                 <Input
                   placeholder="Digite o e-mail:"
                   isLoading={isLoading}
-                  startComponent={<Mail className={ICON_CLASSNAMES} />}
+                  startComponent={<MailIcon className={ICON_CLASSNAMES} />}
                   readOnly
                   className="cursor-not-allowed opacity-70"
                   {...field}
@@ -123,11 +121,12 @@ export function ProfileForm({ id }: ProfileFormProps) {
           )}
         />
 
-        <div className="flex justify-between">
+        <div className="flex justify-start gap-2">
           <Button
             type="submit"
             aria-label="Submit for update user data"
             isLoading={isSubmitting}
+            icon={<SaveIcon className={ICON_SIZE} />}
           >
             Salvar
           </Button>

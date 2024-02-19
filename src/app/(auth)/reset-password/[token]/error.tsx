@@ -1,6 +1,6 @@
 "use client";
 
-import { KeyRound } from "lucide-react";
+import { KeyRoundIcon } from "lucide-react";
 import { Fragment, useEffect } from "react";
 import { AuthenticationDescription } from "../../_components/authentication-description";
 
@@ -19,7 +19,7 @@ export default function ResetPasswordErrorHandling({
       <AuthenticationDescription
         title="Resetar Senha"
         description="Ops, houve um problema ao tentar acessar as informações!"
-        icon={KeyRound}
+        icon={KeyRoundIcon}
       />
       <span className="text-destructive">{error.message}</span>
     </Fragment>

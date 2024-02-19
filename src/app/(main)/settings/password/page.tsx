@@ -29,7 +29,7 @@ export default async function SettingsPasswordPage() {
 
   return (
     <SettingsLayout
-      title="Chave"
+      title="Senha"
       description="Atualize as configurações para autenticação no sistema."
     >
       <RenderOnClient>

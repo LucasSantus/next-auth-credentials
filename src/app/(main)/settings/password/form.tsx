@@ -14,18 +14,20 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import {
   ChangePasswordFormData,
   changePasswordFormSchema,
 } from "@/validation/auth/change-password";
+import { SaveIcon } from "lucide-react";
 
 interface ProfileFormProps {
   email: string;
 }
 
 export function ChangePasswordForm({ email }: ProfileFormProps) {
-  const { validateSubmit } = useHelperSubmit();
+  const { showToastBeforeSubmit } = useHelperSubmit();
 
   const form = useForm<ChangePasswordFormData>({
     resolver: zodResolver(changePasswordFormSchema),
@@ -41,19 +43,14 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
   const {
     handleSubmit,
     control,
-    reset,
     formState: { isSubmitting },
   } = form;
 
   async function onSubmit(values: ChangePasswordFormData) {
-    await validateSubmit({
+    await showToastBeforeSubmit({
       callback: async () => await authChangePasswordServer(values),
-      redirect: {
-        type: "refresh",
-      },
       showMessageYouAreRedirected: false,
     });
-    reset();
   }
 
   return (
@@ -68,7 +65,7 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
               <FormControl>
                 <InputPassword
                   placeholder="Digite a senha antiga:"
-                  disabled={isSubmitting}
+                  isLoading={isSubmitting}
                   {...field}
                 />
               </FormControl>
@@ -86,7 +83,7 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
               <FormControl>
                 <InputPassword
                   placeholder="Digite a nova senha:"
-                  disabled={isSubmitting}
+                  isLoading={isSubmitting}
                   {...field}
                 />
               </FormControl>
@@ -104,7 +101,7 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
               <FormControl>
                 <InputPassword
                   placeholder="Digite a confirmação de nova senha:"
-                  disabled={isSubmitting}
+                  isLoading={isSubmitting}
                   {...field}
                 />
               </FormControl>
@@ -117,6 +114,7 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
           type="submit"
           aria-label="Submit for update user data"
           isLoading={isSubmitting}
+          icon={<SaveIcon className={ICON_SIZE} />}
         >
           Salvar
         </Button>

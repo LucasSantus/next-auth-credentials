@@ -18,12 +18,14 @@ interface SearchFormProps {}
 
 import { authSignUpServer } from "@/actions/auth/sign-up";
 import { InputPassword } from "@/components/input-password";
+import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import { SignUpFormData, signUpFormSchema } from "@/validation/auth/sign-up";
+import { SaveIcon } from "lucide-react";
 import { AuthenticationProviders } from "../_components/authentication-providers";
 
 export function SignUpForm({}: SearchFormProps) {
-  const { validateSubmit } = useHelperSubmit();
+  const { showToastBeforeSubmit } = useHelperSubmit();
 
   const form = useForm<SignUpFormData>({
     resolver: zodResolver(signUpFormSchema),
@@ -41,15 +43,12 @@ export function SignUpForm({}: SearchFormProps) {
   } = form;
 
   async function onSubmit(values: SignUpFormData) {
-    await validateSubmit({
+    await showToastBeforeSubmit({
       callback: async () => await authSignUpServer(values),
-      redirect: {
-        type: "redirect",
-        urlToRedirect: "/sign-in",
-      },
-      toastMessage: {
-        loadingMessage: "Usuário está sendo criado!",
-        updateMessage: "Usuário criado com sucesso!",
+      urlToRedirect: "/sign-in",
+      message: {
+        loading: "Usuário está sendo criado!",
+        success: "Usuário criado com sucesso!",
       },
     });
   }
@@ -116,6 +115,7 @@ export function SignUpForm({}: SearchFormProps) {
             type="submit"
             aria-label="Submit for create new user"
             isLoading={isSubmitting}
+            icon={<SaveIcon className={ICON_SIZE} />}
           >
             Salvar
           </Button>
