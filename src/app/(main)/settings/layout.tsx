@@ -7,6 +7,7 @@ import { ReactNode } from "react";
 import { SettingsSidebar } from "./_components/settings-sidebar";
 import { sidebarNavItems } from "./nav-items";
 
+import { Header } from "@/components/layout/header";
 import { ACCOUNT_NOT_FOUND, USER_NOT_FOUND } from "@/constants/form";
 import { authOptions } from "@/lib/auth";
 import { Account } from "@prisma/client";
@@ -55,28 +56,32 @@ export default async function GlobalSettingsLayout({
     );
 
   return (
-    <div className="space-y-6 p-10 pb-16">
-      <Framing className="grid gap-1" {...bounceHorizontalAnimation({})}>
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight">Configurações</h2>
-          <p className="text-muted-foreground">
-            Gerencie as configurações da sua conta.
-          </p>
-        </div>
-        <Separator className="my-6" />
-      </Framing>
-      <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-        <aside className="-mx-4 lg:w-1/5">
-          <SettingsSidebar items={sidebarNavItems} />
-        </aside>
-        <Framing
-          className="flex-1 lg:max-w-2xl"
-          {...bounceHorizontalAnimation({
-            delay: sidebarNavItems.length + TRANSITION_DURATION * 0.3 + 1,
-          })}
-        >
-          {children}
+    <div className="space-y-4">
+      <Header session={session} />
+
+      <div className="container max-w-screen-2xl space-y-4">
+        <Framing className="space-y-4" {...bounceHorizontalAnimation({})}>
+          <div className="-mx-4">
+            <h2 className="text-2xl font-bold tracking-tight">Configurações</h2>
+            <p className="text-muted-foreground">
+              Gerencie as configurações da sua conta.
+            </p>
+          </div>
+          <Separator className="-mx-4" />
         </Framing>
+        <div className="flex flex-col space-y-4 lg:flex-row lg:space-x-12 lg:space-y-0">
+          <aside className="-mx-4 lg:w-1/5">
+            <SettingsSidebar items={sidebarNavItems} />
+          </aside>
+          <Framing
+            className="flex-1 lg:max-w-2xl"
+            {...bounceHorizontalAnimation({
+              delay: sidebarNavItems.length + TRANSITION_DURATION * 0.3 + 1,
+            })}
+          >
+            {children}
+          </Framing>
+        </div>
       </div>
     </div>
   );

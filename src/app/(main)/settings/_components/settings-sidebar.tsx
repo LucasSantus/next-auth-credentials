@@ -29,7 +29,7 @@ export function SettingsSidebar({ items }: SettingsSidebarProps) {
                 href={href}
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
-                  "flex justify-start gap-2 hover:bg-muted",
+                  "flex justify-start gap-2 border hover:bg-muted focus:opacity-50",
                   pathname === href && "bg-muted/70 hover:bg-muted",
                 )}
               >

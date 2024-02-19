@@ -13,7 +13,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PROJECT_NAME } from "@/constants/config";
 import { useCustomRouter } from "@/hooks/useCustomRouter";
-import { LogOutIcon, SettingsIcon, UserIcon } from "lucide-react";
+import {
+  LayoutDashboardIcon,
+  LogOutIcon,
+  SettingsIcon,
+  UserIcon,
+} from "lucide-react";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
@@ -55,6 +60,10 @@ export function Header({ session }: HeaderProps): JSX.Element {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
+                <DropdownMenuItem onClick={() => router.push("/dashboard")}>
+                  <LayoutDashboardIcon className="mr-2 h-4 w-4" />
+                  <span>Voltar para Dashboard</span>
+                </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => router.push("/settings/account")}
                 >

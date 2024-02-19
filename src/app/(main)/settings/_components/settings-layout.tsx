@@ -8,7 +8,7 @@ export function SettingsLayout({
   ...rest
 }: SettingsLayoutProps): JSX.Element {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <SettingsHeader {...rest} />
       {children}
     </div>
