@@ -12,7 +12,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PROJECT_NAME } from "@/constants/config";
-import { ICON_SIZE } from "@/constants/globals";
 import { useCustomRouter } from "@/hooks/useCustomRouter";
 import { SidebarItemsType } from "@/types/sidebar-items-type";
 import { LogOutIcon, UserIcon } from "lucide-react";
@@ -74,7 +73,7 @@ export function Header({ session, items }: HeaderProps): JSX.Element {
 
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => signOut()} className="space-x-2">
-                <LogOutIcon className={ICON_SIZE} />
+                <LogOutIcon className="size-4" />
                 <span>Log out</span>
               </DropdownMenuItem>
             </DropdownMenuContent>

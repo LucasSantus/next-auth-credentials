@@ -28,7 +28,10 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={cn("min-h-screen", inter.className)}
+        className={cn(
+          "min-h-screen scroll-smooth antialiased",
+          inter.className,
+        )}
       >
         <Providers>
           <NoScript />

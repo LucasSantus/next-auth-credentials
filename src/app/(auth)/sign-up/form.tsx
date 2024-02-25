@@ -18,7 +18,6 @@ interface SearchFormProps {}
 
 import { authSignUpServer } from "@/actions/auth/sign-up";
 import { InputPassword } from "@/components/input-password";
-import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import { SignUpFormData, signUpFormSchema } from "@/validation/auth/sign-up";
 import { SaveIcon } from "lucide-react";
@@ -115,7 +114,7 @@ export function SignUpForm({}: SearchFormProps) {
             type="submit"
             aria-label="Submit for create new user"
             isLoading={isSubmitting}
-            icon={<SaveIcon className={ICON_SIZE} />}
+            icon={<SaveIcon className="size-4" />}
           >
             Salvar
           </Button>

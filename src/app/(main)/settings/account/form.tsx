@@ -15,7 +15,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import {
   ProfileFormData,
@@ -126,7 +125,7 @@ export function ProfileForm({ id }: ProfileFormProps) {
             type="submit"
             aria-label="Submit for update user data"
             isLoading={isSubmitting}
-            icon={<SaveIcon className={ICON_SIZE} />}
+            icon={<SaveIcon className="size-4" />}
           >
             Salvar
           </Button>

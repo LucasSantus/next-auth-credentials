@@ -30,25 +30,6 @@ module.exports = {
     },
     extend: {
       colors: {
-        custom: {
-          purple: {
-            300: "#A881E6",
-            500: "#7450AC",
-            700: "#523480",
-          },
-          gray: {
-            200: "#FBF9FE",
-            400: "#AFABB6",
-            600: "#252529",
-            700: "#17171A",
-            800: "#111112",
-            900: "#0C0C0D",
-          },
-          green: {
-            300: "#4E995E",
-            500: "#2F723D",
-          },
-        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
