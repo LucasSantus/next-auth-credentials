@@ -11,7 +11,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 
 import {
@@ -79,7 +78,7 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
             type="submit"
             aria-label="forget password of user"
             isLoading={isSubmitting}
-            icon={<SendHorizontalIcon className={ICON_SIZE} />}
+            icon={<SendHorizontalIcon className="size-4" />}
           >
             Recuperar
           </Button>

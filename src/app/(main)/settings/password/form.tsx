@@ -14,7 +14,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import {
   ChangePasswordFormData,
@@ -114,7 +113,7 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
           type="submit"
           aria-label="Submit for update user data"
           isLoading={isSubmitting}
-          icon={<SaveIcon className={ICON_SIZE} />}
+          icon={<SaveIcon className="size-4" />}
         >
           Salvar
         </Button>

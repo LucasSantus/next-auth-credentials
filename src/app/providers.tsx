@@ -12,7 +12,6 @@ export function Providers({ children }: PropsWithChildren) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  //
   const [queryClient] = useState(() => {
     return new QueryClient({
       defaultOptions: {
@@ -21,7 +20,6 @@ export function Providers({ children }: PropsWithChildren) {
     });
   });
 
-  //
   useEffect(() => {
     nProgress.done();
   }, [pathname, searchParams]);

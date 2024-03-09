@@ -11,7 +11,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import {
   ResetPasswordFormData,
@@ -98,7 +97,7 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
             type="submit"
             aria-label="reset password of user"
             isLoading={isSubmitting}
-            icon={<MailIcon className={ICON_SIZE} />}
+            icon={<MailIcon className="size-4" />}
           >
             Recuperar
           </Button>

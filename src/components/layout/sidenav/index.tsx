@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
@@ -91,47 +92,55 @@ export default function SideNav() {
     <aside
       className={cn(
         "sticky top-0 hidden h-screen w-full border-r transition-all delay-300 duration-300 ease-out md:block",
-        mobileWidth || isCollapsed ? "min-w-64 max-w-64" : "min-w-20 max-w-20",
+        mobileWidth || isCollapsed
+          ? "min-w-64 max-w-64"
+          : "min-w-24 max-w-[100px]",
       )}
     >
       <TooltipProvider>
-        <nav className="grid space-y-2 p-3">
-          {menuOptions.map(({ title, items }, index) => (
-            <Fragment key={index}>
-              <div className="space-y-3 overflow-hidden">
-                {title && (
-                  <span className="truncate text-xs font-medium text-muted-foreground">
-                    {title}
-                  </span>
-                )}
+        <ScrollArea className="h-full p-1">
+          <nav className="grid space-y-2 p-3">
+            {menuOptions.map(({ title, items }, index) => (
+              <Fragment key={index}>
+                <div className="space-y-3 overflow-hidden">
+                  {title && (
+                    <span className="w-full truncate text-xs font-medium text-muted-foreground">
+                      {title}
+                    </span>
+                  )}
 
-                <div className="grid items-center space-y-2">
-                  {items.map(({ icon, path, text }, indexItem) => (
-                    <SidenavItem
-                      icon={icon}
-                      isCollapsed={isCollapsed}
-                      path={path}
-                      text={text}
-                      key={path + indexItem}
-                    />
-                  ))}
+                  <div className="grid items-center space-y-2">
+                    {items.map(({ icon, path, text }, indexItem) => (
+                      <SidenavItem
+                        icon={icon}
+                        isCollapsed={isCollapsed}
+                        path={path}
+                        text={text}
+                        key={path + indexItem}
+                      />
+                    ))}
+                  </div>
+                  {index !== menuOptions.length - 1 && <Separator />}
                 </div>
-                {index !== menuOptions.length - 1 && <Separator />}
-              </div>
-            </Fragment>
-          ))}
+              </Fragment>
+            ))}
 
-          {!mobileWidth && (
-            <Button onClick={toggleSidebar} variant="secondary" className="p-2">
-              <ChevronRightIcon
-                className={cn(
-                  "h-5 w-5 transition-all delay-500 duration-500 ease-out",
-                  isCollapsed && "rotate-180",
-                )}
-              />
-            </Button>
-          )}
-        </nav>
+            {!mobileWidth && (
+              <Button
+                onClick={toggleSidebar}
+                variant="secondary"
+                className="border p-2"
+              >
+                <ChevronRightIcon
+                  className={cn(
+                    "h-5 w-5 transition-all delay-500 duration-500 ease-out",
+                    isCollapsed && "rotate-180",
+                  )}
+                />
+              </Button>
+            )}
+          </nav>
+        </ScrollArea>
       </TooltipProvider>
     </aside>
   );

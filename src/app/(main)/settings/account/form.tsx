@@ -15,13 +15,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ICON_SIZE } from "@/constants/globals";
 import { useHelperSubmit } from "@/hooks/useHelperSubmit";
 import {
   ProfileFormData,
   profileFormSchema,
 } from "@/validation/settings/profile";
-import { User } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import { MailIcon, SaveIcon, User2Icon } from "lucide-react";
 import { useSession } from "next-auth/react";
@@ -40,17 +38,14 @@ export function ProfileForm({ id }: ProfileFormProps) {
 
   const { update } = useSession();
 
-  const { data: profile, isLoading } = useQuery({
+  const {
+    data: profile,
+    isLoading,
+    error,
+    isError,
+  } = useQuery({
     queryKey: ["user-profile", id],
-    queryFn: async () => {
-      try {
-        return await getUserByIdServer(id);
-      } catch (error) {
-        if (error instanceof Error) toast.error(error.message);
-
-        return {} as User;
-      }
-    },
+    queryFn: async () => await getUserByIdServer(id),
   });
 
   const form = useForm<ProfileFormData>({
@@ -76,6 +71,10 @@ export function ProfileForm({ id }: ProfileFormProps) {
       },
       showMessageYouAreRedirected: false,
     });
+  }
+
+  if (isError) {
+    if (error instanceof Error) toast.error(error.message);
   }
 
   return (
@@ -126,12 +125,12 @@ export function ProfileForm({ id }: ProfileFormProps) {
             type="submit"
             aria-label="Submit for update user data"
             isLoading={isSubmitting}
-            icon={<SaveIcon className={ICON_SIZE} />}
+            icon={<SaveIcon className="size-4" />}
           >
             Salvar
           </Button>
 
-          <DeleteAccount id={id} />
+          <DeleteAccount userId={id} />
         </div>
       </form>
     </Form>
