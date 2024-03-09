@@ -27,8 +27,8 @@ export function SidenavItem({
   const pathName = usePathname();
 
   const classNames = cn(
-    "inline-flex items-center whitespace-nowrap select-none text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground hover:bg-foreground/30 h-10 rounded-md dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white gap-3 items-center px-3 text-foreground",
-    pathName.startsWith(path) ? "bg-foreground/20" : "bg-transparent",
+    "inline-flex items-center whitespace-nowrap border select-none text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 text-primary-foreground hover:opacity-60 h-10 rounded-md gap-3 items-center px-5 text-foreground",
+    pathName.startsWith(path) ? "bg-muted-foreground/30 shadow-md" : "bg-muted",
   );
 
   if (isCollapsed)
@@ -47,6 +47,7 @@ export function SidenavItem({
           <motion.span
             initial={{ opacity: 1 }}
             animate={{ opacity: 0, display: "none" }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}
           >
             {text}
