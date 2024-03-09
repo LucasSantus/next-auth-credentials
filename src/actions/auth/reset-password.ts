@@ -1,9 +1,6 @@
 "use server";
 
-import {
-  EMAIL_DONT_REGISTERED_ON_SYSTEM,
-  ERROR_VALUES_VALIDATION,
-} from "@/constants/form";
+import { messages } from "@/constants/globals";
 import { prismaClient } from "@/lib/prisma";
 import { ResetPasswordFormData } from "@/validation/auth/reset-password";
 import * as bcrypt from "bcrypt";
@@ -12,7 +9,8 @@ export async function authResetPasswordServer({
   email,
   password,
 }: ResetPasswordFormData) {
-  if (!email || !password) throw new Error(ERROR_VALUES_VALIDATION);
+  if (!email || !password)
+    throw new Error(messages.globals.ERROR_VALUES_VALIDATION);
 
   const user = await prismaClient.user.findUnique({
     where: {
@@ -20,7 +18,7 @@ export async function authResetPasswordServer({
     },
   });
 
-  if (!user) throw new Error(EMAIL_DONT_REGISTERED_ON_SYSTEM);
+  if (!user) throw new Error(messages.account.EMAIL_DONT_REGISTERED_ON_SYSTEM);
 
   const hashedPassword = await bcrypt.hash(password, 10);
 

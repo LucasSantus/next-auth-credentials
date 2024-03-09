@@ -1,13 +1,13 @@
 "use server";
 
-import { ACCOUNT_NOT_FOUND, ERROR_VALUES_VALIDATION } from "@/constants/form";
+import { messages } from "@/constants/globals";
 import { prismaClient } from "@/lib/prisma";
 import { Account } from "@prisma/client";
 
 export async function getAccountByUserIdServer(
   userId: string,
 ): Promise<Account> {
-  if (!userId) throw new Error(ERROR_VALUES_VALIDATION);
+  if (!userId) throw new Error(messages.globals.ERROR_VALUES_VALIDATION);
 
   const account = await prismaClient.account.findFirst({
     where: {
@@ -15,7 +15,7 @@ export async function getAccountByUserIdServer(
     },
   });
 
-  if (!account) throw new Error(ACCOUNT_NOT_FOUND);
+  if (!account) throw new Error(messages.account.ACCOUNT_NOT_FOUND);
 
   return account;
 }

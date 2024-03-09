@@ -1,5 +1,6 @@
 import { RenderOnClient } from "@/components/render-on-client";
-import { USER_NOT_FOUND } from "@/constants/form";
+
+import { messages } from "@/constants/globals";
 import { authOptions } from "@/lib/auth";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -22,7 +23,7 @@ export default async function SettingsAccountPage() {
         description="Atualize as configurações da sua conta."
       >
         <span className="flex items-center justify-center text-foreground">
-          {USER_NOT_FOUND}
+          {messages.account.USER_NOT_FOUND}
         </span>
       </SettingsLayout>
     );

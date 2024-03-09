@@ -1,13 +1,13 @@
-import { FORM_REQUIRED_FIELD } from "@/constants/form";
+import { messages } from "@/constants/globals";
 import { z } from "zod";
 
 export const profileFormSchema = z.object({
   name: z.string({
-    required_error: FORM_REQUIRED_FIELD,
+    required_error: messages.form.REQUIRED_FIELD,
   }),
   email: z
     .string({
-      required_error: FORM_REQUIRED_FIELD,
+      required_error: messages.form.REQUIRED_FIELD,
     })
     .optional(),
 });

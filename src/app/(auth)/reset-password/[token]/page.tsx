@@ -2,7 +2,7 @@ import {
   VerifyTokenResponse,
   getVerifyTokenServer,
 } from "@/actions/get/get-verify-token";
-import { USER_NOT_FOUND } from "@/constants/form";
+import { messages } from "@/constants/globals";
 import { KeyRoundIcon } from "lucide-react";
 import { Metadata } from "next";
 import { Fragment } from "react";
@@ -64,7 +64,7 @@ export default async function ResetPassword({
           icon={KeyRoundIcon}
         />
 
-        <span className="text-center">{USER_NOT_FOUND}</span>
+        <span className="text-center">{messages.account.USER_NOT_FOUND}</span>
       </Fragment>
     );
   }

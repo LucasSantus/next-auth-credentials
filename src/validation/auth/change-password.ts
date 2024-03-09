@@ -1,8 +1,5 @@
-import {
-  FORM_MAX_CHAR_LENGTH,
-  FORM_MIN_CHAR_LENGTH,
-  FORM_REQUIRED_FIELD,
-} from "@/constants/form";
+import { FORM_MAX_CHAR_LENGTH, FORM_MIN_CHAR_LENGTH } from "@/constants/form";
+import { messages } from "@/constants/globals";
 import { z } from "zod";
 
 export const changePasswordFormSchema = z
@@ -10,19 +7,19 @@ export const changePasswordFormSchema = z
     email: z.string(),
     oldPassword: z
       .string({
-        required_error: FORM_REQUIRED_FIELD,
+        required_error: messages.form.REQUIRED_FIELD,
       })
       .min(8, FORM_MIN_CHAR_LENGTH(8))
       .max(50, FORM_MAX_CHAR_LENGTH(50)),
     password: z
       .string({
-        required_error: FORM_REQUIRED_FIELD,
+        required_error: messages.form.REQUIRED_FIELD,
       })
       .min(8, FORM_MIN_CHAR_LENGTH(8))
       .max(50, FORM_MAX_CHAR_LENGTH(50)),
     confirmPassword: z
       .string({
-        required_error: FORM_REQUIRED_FIELD,
+        required_error: messages.form.REQUIRED_FIELD,
       })
       .min(8, FORM_MIN_CHAR_LENGTH(8))
       .max(50, FORM_MAX_CHAR_LENGTH(50)),

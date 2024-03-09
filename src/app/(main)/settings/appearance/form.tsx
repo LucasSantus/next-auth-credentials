@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { FORM_DATA_HAS_BEEN_UPDATED } from "@/constants/form";
+import { messages } from "@/constants/globals";
 import {
   AppearanceFormData,
   appearanceFormSchema,
@@ -43,7 +43,7 @@ export function AppearanceForm() {
   function onSubmit(data: AppearanceFormData) {
     setTheme(data.theme);
 
-    toast.success(FORM_DATA_HAS_BEEN_UPDATED);
+    toast.success(messages.form.DATA_HAS_BEEN_UPDATED);
   }
 
   useEffect(() => {
