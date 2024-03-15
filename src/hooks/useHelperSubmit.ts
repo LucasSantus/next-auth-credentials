@@ -28,12 +28,6 @@ export function useHelperSubmit(): HelperSubmitResponse {
       message?.loading ?? messages.form.STORING_INFORMATION,
     );
 
-    await new Promise((resolve) =>
-      setTimeout(() => {
-        resolve(null);
-      }, 7000),
-    );
-
     try {
       await callback();
 
@@ -43,24 +37,24 @@ export function useHelperSubmit(): HelperSubmitResponse {
 
       if (showMessageYouAreRedirected)
         toast.info(messages.globals.YOU_ARE_BEING_REDIRECTED, {
-          duration: 2500,
+          duration: 1000,
         });
 
       await new Promise((resolve) =>
-        setTimeout(() => {
+        setTimeout(async () => {
           if (urlToRedirect) {
-            router.push(urlToRedirect);
+            await router.push(urlToRedirect);
           } else {
             router.refresh();
           }
 
           resolve(null);
-        }, 3000),
+        }, 1500),
       );
     } catch (error) {
       const toastOptions = {
         id: toastId,
-        duration: 4000,
+        duration: 5000,
       };
 
       if (error instanceof Error) {

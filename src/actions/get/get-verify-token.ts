@@ -3,12 +3,10 @@
 import { messages } from "@/constants/globals";
 import { prismaClient } from "@/lib/prisma";
 import generateHash from "@/utils/hash";
-import { User, VerificationToken } from "@prisma/client";
+import { User } from "@prisma/client";
 
 export interface VerifyTokenResponse {
-  ok: boolean;
   user: User;
-  verificationToken: VerificationToken;
 }
 
 export async function getVerifyTokenServer(
@@ -36,8 +34,6 @@ export async function getVerifyTokenServer(
   if (!user) throw new Error(messages.account.USER_NOT_FOUND);
 
   return {
-    ok: true,
     user,
-    verificationToken,
   };
 }

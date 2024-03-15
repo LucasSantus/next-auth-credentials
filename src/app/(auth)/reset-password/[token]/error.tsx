@@ -18,7 +18,7 @@ export default function ResetPasswordErrorHandling({
     <Fragment>
       <AuthenticationDescription
         title="Resetar Senha"
-        description="Ops, houve um problema ao tentar acessar as informações!"
+        description="Ops, houve um problema ao tentar recuperar as informações!"
         icon={KeyRoundIcon}
       />
       <span className="text-destructive">{error.message}</span>
