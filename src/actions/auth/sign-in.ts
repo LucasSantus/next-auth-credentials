@@ -15,14 +15,27 @@ export async function authSignInServer({ email, password }: SignInFormData) {
     },
   });
 
-  if (!user || !user?.hashedPassword)
-    throw new Error(messages.account.USER_NOT_FOUND);
+  if (!user) throw new Error(messages.account.USER_NOT_FOUND);
 
   if (user.deletedAt) throw new Error("Este usuário foi deletado!");
 
+  const account = await prismaClient.account.findFirst({
+    where: {
+      userId: user.id,
+    },
+  });
+
+  if (!account || !account.id)
+    throw new Error(messages.account.ACCOUNT_NOT_FOUND);
+
+  if (account.provider !== "credentials" || !user.hashedPassword)
+    throw new Error(
+      "Sua conta está vinculada a um método de autenticação diferente!",
+    );
+
   const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
 
-  if (!passwordMatch) throw new Error("Senha incorreta!");
+  if (!passwordMatch) throw new Error("A Senha informada está incorreta!");
 
   return user;
 }
