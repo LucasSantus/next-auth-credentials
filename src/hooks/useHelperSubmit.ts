@@ -1,11 +1,6 @@
-import {
-  FORM_DATA_HAS_BEEN_UPDATED,
-  FORM_STORING_INFORMATION,
-  YOU_ARE_BEING_REDIRECTED,
-} from "@/constants/form";
+import { messages } from "@/constants/globals";
 import { toast } from "sonner";
 import { useCustomRouter } from "./useCustomRouter";
-
 interface ToastBeforeSubmitProps {
   message?: {
     loading?: string;
@@ -29,43 +24,58 @@ export function useHelperSubmit(): HelperSubmitResponse {
     urlToRedirect,
     showMessageYouAreRedirected = true,
   }: ToastBeforeSubmitProps) {
-    const toastId = toast.loading(message?.loading ?? FORM_STORING_INFORMATION);
-
-    await new Promise((resolve) =>
-      setTimeout(() => {
-        resolve(null);
-      }, 7000),
+    const toastId = toast.loading(
+      message?.loading ?? messages.form.STORING_INFORMATION,
     );
 
     try {
       await callback();
 
-      toast.success(message?.success ?? FORM_DATA_HAS_BEEN_UPDATED, {
+      toast.success(message?.success ?? messages.form.DATA_HAS_BEEN_UPDATED, {
         id: toastId,
       });
 
       if (showMessageYouAreRedirected)
-        toast.info(YOU_ARE_BEING_REDIRECTED, {
-          duration: 2500,
+        toast.info(messages.globals.YOU_ARE_BEING_REDIRECTED, {
+          duration: 1000,
         });
 
       await new Promise((resolve) =>
-        setTimeout(() => {
+        setTimeout(async () => {
           if (urlToRedirect) {
-            router.push(urlToRedirect);
+            await router.push(urlToRedirect);
           } else {
             router.refresh();
           }
 
           resolve(null);
-        }, 3000),
+        }, 1500),
       );
     } catch (error) {
+      const toastOptions = {
+        id: toastId,
+        duration: 5000,
+      };
+
       if (error instanceof Error) {
-        toast.error(error.message, {
-          id: toastId,
-          duration: 4000,
-        });
+        if (error.message.includes("connect with the database")) {
+          toast.error(
+            "Ocorreu um problema ao tentar conectar ao banco de dados. Por favor, tente novamente mais tarde.",
+            toastOptions,
+          );
+        } else if (error.message.includes("timeout")) {
+          toast.error(
+            "Ocorreu um problema ao tentar conectar ao banco de dados. O Tempo limite de conexão expirou.",
+            toastOptions,
+          );
+        } else if (error.message.includes("password authentication failed")) {
+          toast.error(
+            "Não foi possível se conectar ao banco dados, revalide os dados da conexão.",
+            toastOptions,
+          );
+        } else {
+          toast.error(error.message, toastOptions);
+        }
       }
     }
   }

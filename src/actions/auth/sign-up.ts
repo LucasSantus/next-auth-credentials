@@ -1,9 +1,6 @@
 "use server";
 
-import {
-  EMAIL_REGISTERED_ON_SYSTEM,
-  ERROR_VALUES_VALIDATION,
-} from "@/constants/form";
+import { messages } from "@/constants/globals";
 import { prismaClient } from "@/lib/prisma";
 import { SignUpFormData } from "@/validation/auth/sign-up";
 import * as bcrypt from "bcrypt";
@@ -13,7 +10,8 @@ export async function authSignUpServer({
   email,
   password,
 }: SignUpFormData) {
-  if (!name || !email || !password) throw new Error(ERROR_VALUES_VALIDATION);
+  if (!name || !email || !password)
+    throw new Error(messages.globals.ERROR_VALUES_VALIDATION);
 
   const emailExists = await prismaClient.user.findUnique({
     where: {
@@ -21,7 +19,7 @@ export async function authSignUpServer({
     },
   });
 
-  if (emailExists) throw new Error(EMAIL_REGISTERED_ON_SYSTEM);
+  if (emailExists) throw new Error(messages.account.EMAIL_REGISTERED_ON_SYSTEM);
 
   const hashedPassword = await bcrypt.hash(password, 10);
 

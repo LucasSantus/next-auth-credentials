@@ -1,10 +1,10 @@
 "use server";
 
-import { ERROR_VALUES_VALIDATION, USER_NOT_FOUND } from "@/constants/form";
+import { messages } from "@/constants/globals";
 import { prismaClient } from "@/lib/prisma";
 
 export async function deleteUserByIdServer(id: string) {
-  if (!id) throw new Error(ERROR_VALUES_VALIDATION);
+  if (!id) throw new Error(messages.globals.ERROR_VALUES_VALIDATION);
 
   const emailExists = await prismaClient.user.findUnique({
     where: {
@@ -12,7 +12,7 @@ export async function deleteUserByIdServer(id: string) {
     },
   });
 
-  if (!emailExists) throw new Error(USER_NOT_FOUND);
+  if (!emailExists) throw new Error(messages.account.USER_NOT_FOUND);
 
   await prismaClient.user.delete({
     where: {

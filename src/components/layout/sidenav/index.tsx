@@ -91,7 +91,7 @@ export default function SideNav() {
   return (
     <aside
       className={cn(
-        "sticky top-0 hidden h-screen w-full border-r transition-all delay-300 duration-300 ease-out md:block",
+        "sticky top-0 hidden min-h-screen w-full border-r transition-all delay-300 duration-300 ease-out md:block",
         mobileWidth || isCollapsed
           ? "min-w-64 max-w-64"
           : "min-w-24 max-w-[100px]",
@@ -102,11 +102,11 @@ export default function SideNav() {
           <nav className="grid space-y-2 p-3">
             {menuOptions.map(({ title, items }, index) => (
               <Fragment key={index}>
-                <div className="space-y-3 overflow-hidden">
+                <div className="space-y-2 overflow-hidden">
                   {title && (
-                    <span className="w-full truncate text-xs font-medium text-muted-foreground">
+                    <p className="overflow-hidden truncate text-ellipsis text-xs font-medium text-muted-foreground">
                       {title}
-                    </span>
+                    </p>
                   )}
 
                   <div className="grid items-center space-y-2">
@@ -120,6 +120,7 @@ export default function SideNav() {
                       />
                     ))}
                   </div>
+
                   {index !== menuOptions.length - 1 && <Separator />}
                 </div>
               </Fragment>
@@ -134,7 +135,7 @@ export default function SideNav() {
                 <ChevronRightIcon
                   className={cn(
                     "h-5 w-5 transition-all delay-500 duration-500 ease-out",
-                    isCollapsed && "rotate-180",
+                    { "rotate-180": isCollapsed },
                   )}
                 />
               </Button>

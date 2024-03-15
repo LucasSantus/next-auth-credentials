@@ -1,10 +1,8 @@
 "use server";
 
 import { PROJECT_NAME } from "@/constants/config";
-import {
-  EMAIL_DONT_REGISTERED_ON_SYSTEM,
-  ERROR_VALUES_VALIDATION,
-} from "@/constants/form";
+import { messages } from "@/constants/globals";
+
 import EmailResetPassword from "@/emails/reset-password";
 import { env } from "@/env";
 import { prismaClient } from "@/lib/prisma";
@@ -15,7 +13,7 @@ import { ForgetPasswordFormData } from "@/validation/auth/forget-password";
 export async function authForgetPasswordServer({
   email,
 }: ForgetPasswordFormData) {
-  if (!email) throw new Error(ERROR_VALUES_VALIDATION);
+  if (!email) throw new Error(messages.globals.ERROR_VALUES_VALIDATION);
 
   const user = await prismaClient.user.findUnique({
     where: {
@@ -23,7 +21,8 @@ export async function authForgetPasswordServer({
     },
   });
 
-  if (!user || !user.name) throw new Error(EMAIL_DONT_REGISTERED_ON_SYSTEM);
+  if (!user || !user.name)
+    throw new Error(messages.account.EMAIL_DONT_REGISTERED_ON_SYSTEM);
 
   await prismaClient.verificationToken.deleteMany({
     where: {

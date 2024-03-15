@@ -63,7 +63,7 @@ export function SignInForm({}: SignInFormProps) {
           setTimeout(() => {
             router.push("/");
             resolve(null);
-          }, 3000),
+          }, 1000),
         );
       }
     } catch (error) {

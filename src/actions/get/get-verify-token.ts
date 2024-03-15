@@ -1,20 +1,18 @@
 "use server";
 
-import { ERROR_VALUES_VALIDATION, USER_NOT_FOUND } from "@/constants/form";
+import { messages } from "@/constants/globals";
 import { prismaClient } from "@/lib/prisma";
 import generateHash from "@/utils/hash";
-import { User, VerificationToken } from "@prisma/client";
+import { User } from "@prisma/client";
 
 export interface VerifyTokenResponse {
-  ok: boolean;
   user: User;
-  verificationToken: VerificationToken;
 }
 
 export async function getVerifyTokenServer(
   token: string,
 ): Promise<VerifyTokenResponse> {
-  if (!token) throw new Error(ERROR_VALUES_VALIDATION);
+  if (!token) throw new Error(messages.globals.ERROR_VALUES_VALIDATION);
 
   const hashedToken = await generateHash.createHash(token);
 
@@ -33,11 +31,9 @@ export async function getVerifyTokenServer(
     },
   });
 
-  if (!user) throw new Error(USER_NOT_FOUND);
+  if (!user) throw new Error(messages.account.USER_NOT_FOUND);
 
   return {
-    ok: true,
     user,
-    verificationToken,
   };
 }

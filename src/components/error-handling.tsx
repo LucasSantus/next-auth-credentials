@@ -10,10 +10,12 @@ export default function ErrorHandling({ error, reset }: ErrorHandlingType) {
     console.error(error);
   }, [error]);
 
+  const errorMessage = error?.message ?? "Ocorreu um erro inesperado!";
+
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-5">
       <h2 className="text-center text-sm font-medium text-red-600">
-        Ocorreu um erro inesperado!
+        {errorMessage}
       </h2>
       <Button
         onClick={() => reset()}

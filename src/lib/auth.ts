@@ -1,5 +1,5 @@
 import { authSignInServer } from "@/actions/auth/sign-in";
-import { ERROR_VALUES_VALIDATION } from "@/constants/form";
+import { messages } from "@/constants/globals";
 import { env } from "@/env";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { AuthOptions } from "next-auth";
@@ -26,10 +26,11 @@ export const authOptions: AuthOptions = {
       credentials: {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
+        provider: { label: "Provider", type: "text" },
       },
       async authorize(credentials) {
         if (!credentials || !credentials.email || !credentials.password) {
-          throw new Error(ERROR_VALUES_VALIDATION);
+          throw new Error(messages.globals.ERROR_VALUES_VALIDATION);
         }
 
         const userLogged = await authSignInServer({

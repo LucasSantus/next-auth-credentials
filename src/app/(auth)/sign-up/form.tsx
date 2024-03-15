@@ -46,8 +46,8 @@ export function SignUpForm({}: SearchFormProps) {
       callback: async () => await authSignUpServer(values),
       urlToRedirect: "/sign-in",
       message: {
-        loading: "Usuário está sendo criado!",
-        success: "Usuário criado com sucesso!",
+        loading: "Registrando novo usuário...",
+        success: "Usuário registrado com sucesso!",
       },
     });
   }

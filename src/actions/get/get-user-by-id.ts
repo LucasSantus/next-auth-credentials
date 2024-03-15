@@ -1,11 +1,11 @@
 "use server";
 
-import { ERROR_VALUES_VALIDATION, USER_NOT_FOUND } from "@/constants/form";
+import { messages } from "@/constants/globals";
 import { prismaClient } from "@/lib/prisma";
 import { User } from "@prisma/client";
 
 export async function getUserByIdServer(id: string): Promise<User> {
-  if (!id) throw new Error(ERROR_VALUES_VALIDATION);
+  if (!id) throw new Error(messages.globals.ERROR_VALUES_VALIDATION);
 
   const user = await prismaClient.user.findFirst({
     where: {
@@ -13,7 +13,7 @@ export async function getUserByIdServer(id: string): Promise<User> {
     },
   });
 
-  if (!user) throw new Error(USER_NOT_FOUND);
+  if (!user) throw new Error(messages.account.USER_NOT_FOUND);
 
   return user;
 }

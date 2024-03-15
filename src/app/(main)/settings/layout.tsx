@@ -1,13 +1,12 @@
 import { getAccountByUserIdServer } from "@/actions/get/get-account-by-user-id";
 import { Framing } from "@/components/framer-motion/framing";
-import { TRANSITION_DURATION } from "@/constants/globals";
+import { TRANSITION_DURATION, messages } from "@/constants/globals";
 import { bounceHorizontalAnimation } from "@/utils/framer-motion/animations/bounce-horizontal";
 import { SettingsSidebar } from "./_components/settings-sidebar";
 import { sidebarItems } from "./_constants/sidebar-items";
 
 import { Header } from "@/components/layout/header";
 import { PageDescription } from "@/components/page-description";
-import { ACCOUNT_NOT_FOUND, USER_NOT_FOUND } from "@/constants/form";
 import { authOptions } from "@/lib/auth";
 import { Account } from "@prisma/client";
 import { getServerSession } from "next-auth";
@@ -35,7 +34,9 @@ export default async function GlobalSettingsLayout({
   if (!isAuthenticated || !session.user.email)
     return (
       <div className="flex h-full w-full items-center justify-center">
-        <span className="text-destructive">{USER_NOT_FOUND}</span>
+        <span className="text-destructive">
+          {messages.account.USER_NOT_FOUND}
+        </span>
       </div>
     );
 
@@ -44,7 +45,9 @@ export default async function GlobalSettingsLayout({
   if (!account)
     return (
       <div className="flex h-full w-full items-center justify-center">
-        <span className="text-destructive">{ACCOUNT_NOT_FOUND}</span>
+        <span className="text-destructive">
+          {messages.account.ACCOUNT_NOT_FOUND}
+        </span>
       </div>
     );
 
