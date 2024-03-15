@@ -28,7 +28,7 @@ export function SidenavItem({
 
   const classNames = cn(
     "inline-flex items-center whitespace-nowrap border select-none text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 text-primary-foreground hover:opacity-60 h-10 rounded-md gap-3 items-center px-5 text-foreground",
-    pathName.startsWith(path) ? "bg-muted-foreground/30 shadow-md" : "bg-muted",
+    { "bg-muted shadow-sm": pathName.startsWith(path) },
   );
 
   if (isCollapsed)

@@ -75,7 +75,7 @@ export function AppearanceForm() {
                     <FormControl>
                       <RadioGroupItem value="light" className="sr-only" />
                     </FormControl>
-                    <div className="duration-1delay-150 cursor-pointer items-center rounded-md border-2 border-muted p-1 transition-colors delay-150 ease-in hover:border-accent hover:opacity-90">
+                    <div className="duration-1 cursor-pointer items-center rounded-md border-2 border-muted p-1 transition-colors delay-150 ease-in hover:border-accent hover:opacity-90">
                       <div className="space-y-2 rounded-sm bg-[#ecedef] p-2">
                         <div className="space-y-2 rounded-md bg-white p-2 shadow-sm">
                           <div className="h-2 w-[80px] rounded-lg bg-[#ecedef]" />
@@ -101,7 +101,7 @@ export function AppearanceForm() {
                     <FormControl>
                       <RadioGroupItem value="dark" className="sr-only" />
                     </FormControl>
-                    <div className="duration-1delay-150 cursor-pointer items-center rounded-md border-2 border-muted bg-popover p-1 transition-colors delay-150 ease-in hover:bg-accent hover:text-accent-foreground hover:opacity-90">
+                    <div className="cursor-pointer items-center rounded-md border-2 border-muted bg-popover p-1 transition-colors delay-150 duration-100 ease-in hover:bg-accent hover:text-accent-foreground hover:opacity-90">
                       <div className="space-y-2 rounded-sm bg-slate-950 p-2">
                         <div className="space-y-2 rounded-md bg-slate-800 p-2 shadow-sm">
                           <div className="h-2 w-[80px] rounded-lg bg-slate-400" />
