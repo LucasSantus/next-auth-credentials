@@ -1,18 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
-import { isBrowser } from "@/utils/is-browser";
-import {
-  ChevronRightIcon,
-  InboxIcon,
-  LucideIcon,
-  SettingsIcon,
-} from "lucide-react";
-import { Fragment, useState } from "react";
+import { InboxIcon, LucideIcon, SettingsIcon } from "lucide-react";
+import { Fragment } from "react";
 import { SidenavItem } from "./sidenav-item";
 
 interface MenuItems {
@@ -80,69 +71,36 @@ const menuOptions: MenuOptions[] = [
 ];
 
 export default function SideNav() {
-  const [isCollapsed, setIsCollapsed] = useState(true);
-
-  function toggleSidebar() {
-    setIsCollapsed(!isCollapsed);
-  }
-
-  const mobileWidth = isBrowser() ? window.innerWidth < 768 : false;
-
   return (
-    <aside
-      className={cn(
-        "sticky top-0 hidden min-h-screen w-full border-r transition-all delay-300 duration-300 ease-out md:block",
-        mobileWidth || isCollapsed
-          ? "min-w-64 max-w-64"
-          : "min-w-24 max-w-[100px]",
-      )}
-    >
-      <TooltipProvider>
-        <ScrollArea className="h-full p-1">
-          <nav className="grid space-y-2 p-3">
-            {menuOptions.map(({ title, items }, index) => (
-              <Fragment key={index}>
-                <div className="space-y-2 overflow-hidden">
-                  {title && (
-                    <p className="overflow-hidden truncate text-ellipsis text-xs font-medium text-muted-foreground">
-                      {title}
-                    </p>
-                  )}
+    <aside className="sticky top-0 hidden min-h-screen w-full min-w-64 max-w-64 border-r bg-muted/40 transition-all delay-300 duration-300 ease-out md:block">
+      <ScrollArea className="h-full p-1">
+        <nav className="grid space-y-2 p-3">
+          {menuOptions.map(({ title, items }, index) => (
+            <Fragment key={index}>
+              <div className="space-y-2 overflow-hidden">
+                {title && (
+                  <p className="overflow-hidden truncate text-ellipsis text-xs font-medium text-muted-foreground">
+                    {title}
+                  </p>
+                )}
 
-                  <div className="grid items-center space-y-2">
-                    {items.map(({ icon, path, text }, indexItem) => (
-                      <SidenavItem
-                        icon={icon}
-                        isCollapsed={isCollapsed}
-                        path={path}
-                        text={text}
-                        key={path + indexItem}
-                      />
-                    ))}
-                  </div>
-
-                  {index !== menuOptions.length - 1 && <Separator />}
+                <div className="grid items-center space-y-2">
+                  {items.map(({ icon, path, text }, indexItem) => (
+                    <SidenavItem
+                      icon={icon}
+                      path={path}
+                      text={text}
+                      key={path + indexItem}
+                    />
+                  ))}
                 </div>
-              </Fragment>
-            ))}
 
-            {!mobileWidth && (
-              <Button
-                onClick={toggleSidebar}
-                variant="secondary"
-                className="border p-2"
-              >
-                <ChevronRightIcon
-                  className={cn(
-                    "h-5 w-5 transition-all delay-500 duration-500 ease-out",
-                    { "rotate-180": isCollapsed },
-                  )}
-                />
-              </Button>
-            )}
-          </nav>
-        </ScrollArea>
-      </TooltipProvider>
+                {index !== menuOptions.length - 1 && <Separator />}
+              </div>
+            </Fragment>
+          ))}
+        </nav>
+      </ScrollArea>
     </aside>
   );
 }

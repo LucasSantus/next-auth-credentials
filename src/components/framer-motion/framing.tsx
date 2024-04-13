@@ -2,30 +2,19 @@
 
 import { MotionProps, motion } from "framer-motion";
 
-type Element =
-  | "a"
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5"
-  | "h6"
-  | "span"
-  | "div"
-  | "footer"
-  | "main";
+type MotionElement = keyof typeof motion;
 
 type FramingProps = {
-  as?: Element;
+  as?: MotionElement;
   className?: string;
 };
 
 export function Framing({
-  as = "div",
+  as: element = "div",
   children,
   ...rest
 }: FramingProps & MotionProps) {
-  const Component = motion[as as Element] || motion.div;
+  const Component = motion[element as MotionElement] || motion.div;
 
   return <Component {...rest}>{children}</Component>;
 }

@@ -4,12 +4,14 @@ import "@/styles/reset.css";
 import { PROJECT_NAME } from "@/constants/config";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import { ReactNode } from "react";
-import { NoScript } from "./no-script";
 import { Providers } from "./providers";
 
-const inter = Inter({ subsets: ["latin"] });
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -28,15 +30,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={cn(
-          "min-h-screen scroll-smooth antialiased",
-          inter.className,
-        )}
+        className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
       >
-        <Providers>
-          <NoScript />
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

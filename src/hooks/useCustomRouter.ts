@@ -7,7 +7,7 @@ export function useCustomRouter(): ReturnType<typeof useNextRouter> {
   const router = useNextRouter();
   const pathname = usePathname();
 
-  const replace = useCallback(
+  const replace: typeof router.replace = useCallback(
     (href: string, options?: NavigateOptions) => {
       href !== pathname && NProgress.start();
       router.replace(href, options);
@@ -15,7 +15,7 @@ export function useCustomRouter(): ReturnType<typeof useNextRouter> {
     [router, pathname],
   );
 
-  const push = useCallback(
+  const push: typeof router.push = useCallback(
     (href: string, options?: NavigateOptions) => {
       href !== pathname && NProgress.start();
       router.push(href, options);
@@ -23,16 +23,8 @@ export function useCustomRouter(): ReturnType<typeof useNextRouter> {
     [router, pathname],
   );
 
-  const back = useCallback(
-    () => {
-      router.back();
-    },
-    [router, pathname],
-  );
-
   return {
     ...router,
-    back,
     replace,
     push,
   };
