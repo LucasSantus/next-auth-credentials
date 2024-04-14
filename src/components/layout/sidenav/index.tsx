@@ -2,14 +2,15 @@
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { InboxIcon, LucideIcon, SettingsIcon } from "lucide-react";
+import { InboxIcon, LucideIcon } from "lucide-react";
 import { Fragment } from "react";
 import { SidenavItem } from "./sidenav-item";
 
-interface MenuItems {
+export interface MenuItems {
   path: string;
   icon: LucideIcon;
   text: string;
+  joyrideTarget: string;
   subItems?: Array<MenuItems>;
 }
 
@@ -25,46 +26,36 @@ const menuOptions: MenuOptions[] = [
         path: "/dashboard",
         icon: InboxIcon,
         text: "Dashboard",
+        joyrideTarget: "first-step",
       },
     ],
   },
   {
-    title: "Management",
+    title: "Configurações",
     items: [
       {
-        path: "/inbox",
+        path: "/settings",
         icon: InboxIcon,
         text: "Inbox",
+        joyrideTarget: "second-step",
       },
       {
-        path: "/billing",
+        path: "/test",
         icon: InboxIcon,
-        text: "Billing",
+        text: "Teste",
+        joyrideTarget: "third-step",
       },
       {
-        path: "/notifications",
+        path: "/test-2",
         icon: InboxIcon,
-        text: "Notifications",
-      },
-    ],
-  },
-  {
-    title: "Settings",
-    items: [
-      {
-        path: "/settings/account",
-        icon: SettingsIcon,
-        text: "General Settings",
+        text: "Teste 2",
+        joyrideTarget: "four-step",
       },
       {
-        path: "/privacy",
+        path: "/test-3",
         icon: InboxIcon,
-        text: "Privacy",
-      },
-      {
-        path: "/logs",
-        icon: InboxIcon,
-        text: "Logs",
+        text: "Teste 3",
+        joyrideTarget: "five-step",
       },
     ],
   },
@@ -85,12 +76,10 @@ export default function SideNav() {
                 )}
 
                 <div className="grid items-center space-y-2">
-                  {items.map(({ icon, path, text }, indexItem) => (
+                  {items.map((menuOption, indexItem) => (
                     <SidenavItem
-                      icon={icon}
-                      path={path}
-                      text={text}
-                      key={path + indexItem}
+                      key={menuOption.path + indexItem}
+                      {...menuOption}
                     />
                   ))}
                 </div>
