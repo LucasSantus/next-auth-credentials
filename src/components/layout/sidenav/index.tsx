@@ -1,8 +1,12 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { InboxIcon, LucideIcon } from "lucide-react";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { useSidebar } from "@/hooks/use-sidebar";
+import { cn } from "@/lib/utils";
+import { ChevronLeft, InboxIcon, LucideIcon } from "lucide-react";
 import { Fragment } from "react";
 import { SidenavItem } from "./sidenav-item";
 
@@ -15,7 +19,6 @@ export interface MenuItems {
 }
 
 interface MenuOptions {
-  title?: string;
   items: Array<MenuItems>;
 }
 
@@ -31,7 +34,6 @@ const menuOptions: MenuOptions[] = [
     ],
   },
   {
-    title: "Configurações",
     items: [
       {
         path: "/settings",
@@ -62,34 +64,55 @@ const menuOptions: MenuOptions[] = [
 ];
 
 export default function SideNav() {
+  const { isActive, toogle } = useSidebar();
+
   return (
-    <aside className="sticky top-0 hidden min-h-screen w-full min-w-64 max-w-64 border-r bg-muted/40 transition-all delay-300 duration-300 ease-out md:block">
-      <ScrollArea className="h-full p-1">
-        <nav className="grid space-y-2 p-3">
-          {menuOptions.map(({ title, items }, index) => (
-            <Fragment key={index}>
-              <div className="space-y-2 overflow-hidden">
-                {title && (
-                  <p className="overflow-hidden truncate text-ellipsis text-xs font-medium text-muted-foreground">
-                    {title}
-                  </p>
-                )}
+    <aside
+      className={cn(
+        "fixed inset-y-0 left-0 z-0 hidden flex-col border-r bg-background transition-all delay-300 duration-300 ease-out sm:flex md:block",
+        isActive ? "w-full min-w-64 max-w-64" : "w-20 min-w-20 max-w-20",
+      )}
+    >
+      <TooltipProvider>
+        <ScrollArea className="h-full p-1">
+          <nav className="flex flex-col gap-4 px-2 sm:py-4">
+            {menuOptions.map(({ items }, index) => (
+              <Fragment key={index}>
+                <div className="space-y-2 overflow-hidden">
+                  <div className="grid space-y-2">
+                    {items.map((menuOption, indexItem) => (
+                      <SidenavItem
+                        key={menuOption.path + indexItem}
+                        {...menuOption}
+                      />
+                    ))}
+                  </div>
 
-                <div className="grid items-center space-y-2">
-                  {items.map((menuOption, indexItem) => (
-                    <SidenavItem
-                      key={menuOption.path + indexItem}
-                      {...menuOption}
-                    />
-                  ))}
+                  {index !== menuOptions.length - 1 && <Separator />}
                 </div>
-
-                {index !== menuOptions.length - 1 && <Separator />}
-              </div>
-            </Fragment>
-          ))}
-        </nav>
-      </ScrollArea>
+              </Fragment>
+            ))}
+          </nav>
+          <nav className="flex flex-col gap-4 px-2 sm:py-4">
+            <Button
+              icon={
+                <ChevronLeft
+                  className={cn(
+                    "size-4 transition-all delay-300 duration-300 ease-out",
+                    { "rotate-180": !isActive },
+                  )}
+                />
+              }
+              className={cn(
+                "flex transition-all delay-300 duration-300 ease-out",
+                isActive ? "w-full" : "w-14",
+              )}
+              variant="outline"
+              onClick={toogle}
+            />
+          </nav>
+        </ScrollArea>
+      </TooltipProvider>
     </aside>
   );
 }
