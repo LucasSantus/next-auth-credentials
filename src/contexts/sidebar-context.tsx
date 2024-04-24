@@ -5,7 +5,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { PropsWithChildren, createContext, useState } from "react";
 
 interface SidebarData {
-  isActive: boolean;
+  isExpanded: boolean;
   toogle: () => void;
 }
 
@@ -16,17 +16,17 @@ export function SidebarProvider({ children }: PropsWithChildren): JSX.Element {
     SIDEBAR_KEY_LOCAL_STORAGE,
     true,
   );
-  const [isActive, setIsActive] = useState<boolean>(isOpenSidebar);
+  const [isExpanded, setisExpanded] = useState<boolean>(isOpenSidebar);
 
   function toogle() {
-    setIsActive(!isActive);
-    setIsOpenSidebar(!isActive);
+    setisExpanded(!isExpanded);
+    setIsOpenSidebar(!isExpanded);
   }
 
   return (
     <SidebarContext.Provider
       value={{
-        isActive,
+        isExpanded,
         toogle,
       }}
     >

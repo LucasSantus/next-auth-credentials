@@ -1,7 +1,7 @@
-import { SidebarItemsType } from "@/types/sidebar-items-type";
+import { SidebarItemsData } from "@/types/sidebar-items-type";
 import { KeyRoundIcon, PaletteIcon, UserSquareIcon } from "lucide-react";
 
-export const sidebarItems: Array<SidebarItemsType> = [
+export const sidebarItems: Array<SidebarItemsData> = [
   {
     title: "Conta",
     href: "/settings/account",

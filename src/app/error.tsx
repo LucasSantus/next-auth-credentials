@@ -1,8 +1,8 @@
 "use client";
 
 import ErrorHandling from "@/components/error-handling";
-import { ErrorHandlingType } from "@/types/error-handling";
+import { ErrorHandlingData } from "@/types/error-handling";
 
-export default function GlobalErrorHandling(props: ErrorHandlingType) {
+export default function GlobalErrorHandling(props: ErrorHandlingData) {
   return <ErrorHandling {...props} />;
 }

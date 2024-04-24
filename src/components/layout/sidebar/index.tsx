@@ -1,5 +1,6 @@
 "use client";
 
+import { JoyrideTargetEnum } from "@/components/joyride/types";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -8,13 +9,13 @@ import { useSidebar } from "@/hooks/use-sidebar";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, InboxIcon, LucideIcon } from "lucide-react";
 import { Fragment } from "react";
-import { SidenavItem } from "./sidenav-item";
+import { Sidenav } from "./sidenav";
 
 export interface MenuItems {
   path: string;
   icon: LucideIcon;
   text: string;
-  joyrideTarget: string;
+  joyrideTarget?: JoyrideTargetEnum;
   subItems?: Array<MenuItems>;
 }
 
@@ -29,7 +30,7 @@ const menuOptions: MenuOptions[] = [
         path: "/dashboard",
         icon: InboxIcon,
         text: "Dashboard",
-        joyrideTarget: "first-step",
+        joyrideTarget: JoyrideTargetEnum.Teste1,
       },
     ],
   },
@@ -39,38 +40,38 @@ const menuOptions: MenuOptions[] = [
         path: "/settings",
         icon: InboxIcon,
         text: "Inbox",
-        joyrideTarget: "second-step",
+        joyrideTarget: JoyrideTargetEnum.Teste2,
       },
       {
         path: "/test",
         icon: InboxIcon,
         text: "Teste",
-        joyrideTarget: "third-step",
+        joyrideTarget: JoyrideTargetEnum.Teste3,
       },
       {
         path: "/test-2",
         icon: InboxIcon,
         text: "Teste 2",
-        joyrideTarget: "four-step",
+        // joyrideTarget: JoyrideTargetEnum.Teste3,
       },
       {
         path: "/test-3",
         icon: InboxIcon,
         text: "Teste 3",
-        joyrideTarget: "five-step",
+        // joyrideTarget: JoyrideTargetEnum.Teste3,
       },
     ],
   },
 ];
 
-export default function SideNav() {
-  const { isActive, toogle } = useSidebar();
+export function Sidebar() {
+  const { isExpanded, toogle } = useSidebar();
 
   return (
     <aside
       className={cn(
-        "fixed inset-y-0 left-0 z-0 hidden flex-col border-r bg-background transition-all delay-300 duration-300 ease-out sm:flex md:block",
-        isActive ? "w-full min-w-64 max-w-64" : "w-20 min-w-20 max-w-20",
+        "fixed inset-y-0 left-0 z-0 hidden flex-col border-r bg-background transition-all delay-150 duration-150 ease-out sm:flex md:block",
+        isExpanded ? "w-full min-w-64 max-w-64" : "w-20 min-w-20 max-w-20",
       )}
     >
       <TooltipProvider>
@@ -81,7 +82,7 @@ export default function SideNav() {
                 <div className="space-y-2 overflow-hidden">
                   <div className="grid space-y-2">
                     {items.map((menuOption, indexItem) => (
-                      <SidenavItem
+                      <Sidenav
                         key={menuOption.path + indexItem}
                         {...menuOption}
                       />
@@ -98,14 +99,14 @@ export default function SideNav() {
               icon={
                 <ChevronLeft
                   className={cn(
-                    "size-4 transition-all delay-300 duration-300 ease-out",
-                    { "rotate-180": !isActive },
+                    "size-4 transition-all delay-150 duration-150 ease-out",
+                    { "rotate-180": !isExpanded },
                   )}
                 />
               }
               className={cn(
-                "flex transition-all delay-300 duration-300 ease-out",
-                isActive ? "w-full" : "w-14",
+                "flex transition-all delay-150 duration-150 ease-out",
+                isExpanded ? "w-full" : "w-14",
               )}
               variant="outline"
               onClick={toogle}

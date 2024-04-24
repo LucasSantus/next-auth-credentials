@@ -53,7 +53,11 @@ export default async function GlobalSettingsLayout({
 
   return (
     <div className="space-y-4">
-      <Header session={session} items={headerItems} />
+      <Header
+        session={session}
+        items={headerItems}
+        shouldDisplaySidebar={false}
+      />
 
       <div className="container max-w-screen-2xl space-y-4">
         <PageDescription

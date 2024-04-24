@@ -5,13 +5,13 @@ import { Presence } from "@/components/framer-motion/presence";
 import { buttonVariants } from "@/components/ui/button";
 import { TRANSITION_DURATION } from "@/constants/globals";
 import { cn } from "@/lib/utils";
-import { SidebarItemsType } from "@/types/sidebar-items-type";
+import { SidebarItemsData } from "@/types/sidebar-items-type";
 import { bounceHorizontalAnimation } from "@/utils/framer-motion/animations/bounce-horizontal";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface SettingsSidebarProps {
-  items: Array<SidebarItemsType>;
+  items: Array<SidebarItemsData>;
 }
 
 export function SettingsSidebar({ items }: SettingsSidebarProps) {

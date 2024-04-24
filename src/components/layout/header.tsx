@@ -14,40 +14,50 @@ import {
 import { useSidebar } from "@/hooks/use-sidebar";
 import { useCustomRouter } from "@/hooks/useCustomRouter";
 import { cn } from "@/lib/utils";
-import { SidebarItemsType } from "@/types/sidebar-items-type";
-import { LogOutIcon, PanelLeft, UserIcon } from "lucide-react";
+import { SidebarItemsData } from "@/types/sidebar-items-type";
+import { LogOutIcon, MenuIcon, UserIcon } from "lucide-react";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 
 interface HeaderProps {
   session: Session | null;
-  items: SidebarItemsType[];
+  items: SidebarItemsData[];
+  shouldDisplaySidebar?: boolean;
 }
 
-export function Header({ session, items }: HeaderProps): JSX.Element {
+export function Header({
+  session,
+  items,
+  shouldDisplaySidebar = false,
+}: HeaderProps): JSX.Element {
   const router = useCustomRouter();
-  const { isActive } = useSidebar();
+  const { isExpanded } = useSidebar();
 
   const isAuthenticated = !!session && !!session.user;
 
   return (
     <header
       className={cn(
-        "sticky top-0 z-20 flex h-14 items-center gap-4 border-b bg-background transition-all delay-300 duration-300 ease-out sm:static",
-        isActive ? "sm:ml-64" : "sm:ml-20",
+        "sticky top-0 z-20 flex h-14 items-center gap-4 border-b bg-background transition-all delay-150 duration-150 ease-out sm:static",
+        shouldDisplaySidebar ? (isExpanded ? "sm:ml-64" : "sm:ml-20") : null,
       )}
     >
       <div className="container flex max-w-screen-2xl items-center justify-between">
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button size="icon" variant="outline" className="sm:hidden">
-              <PanelLeft className="h-5 w-5" />
-              <span className="sr-only">Toggle Menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="sm:max-w-xs"></SheetContent>
-        </Sheet>
+        <div>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button size="icon" variant="outline" className="sm:hidden">
+                <MenuIcon className="size-5" />
+                <span className="sr-only">Toggle Menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent
+              side="left"
+              className="w-full xs:max-w-xs"
+            ></SheetContent>
+          </Sheet>
+        </div>
 
         {isAuthenticated && (
           <DropdownMenu>

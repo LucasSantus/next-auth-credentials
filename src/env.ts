@@ -9,7 +9,17 @@ export const envSchema = z.object({
 
   // DATABASE
   DATABASE_URL: z.string(),
-  DIRECT_URL: z.string(),
+  DATABASE_DIRECT_URL: z.string(),
+  DATABASE_PROVIDER: z
+    .enum([
+      "sqlserver",
+      "sqlite",
+      "postgresql",
+      "mysql",
+      "mongodb",
+      "cockroachdb",
+    ])
+    .default("sqlite"),
 
   // NEXT AUTH
   NEXTAUTH_SECRET: z.string(),
