@@ -1,7 +1,7 @@
-import { SidebarItemsType } from "@/types/sidebar-items-type";
+import { SidebarItemsData } from "@/types/sidebar-items-type";
 import { SettingsIcon } from "lucide-react";
 
-export const headerItems: SidebarItemsType[] = [
+export const headerItems: SidebarItemsData[] = [
   {
     title: "Configurações",
     href: "/settings/account",

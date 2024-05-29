@@ -1,7 +1,7 @@
-import { SidebarItemsType } from "@/types/sidebar-items-type";
+import { SidebarItemsData } from "@/types/sidebar-items-type";
 import { LayoutDashboardIcon, SettingsIcon } from "lucide-react";
 
-export const headerItems: Array<SidebarItemsType> = [
+export const headerItems: Array<SidebarItemsData> = [
   {
     title: "Voltar para Dashboard",
     href: "/",

@@ -1,6 +1,6 @@
 import { Framing } from "@/components/framer-motion/framing";
 import { Header } from "@/components/layout/header";
-import SideNav from "@/components/layout/sidenav";
+import { Sidebar } from "@/components/layout/sidebar";
 import { TRANSITION_DURATION } from "@/constants/globals";
 import { authOptions } from "@/lib/auth";
 import { bounceHorizontalAnimation } from "@/utils/framer-motion/animations/bounce-horizontal";
@@ -19,11 +19,11 @@ export default async function ProjectLayout({ children }: ProjectLayoutProps) {
   if (!session || !session.user) redirect("/sign-in");
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
-      <SideNav />
+    <div id="main-layout" className="flex min-h-screen w-full flex-col">
+      <Sidebar />
 
       <div className="flex flex-col">
-        <Header session={session} items={headerItems} />
+        <Header session={session} items={headerItems} shouldDisplaySidebar />
         <main className="flex-1">
           <Framing
             className="flex flex-1 flex-col"

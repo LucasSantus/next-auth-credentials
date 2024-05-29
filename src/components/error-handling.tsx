@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ErrorHandlingType } from "@/types/error-handling";
+import { ErrorHandlingData } from "@/types/error-handling";
 import { RefreshCcwIcon } from "lucide-react";
 import { useEffect } from "react";
 
-export default function ErrorHandling({ error, reset }: ErrorHandlingType) {
+export default function ErrorHandling({ error, reset }: ErrorHandlingData) {
   useEffect(() => {
     console.error(error);
   }, [error]);

@@ -8,7 +8,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { prismaClient } from "./prisma";
 
-type UserSessionType = {
+type UserSessionData = {
   id: string;
   name: string;
   email: string;
@@ -64,14 +64,14 @@ export const authOptions: AuthOptions = {
           };
         };
 
-        session.user = { ...session.user, id: userToken.id } as UserSessionType;
+        session.user = { ...session.user, id: userToken.id } as UserSessionData;
       } else if (trigger === "update" && !!newSession) {
         session.user.name = newSession.name;
       } else {
         session.user = {
           ...session.user,
           id: user.id,
-        } as UserSessionType;
+        } as UserSessionData;
       }
 
       return session;

@@ -1,20 +1,26 @@
-import { JoyrideType, joyride } from "@/constants/joyride";
+import { JoyrideData } from "@/components/joyride/types";
+import { JOYRIDE_KEY_LOCAL_STORAGE } from "@/constants/globals";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useState } from "react";
 import ReactJoyride, { CallBackProps, STATUS } from "react-joyride";
+import { joyrideSteps } from "./steps";
 
 interface JoyrideProps {}
 
 export function Joyride({}: JoyrideProps): JSX.Element {
-  const [value, setValue] = useLocalStorage("joyride", true);
+  const [joyrideValueOnStorage, setJoyrideValueOnStorage] =
+    useLocalStorage<boolean>(JOYRIDE_KEY_LOCAL_STORAGE, true);
 
-  const [{ run, steps }] = useState<JoyrideType>({ ...joyride, run: value });
+  const [{ run, steps }] = useState<JoyrideData>({
+    run: joyrideValueOnStorage,
+    steps: joyrideSteps,
+  });
 
   const handleJoyrideCallback = ({ status }: CallBackProps) => {
     const finishedStatuses: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
 
     if (finishedStatuses.includes(status)) {
-      setValue(false);
+      setJoyrideValueOnStorage(false);
     }
   };
 
@@ -40,8 +46,8 @@ export function Joyride({}: JoyrideProps): JSX.Element {
           textColor: "#FFFFFF",
           width: 500,
           zIndex: 1000,
-          backgroundColor: "hsl(var(--muted))",
-          arrowColor: "hsl(var(--muted))",
+          backgroundColor: "rgba(255,255,255,1)",
+          arrowColor: "rgba(255,255,255,1)",
         },
         buttonNext: {
           ...buttonStyles,

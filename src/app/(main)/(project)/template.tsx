@@ -20,13 +20,13 @@ const Joyride = dynamic(
 );
 
 export default function ProjectTemplate({ children }: ProjectTemplateProps) {
-  const { isActive } = useSidebar();
+  const { isExpanded } = useSidebar();
 
   return (
     <div
       className={cn(
-        "p-5 transition-all delay-300 duration-300 ease-out",
-        isActive ? "sm:ml-64" : "sm:ml-20",
+        "p-5 transition-all delay-150 duration-150 ease-out",
+        isExpanded ? "sm:ml-64" : "sm:ml-20",
       )}
     >
       <Framing
@@ -34,8 +34,9 @@ export default function ProjectTemplate({ children }: ProjectTemplateProps) {
           delay: TRANSITION_DURATION,
           positioning: 0,
         })}
-        className="bg-white"
       >
+        <div className="welcome" />
+
         <Joyride />
 
         {children}
