@@ -6,7 +6,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useSidebar } from "@/hooks/use-sidebar";
+// import { useSidebar } from "@/hooks/use-sidebar";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -21,7 +21,7 @@ export function Sidenav({
   icon: Icon,
 }: SidenavProps): JSX.Element {
   const pathName = usePathname();
-  const { isExpanded } = useSidebar();
+  const isExpanded = true;
 
   return (
     <Tooltip>

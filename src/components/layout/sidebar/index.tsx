@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { useSidebar } from "@/hooks/use-sidebar";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, InboxIcon, LucideIcon } from "lucide-react";
 import { Fragment } from "react";
@@ -65,7 +64,9 @@ const menuOptions: MenuOptions[] = [
 ];
 
 export function Sidebar() {
-  const { isExpanded, toogle } = useSidebar();
+  const isExpanded = true;
+
+  function toogle() {}
 
   return (
     <aside

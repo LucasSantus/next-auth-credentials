@@ -1,3 +1,4 @@
+import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { Framing } from "@/components/framer-motion/framing";
 import { Header } from "@/components/layout/header";
 import { Sidebar } from "@/components/layout/sidebar";
@@ -17,6 +18,8 @@ export default async function ProjectLayout({ children }: ProjectLayoutProps) {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) redirect("/sign-in");
+
+  return <AdminPanelLayout>{children}</AdminPanelLayout>;
 
   return (
     <div id="main-layout" className="flex min-h-screen w-full flex-col">
