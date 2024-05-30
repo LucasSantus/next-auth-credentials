@@ -40,7 +40,7 @@ export default async function GlobalSettingsLayout({
       </div>
     );
 
-  const account = getAccount(session.user.id);
+  const account = await getAccount(session.user.id);
 
   if (!account)
     return (
@@ -59,7 +59,7 @@ export default async function GlobalSettingsLayout({
         shouldDisplaySidebar={false}
       />
 
-      <div className="container max-w-screen-2xl space-y-4">
+      <div className="container space-y-4">
         <PageDescription
           title="Configurações"
           description="Gerencie as configurações da sua conta."
