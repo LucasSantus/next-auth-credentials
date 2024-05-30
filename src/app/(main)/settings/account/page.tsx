@@ -1,6 +1,6 @@
 import { RenderOnClient } from "@/components/render-on-client";
 
-import { messages } from "@/constants/globals";
+import { messages } from "@/constants/messages";
 import { authOptions } from "@/lib/auth";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";

@@ -10,7 +10,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { getMenuList } from "@/constants/menu-list";
-import { useCustomRouter } from "@/hooks/useCustomRouter";
+import { useCustomRouter } from "@/hooks/use-custom-router";
 import { cn } from "@/lib/utils";
 import { Ellipsis, LogOut } from "lucide-react";
 import { usePathname } from "next/navigation";

@@ -1,5 +1,5 @@
 import { FORM_MAX_CHAR_LENGTH, FORM_MIN_CHAR_LENGTH } from "@/constants/form";
-import { messages } from "@/constants/globals";
+import { messages } from "@/constants/messages";
 import { z } from "zod";
 
 export const changePasswordFormSchema = z

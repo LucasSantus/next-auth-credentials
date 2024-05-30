@@ -12,7 +12,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useHelperSubmit } from "@/hooks/useHelperSubmit";
+import { useHelperSubmit } from "@/hooks/use-helper-submit";
 import { useMutation } from "@tanstack/react-query";
 import { Trash2Icon } from "lucide-react";
 import { signOut } from "next-auth/react";

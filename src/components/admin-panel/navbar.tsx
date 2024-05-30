@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useCustomRouter } from "@/hooks/useCustomRouter";
+import { useCustomRouter } from "@/hooks/use-custom-router";
 import { LogOutIcon, UserIcon } from "lucide-react";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";

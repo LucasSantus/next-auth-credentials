@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { messages } from "@/constants/globals";
+import { messages } from "@/constants/messages";
 import {
   AppearanceFormData,
   appearanceFormSchema,

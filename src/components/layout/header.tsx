@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useCustomRouter } from "@/hooks/useCustomRouter";
+import { useCustomRouter } from "@/hooks/use-custom-router";
 import { cn } from "@/lib/utils";
 import { SidebarItemsData } from "@/types/sidebar-items-type";
 import { LogOutIcon, MenuIcon, UserIcon } from "lucide-react";

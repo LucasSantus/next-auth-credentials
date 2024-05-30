@@ -1,10 +1,10 @@
 import { getAccountByUserIdServer } from "@/actions/get/get-account-by-user-id";
 import { Framing } from "@/components/framer-motion/framing";
-import { TRANSITION_DURATION, messages } from "@/constants/globals";
+import { TRANSITION_DURATION } from "@/constants/globals";
+import { messages } from "@/constants/messages";
 import { bounceHorizontalAnimation } from "@/utils/framer-motion/animations/bounce-horizontal";
 import { SettingsSidebar } from "./_components/settings-sidebar";
 import { sidebarItems } from "./_constants/sidebar-items";
-
 import { Header } from "@/components/layout/header";
 import { PageDescription } from "@/components/page-description";
 import { authOptions } from "@/lib/auth";

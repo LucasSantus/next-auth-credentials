@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useHelperSubmit } from "@/hooks/useHelperSubmit";
+import { useHelperSubmit } from "@/hooks/use-helper-submit";
 
 import {
   ForgetPasswordFormData,

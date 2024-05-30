@@ -1,6 +1,7 @@
-import { messages } from "@/constants/globals";
+import { messages } from "@/constants/messages";
 import { toast } from "sonner";
-import { useCustomRouter } from "./useCustomRouter";
+import { useCustomRouter } from "./use-custom-router";
+
 interface ToastBeforeSubmitProps {
   message?: {
     loading?: string;

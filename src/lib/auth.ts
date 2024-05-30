@@ -1,5 +1,5 @@
 import { authSignInServer } from "@/actions/auth/sign-in";
-import { messages } from "@/constants/globals";
+import { messages } from "@/constants/messages";
 import { env } from "@/env";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { AuthOptions } from "next-auth";

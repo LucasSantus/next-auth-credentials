@@ -24,7 +24,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useCustomRouter } from "@/hooks/useCustomRouter";
+import { useCustomRouter } from "@/hooks/use-custom-router";
 import { cn } from "@/lib/utils";
 import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
 
