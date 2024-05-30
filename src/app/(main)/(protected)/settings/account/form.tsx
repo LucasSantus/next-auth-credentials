@@ -24,7 +24,7 @@ import { useQuery } from "@tanstack/react-query";
 import { MailIcon, SaveIcon, User2Icon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
-import { getUserByIdServer } from "../../../../actions/get/get-user-by-id";
+import { getUserByIdServer } from "../../../../../actions/get/get-user-by-id";
 import { DeleteAccount } from "./_components/delete-account";
 
 interface ProfileFormProps {
