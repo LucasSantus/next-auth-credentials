@@ -14,7 +14,9 @@ interface ProjectLayoutProps {
   children: ReactNode;
 }
 
-export default async function ProjectLayout({ children }: ProjectLayoutProps) {
+export default async function ProtectedLayout({
+  children,
+}: ProjectLayoutProps) {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) redirect("/sign-in");

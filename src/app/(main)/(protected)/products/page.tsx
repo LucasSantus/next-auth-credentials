@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import PlaceholderContent from "@/components/demo/placeholder-content";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,10 +9,13 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { PlusIcon } from "lucide-react";
 
-export default async function DashboardPage() {
+export default async function ProductPage() {
   return (
-    <ContentLayout title="Dashboard">
+    <ContentLayout title="Produtos">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -27,7 +29,18 @@ export default async function DashboardPage() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <PlaceholderContent />
+
+      <Card className="mt-6 rounded-lg border-none">
+        <CardContent className="p-6">
+          <div className="flex justify-end">
+            <Link href="/products/new">
+              <Button icon={<PlusIcon className="size-5" />}>
+                Novo Produto
+              </Button>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
     </ContentLayout>
   );
 }

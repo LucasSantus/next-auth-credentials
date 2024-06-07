@@ -1,17 +1,15 @@
-import { Navbar } from "@/components/admin-panel/navbar";
-import { Session } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import { Navbar } from "../layout/navbar";
 
 interface ContentLayoutProps {
   title: string;
   children: React.ReactNode;
-  session: Session | null;
 }
 
-export function ContentLayout({
-  title,
-  session,
-  children,
-}: ContentLayoutProps) {
+export async function ContentLayout({ title, children }: ContentLayoutProps) {
+  const session = await getServerSession(authOptions);
+
   return (
     <div>
       <Navbar title={title} session={session} />

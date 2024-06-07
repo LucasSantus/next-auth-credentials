@@ -1,7 +1,3 @@
-import { MenuIcon, PanelsTopLeft } from "lucide-react";
-import Link from "next/link";
-
-import { Menu } from "@/components/admin-panel/menu";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -9,6 +5,9 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { MenuIcon, PanelsTopLeft } from "lucide-react";
+import Link from "next/link";
+import { Menu } from "./menu";
 
 export function SheetMenu() {
   return (

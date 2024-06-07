@@ -11,9 +11,11 @@ export function Footer(): JSX.Element {
 
   return (
     <footer>
-      <span className="text-sm font-medium">
-        © {PROJECT_NAME} | {year}, Todos os direitos reservados.
-      </span>
+      <div className="z-20 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <span className="text-sm font-medium">
+          © {PROJECT_NAME} | {year}
+        </span>
+      </div>
     </footer>
   );
 }

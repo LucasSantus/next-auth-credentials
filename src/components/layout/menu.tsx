@@ -1,6 +1,5 @@
 "use client";
 
-import { CollapseMenuButton } from "@/components/admin-panel/collapse-menu-button";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -14,6 +13,7 @@ import { useCustomRouter } from "@/hooks/use-custom-router";
 import { cn } from "@/lib/utils";
 import { Ellipsis, LogOut } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { CollapseMenuButton } from "./sidebar/sidebar-collapse-button";
 
 interface MenuProps {
   isOpen: boolean | undefined;

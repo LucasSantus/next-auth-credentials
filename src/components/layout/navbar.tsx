@@ -1,7 +1,6 @@
 "use client";
 
 import { headerItems } from "@/app/(main)/(protected)/_constants/header-items";
-import { SheetMenu } from "@/components/admin-panel/sheet-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -16,6 +15,7 @@ import { useCustomRouter } from "@/hooks/use-custom-router";
 import { LogOutIcon, UserIcon } from "lucide-react";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
+import { SheetMenu } from "./sheet-menu";
 
 interface NavbarProps {
   title: string;

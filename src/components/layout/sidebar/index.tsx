@@ -1,120 +1,52 @@
 "use client";
 
-import { JoyrideTargetEnum } from "@/components/joyride/types";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
+import { useStore } from "@/hooks/use-store";
 import { cn } from "@/lib/utils";
-import { ChevronLeft, InboxIcon, LucideIcon } from "lucide-react";
-import { Fragment } from "react";
-import { Sidenav } from "./sidenav";
-
-export interface MenuItems {
-  path: string;
-  icon: LucideIcon;
-  text: string;
-  joyrideTarget?: JoyrideTargetEnum;
-  subItems?: Array<MenuItems>;
-}
-
-interface MenuOptions {
-  items: Array<MenuItems>;
-}
-
-const menuOptions: MenuOptions[] = [
-  {
-    items: [
-      {
-        path: "/dashboard",
-        icon: InboxIcon,
-        text: "Dashboard",
-        joyrideTarget: JoyrideTargetEnum.Teste1,
-      },
-    ],
-  },
-  {
-    items: [
-      {
-        path: "/settings",
-        icon: InboxIcon,
-        text: "Inbox",
-        joyrideTarget: JoyrideTargetEnum.Teste2,
-      },
-      {
-        path: "/test",
-        icon: InboxIcon,
-        text: "Teste",
-        joyrideTarget: JoyrideTargetEnum.Teste3,
-      },
-      {
-        path: "/test-2",
-        icon: InboxIcon,
-        text: "Teste 2",
-        // joyrideTarget: JoyrideTargetEnum.Teste3,
-      },
-      {
-        path: "/test-3",
-        icon: InboxIcon,
-        text: "Teste 3",
-        // joyrideTarget: JoyrideTargetEnum.Teste3,
-      },
-    ],
-  },
-];
+import { PanelsTopLeft } from "lucide-react";
+import Link from "next/link";
+import { Button } from "../../ui/button";
+import { Menu } from "../menu";
+import { SidebarToggle } from "./sidebar-toggle";
 
 export function Sidebar() {
-  const isExpanded = true;
+  const sidebar = useStore(useSidebarToggle, (state) => state);
 
-  function toogle() {}
+  if (!sidebar) return null;
 
   return (
     <aside
       className={cn(
-        "fixed inset-y-0 left-0 z-0 hidden flex-col border-r bg-background transition-all delay-150 duration-150 ease-out sm:flex md:block",
-        isExpanded ? "w-full min-w-64 max-w-64" : "w-20 min-w-20 max-w-20",
+        "fixed left-0 top-0 z-20 h-screen -translate-x-full transition-[width] duration-300 ease-in-out lg:translate-x-0",
+        sidebar?.isOpen === false ? "w-[90px]" : "w-72",
       )}
     >
-      <TooltipProvider>
-        <ScrollArea className="h-full p-1">
-          <nav className="flex flex-col gap-4 px-2 sm:py-4">
-            {menuOptions.map(({ items }, index) => (
-              <Fragment key={index}>
-                <div className="space-y-2 overflow-hidden">
-                  <div className="grid space-y-2">
-                    {items.map((menuOption, indexItem) => (
-                      <Sidenav
-                        key={menuOption.path + indexItem}
-                        {...menuOption}
-                      />
-                    ))}
-                  </div>
-
-                  {index !== menuOptions.length - 1 && <Separator />}
-                </div>
-              </Fragment>
-            ))}
-          </nav>
-          <nav className="flex flex-col gap-4 px-2 sm:py-4">
-            <Button
-              icon={
-                <ChevronLeft
-                  className={cn(
-                    "size-4 transition-all delay-150 duration-150 ease-out",
-                    { "rotate-180": !isExpanded },
-                  )}
-                />
-              }
+      <SidebarToggle isOpen={sidebar?.isOpen} setIsOpen={sidebar?.setIsOpen} />
+      <div className="relative flex h-full flex-col overflow-y-auto px-3 py-4 shadow-md dark:shadow-zinc-800">
+        <Button
+          className={cn(
+            "mb-1 transition-transform duration-300 ease-in-out",
+            sidebar?.isOpen === false ? "translate-x-1" : "translate-x-0",
+          )}
+          variant="link"
+        >
+          <Link href="/dashboard" className="flex items-center gap-2">
+            <PanelsTopLeft className="mr-1 h-6 w-6" />
+            <h1
               className={cn(
-                "flex transition-all delay-150 duration-150 ease-out",
-                isExpanded ? "w-full" : "w-14",
+                "whitespace-nowrap text-lg font-bold transition-[transform,opacity,display] duration-300 ease-in-out",
+                sidebar?.isOpen === false
+                  ? "hidden -translate-x-96 opacity-0"
+                  : "translate-x-0 opacity-100",
               )}
-              variant="outline"
-              onClick={toogle}
-            />
-          </nav>
-        </ScrollArea>
-      </TooltipProvider>
+            >
+              Brand
+            </h1>
+          </Link>
+        </Button>
+
+        <Menu isOpen={sidebar?.isOpen} />
+      </div>
     </aside>
   );
 }

@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { useStore } from "./use-store";
 
 interface useSidebarToggleStore {
   isOpen: boolean;
@@ -20,3 +21,11 @@ export const useSidebarToggle = create(
     },
   ),
 );
+
+export function useSidebar() {
+  const sidebar = useStore(useSidebarToggle, (state) => state);
+
+  if (!sidebar) return null;
+
+  return sidebar;
+}
