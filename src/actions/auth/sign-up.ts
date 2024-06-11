@@ -1,6 +1,6 @@
 "use server";
 
-import { messages } from "@/constants/globals";
+import { messages } from "@/constants/messages";
 import { prismaClient } from "@/lib/prisma";
 import { SignUpFormData } from "@/validation/auth/sign-up";
 import * as bcrypt from "bcrypt";

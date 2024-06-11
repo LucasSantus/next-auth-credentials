@@ -11,8 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useSidebar } from "@/hooks/use-sidebar";
-import { useCustomRouter } from "@/hooks/useCustomRouter";
+import { useCustomRouter } from "@/hooks/use-custom-router";
 import { cn } from "@/lib/utils";
 import { SidebarItemsData } from "@/types/sidebar-items-type";
 import { LogOutIcon, MenuIcon, UserIcon } from "lucide-react";
@@ -32,7 +31,7 @@ export function Header({
   shouldDisplaySidebar = false,
 }: HeaderProps): JSX.Element {
   const router = useCustomRouter();
-  const { isExpanded } = useSidebar();
+  const isExpanded = true;
 
   const isAuthenticated = !!session && !!session.user;
 

@@ -1,8 +1,8 @@
 import { JoyrideData } from "@/components/joyride/types";
 import { JOYRIDE_KEY_LOCAL_STORAGE } from "@/constants/globals";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useState } from "react";
 import ReactJoyride, { CallBackProps, STATUS } from "react-joyride";
+import { useLocalStorage } from "usehooks-ts";
 import { joyrideSteps } from "./steps";
 
 interface JoyrideProps {}
@@ -33,7 +33,7 @@ export function Joyride({}: JoyrideProps): JSX.Element {
     lineHeight: "1.25rem",
     fontWeight: 500,
     borderRadius: "0.3rem",
-    border: "1px solid hsl(var(--primary))",
+    border: "1px solid hsl(var(--foreground))",
     color: "hsl(var(--foreground))",
   };
 

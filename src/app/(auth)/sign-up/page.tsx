@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "New User",
 };
 
-export default function SignUp(): JSX.Element {
+export default function SignUpPage(): JSX.Element {
   return (
     <Fragment>
       <AuthenticationDescription

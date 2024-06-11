@@ -8,6 +8,7 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": "always"
   },
+
   // prisma
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"

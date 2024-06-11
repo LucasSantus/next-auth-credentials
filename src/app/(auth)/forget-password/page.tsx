@@ -3,7 +3,7 @@ import { UserIcon } from "lucide-react";
 import { Metadata } from "next";
 import { Fragment } from "react";
 import { AuthenticationDescription } from "../_components/authentication-description";
-import { AuthenticationRedirect } from "../_components/authentication-redirect";
+import { AuthenticationLink } from "../_components/authentication-redirect";
 import { DontAlreadyAccount } from "../_components/dont-already-account";
 import { ForgetPasswordForm } from "./form";
 
@@ -29,7 +29,7 @@ export default function ForgetPassword(): JSX.Element {
 
         <div className="flex gap-1">
           <span className="text-sm text-muted-foreground">Voltar para o</span>
-          <AuthenticationRedirect title="Log In" href="/sign-in" />
+          <AuthenticationLink title="Log In" href="/sign-in" />
         </div>
       </div>
     </Fragment>

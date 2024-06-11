@@ -1,7 +1,7 @@
 "use server";
 
 import { PROJECT_NAME } from "@/constants/config";
-import { messages } from "@/constants/globals";
+import { messages } from "@/constants/messages";
 
 import EmailResetPassword from "@/emails/reset-password";
 import { env } from "@/env";

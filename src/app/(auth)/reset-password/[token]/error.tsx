@@ -21,6 +21,7 @@ export default function ResetPasswordErrorHandling({
         description="Ops, houve um problema ao tentar recuperar as informações!"
         icon={KeyRoundIcon}
       />
+
       <span className="text-destructive">{error.message}</span>
     </Fragment>
   );

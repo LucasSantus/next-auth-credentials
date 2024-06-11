@@ -1,4 +1,4 @@
-import { messages } from "@/constants/globals";
+import { messages } from "@/constants/messages";
 import { KeyRoundIcon } from "lucide-react";
 import { Fragment } from "react";
 import { AuthenticationDescription } from "../../_components/authentication-description";
