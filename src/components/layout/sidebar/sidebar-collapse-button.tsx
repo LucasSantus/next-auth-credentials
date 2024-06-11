@@ -27,18 +27,18 @@ import {
 import { useCustomRouter } from "@/hooks/use-custom-router";
 import { cn } from "@/lib/utils";
 import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
+import { usePathname } from "next/navigation";
 
 type Submenu = {
   href: string;
   label: string;
-  active: boolean;
 };
 
 interface CollapseMenuButtonProps {
   icon: LucideIcon;
   label: string;
   active: boolean;
-  submenus: Submenu[];
+  subOptions: Submenu[];
   isOpen: boolean | undefined;
 }
 
@@ -46,10 +46,13 @@ export function CollapseMenuButton({
   icon: Icon,
   label,
   active,
-  submenus,
+  subOptions,
   isOpen,
 }: CollapseMenuButtonProps) {
-  const isSubmenuActive = submenus.some(({ active }) => active);
+  const pathname = usePathname();
+  const isSubmenuActive = subOptions.some(({ href }) =>
+    pathname.includes(href),
+  );
   const [isCollapsed, setIsCollapsed] = useState<boolean>(isSubmenuActive);
   const router = useCustomRouter();
 
@@ -93,10 +96,10 @@ export function CollapseMenuButton({
         </Button>
       </CollapsibleTrigger>
       <CollapsibleContent className="overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
-        {submenus.map(({ href, label, active }, index) => (
+        {subOptions.map(({ href, label }, index) => (
           <Button
             key={index}
-            variant={active ? "secondary" : "ghost"}
+            variant={pathname.includes(href) ? "secondary" : "ghost"}
             className="mb-1 h-10 w-full justify-start"
             onClick={() => router.push(href)}
           >
@@ -141,7 +144,7 @@ export function CollapseMenuButton({
           {label}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {submenus.map(({ href, label }, index) => (
+        {subOptions.map(({ href, label }, index) => (
           <DropdownMenuItem key={index} asChild>
             <Link className="cursor-pointer" href={href}>
               <p className="max-w-[180px] truncate">{label}</p>

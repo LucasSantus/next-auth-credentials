@@ -1,100 +1,61 @@
-import {
-  Bookmark,
-  LayoutGrid,
-  Settings,
-  SquarePen,
-  Tag,
-  Users,
-} from "lucide-react";
+import { LayoutGrid, PackageSearchIcon, Settings2Icon } from "lucide-react";
 
 type Submenu = {
   href: string;
   label: string;
-  active: boolean;
 };
 
-type Menu = {
+type MenuOption = {
   href: string;
   label: string;
-  active: boolean;
   icon: any;
-  submenus: Submenu[];
+  subOptions?: Submenu[];
 };
 
 type Group = {
-  groupLabel: string;
-  menus: Menu[];
+  label?: string;
+  options: MenuOption[];
 };
 
-export function getMenuList(pathname: string): Group[] {
-  return [
-    {
-      groupLabel: "",
-      menus: [
-        {
-          href: "/dashboard",
-          label: "Dashboard",
-          active: pathname.includes("/dashboard"),
-          icon: LayoutGrid,
-          submenus: [],
-        },
-      ],
-    },
-    {
-      groupLabel: "Contents",
-      menus: [
-        {
-          href: "",
-          label: "Posts",
-          active: pathname.includes("/posts"),
-          icon: SquarePen,
-          submenus: [
-            {
-              href: "/posts",
-              label: "All Posts",
-              active: pathname === "/posts",
-            },
-            {
-              href: "/posts/new",
-              label: "New Post",
-              active: pathname === "/posts/new",
-            },
-          ],
-        },
-        {
-          href: "/categories",
-          label: "Categories",
-          active: pathname.includes("/categories"),
-          icon: Bookmark,
-          submenus: [],
-        },
-        {
-          href: "/tags",
-          label: "Tags",
-          active: pathname.includes("/tags"),
-          icon: Tag,
-          submenus: [],
-        },
-      ],
-    },
-    {
-      groupLabel: "Settings",
-      menus: [
-        {
-          href: "/users",
-          label: "Users",
-          active: pathname.includes("/users"),
-          icon: Users,
-          submenus: [],
-        },
-        {
-          href: "/account",
-          label: "Account",
-          active: pathname.includes("/account"),
-          icon: Settings,
-          submenus: [],
-        },
-      ],
-    },
-  ];
-}
+export const menuOptions: Group[] = [
+  {
+    options: [
+      {
+        href: "/dashboard",
+        label: "Dashboard",
+        icon: LayoutGrid,
+      },
+    ],
+  },
+  {
+    label: "Páginas",
+    options: [
+      {
+        href: "/initial",
+        label: "Página Inicial",
+        icon: PackageSearchIcon,
+      },
+      {
+        href: "/products",
+        label: "Produtos",
+        icon: PackageSearchIcon,
+        subOptions: [
+          {
+            href: "/products/categories",
+            label: "Categorias",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Configurações",
+    options: [
+      {
+        href: "/settings/account",
+        label: "Configurações",
+        icon: Settings2Icon,
+      },
+    ],
+  },
+];

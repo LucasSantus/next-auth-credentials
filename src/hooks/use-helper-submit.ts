@@ -1,4 +1,5 @@
 import { messages } from "@/constants/messages";
+import { useTransition } from "react";
 import { toast } from "sonner";
 import { useCustomRouter } from "./use-custom-router";
 
@@ -9,21 +10,21 @@ interface ToastBeforeSubmitProps {
   };
   callback: () => void;
   urlToRedirect?: string;
-  showMessageYouAreRedirected?: boolean;
 }
 
 interface HelperSubmitResponse {
+  isRedirecting: boolean;
   showToastBeforeSubmit: (props: ToastBeforeSubmitProps) => void;
 }
 
 export function useHelperSubmit(): HelperSubmitResponse {
   const router = useCustomRouter();
+  const [isRedirecting, startTransition] = useTransition();
 
   async function showToastBeforeSubmit({
     message,
     callback,
     urlToRedirect,
-    showMessageYouAreRedirected = true,
   }: ToastBeforeSubmitProps) {
     const toastId = toast.loading(
       message?.loading ?? messages.form.STORING_INFORMATION,
@@ -34,24 +35,22 @@ export function useHelperSubmit(): HelperSubmitResponse {
 
       toast.success(message?.success ?? messages.form.DATA_HAS_BEEN_UPDATED, {
         id: toastId,
+        duration: 1500,
       });
-
-      if (showMessageYouAreRedirected)
-        toast.info(messages.globals.YOU_ARE_BEING_REDIRECTED, {
-          duration: 1000,
-        });
 
       await new Promise((resolve) =>
         setTimeout(async () => {
-          if (urlToRedirect) {
-            await router.push(urlToRedirect);
-          } else {
-            router.refresh();
-          }
-
           resolve(null);
-        }, 1500),
+        }, 1400),
       );
+
+      startTransition(async () => {
+        if (urlToRedirect) {
+          router.push(urlToRedirect);
+        } else {
+          router.refresh();
+        }
+      });
     } catch (error) {
       const toastOptions = {
         id: toastId,
@@ -81,5 +80,5 @@ export function useHelperSubmit(): HelperSubmitResponse {
     }
   }
 
-  return { showToastBeforeSubmit };
+  return { isRedirecting, showToastBeforeSubmit };
 }

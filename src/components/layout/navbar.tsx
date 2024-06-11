@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useCustomRouter } from "@/hooks/use-custom-router";
+import { useHelperSubmit } from "@/hooks/use-helper-submit";
 import { LogOutIcon, UserIcon } from "lucide-react";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
@@ -25,6 +26,19 @@ interface NavbarProps {
 export function Navbar({ title, session }: NavbarProps) {
   const router = useCustomRouter();
   const isAuthenticated = !!session && !!session.user;
+
+  const { isRedirecting, showToastBeforeSubmit } = useHelperSubmit();
+
+  function onHandleLogout() {
+    showToastBeforeSubmit({
+      urlToRedirect: "/sign-in",
+      message: {
+        loading: "Desconectando...",
+        success: "Usuário desconectado da plataforma!",
+      },
+      callback: () => signOut(),
+    });
+  }
 
   return (
     <header className="sticky top-0 z-10 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:shadow-secondary">
@@ -68,7 +82,11 @@ export function Navbar({ title, session }: NavbarProps) {
               </DropdownMenuGroup>
 
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => signOut()} className="space-x-2">
+              <DropdownMenuItem
+                onClick={onHandleLogout}
+                className="space-x-2"
+                disabled={isRedirecting}
+              >
                 <LogOutIcon className="size-4" />
                 <span>Log out</span>
               </DropdownMenuItem>

@@ -25,14 +25,12 @@ interface ResetPasswordFormProps {
 }
 
 export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
-  const { showToastBeforeSubmit } = useHelperSubmit();
+  const { isRedirecting, showToastBeforeSubmit } = useHelperSubmit();
 
   const form = useForm<ResetPasswordFormData>({
     resolver: zodResolver(resetPasswordFormSchema),
     defaultValues: {
       email,
-      password: "",
-      confirmPassword: "",
     },
   });
 
@@ -42,14 +40,16 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
     formState: { isSubmitting },
   } = form;
 
+  const isDisabled = isSubmitting || isRedirecting;
+
   async function onSubmit(values: ResetPasswordFormData) {
     await showToastBeforeSubmit({
-      callback: async () => await authResetPasswordServer(values),
       urlToRedirect: "/sign-in",
       message: {
         loading: "Senha está sendo resetada!",
         success: "Senha resetada com sucesso!",
       },
+      callback: async () => await authResetPasswordServer(values),
     });
   }
 
@@ -66,7 +66,7 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
                 <FormControl>
                   <InputPassword
                     placeholder="Digite a senha:"
-                    disabled={isSubmitting}
+                    disabled={isDisabled}
                     {...field}
                   />
                 </FormControl>
@@ -84,7 +84,7 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
                 <FormControl>
                   <InputPassword
                     placeholder="Digite a confirmação de senha:"
-                    disabled={isSubmitting}
+                    disabled={isDisabled}
                     {...field}
                   />
                 </FormControl>
@@ -96,7 +96,7 @@ export function ResetPasswordForm({ email }: ResetPasswordFormProps) {
           <Button
             type="submit"
             aria-label="reset password of user"
-            isLoading={isSubmitting}
+            isLoading={isDisabled}
             icon={<MailIcon className="size-4" />}
           >
             Recuperar

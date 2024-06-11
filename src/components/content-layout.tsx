@@ -1,6 +1,6 @@
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
-import { Navbar } from "../layout/navbar";
+import { Navbar } from "./layout/navbar";
 
 interface ContentLayoutProps {
   title: string;

@@ -69,7 +69,6 @@ export function ProfileForm({ id }: ProfileFormProps) {
         await updateProfileServer(values);
         await update(values);
       },
-      showMessageYouAreRedirected: false,
     });
   }
 

@@ -1,23 +1,36 @@
 "use client";
 
-import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
+import { Footer } from "@/components/layout/footer";
+import { Sidebar } from "@/components/layout/sidebar";
+import { useSidebarToggle } from "@/hooks/use-sidebar";
 import { useStore } from "@/hooks/use-store";
 import { cn } from "@/lib/utils";
-import { Footer } from "../layout/footer";
-import { Sidebar } from "../layout/sidebar";
+import { Fragment, ReactNode } from "react";
 
-export default function AdminPanelLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+interface ProjectTemplateProps {
+  children: ReactNode;
+}
+
+// const Joyride = dynamic(
+//   () => import("../../../components/joyride").then(({ Joyride }) => Joyride),
+//   {
+//     ssr: false,
+//   },
+// );
+
+export default function ProjectTemplate({ children }: ProjectTemplateProps) {
   const sidebar = useStore(useSidebarToggle, (state) => state);
 
   if (!sidebar) return null;
 
   return (
-    <>
+    <Fragment>
       <Sidebar />
+
+      {/* <Joyride /> */}
+
+      {/* <div className="welcome" /> */}
+
       <main
         className={cn(
           "min-h-[calc(100vh_-_56px)] bg-zinc-50 transition-[margin-left] duration-300 ease-in-out dark:bg-zinc-900",
@@ -26,6 +39,7 @@ export default function AdminPanelLayout({
       >
         {children}
       </main>
+
       <footer
         className={cn(
           "transition-[margin-left] duration-300 ease-in-out",
@@ -34,6 +48,6 @@ export default function AdminPanelLayout({
       >
         <Footer />
       </footer>
-    </>
+    </Fragment>
   );
 }

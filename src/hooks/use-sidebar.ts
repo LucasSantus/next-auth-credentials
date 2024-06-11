@@ -1,6 +1,6 @@
+import { SIDEBAR_KEY_LOCAL_STORAGE } from "@/constants/globals";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { useStore } from "./use-store";
 
 interface useSidebarToggleStore {
   isOpen: boolean;
@@ -16,16 +16,8 @@ export const useSidebarToggle = create(
       },
     }),
     {
-      name: "sidebarOpen",
+      name: SIDEBAR_KEY_LOCAL_STORAGE,
       storage: createJSONStorage(() => localStorage),
     },
   ),
 );
-
-export function useSidebar() {
-  const sidebar = useStore(useSidebarToggle, (state) => state);
-
-  if (!sidebar) return null;
-
-  return sidebar;
-}

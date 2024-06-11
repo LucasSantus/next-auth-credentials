@@ -48,7 +48,6 @@ export function ChangePasswordForm({ email }: ProfileFormProps) {
   async function onSubmit(values: ChangePasswordFormData) {
     await showToastBeforeSubmit({
       callback: async () => await authChangePasswordServer(values),
-      showMessageYouAreRedirected: false,
     });
   }
 

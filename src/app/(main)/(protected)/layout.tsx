@@ -1,4 +1,3 @@
-import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { Framing } from "@/components/framer-motion/framing";
 import { Header } from "@/components/layout/header";
 import { Sidebar } from "@/components/layout/sidebar";
@@ -7,7 +6,7 @@ import { authOptions } from "@/lib/auth";
 import { bounceHorizontalAnimation } from "@/utils/framer-motion/animations/bounce-horizontal";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { ReactNode } from "react";
+import { Fragment, ReactNode } from "react";
 import { headerItems } from "./_constants/header-items";
 
 interface ProjectLayoutProps {
@@ -21,7 +20,7 @@ export default async function ProtectedLayout({
 
   if (!session || !session.user) redirect("/sign-in");
 
-  return <AdminPanelLayout>{children}</AdminPanelLayout>;
+  return <Fragment>{children}</Fragment>;
 
   return (
     <div id="main-layout" className="flex min-h-screen w-full flex-col">

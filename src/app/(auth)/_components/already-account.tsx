@@ -1,4 +1,4 @@
-import { AuthenticationRedirect } from "./authentication-redirect";
+import { AuthenticationLink } from "./authentication-redirect";
 
 export function AlreadyAccount(): JSX.Element {
   return (
@@ -6,7 +6,8 @@ export function AlreadyAccount(): JSX.Element {
       <span className="text-sm text-muted-foreground">
         Já possuí uma conta?
       </span>
-      <AuthenticationRedirect title="Logar" href="/sign-in" />
+
+      <AuthenticationLink title="Logar" href="/sign-in" />
     </div>
   );
 }

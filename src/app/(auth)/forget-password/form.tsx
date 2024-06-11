@@ -24,14 +24,10 @@ import { useForm } from "react-hook-form";
 interface ForgetPasswordFormProps {}
 
 export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
-  const { showToastBeforeSubmit } = useHelperSubmit();
+  const { isRedirecting, showToastBeforeSubmit } = useHelperSubmit();
 
   const form = useForm<ForgetPasswordFormData>({
     resolver: zodResolver(forgetPasswordFormSchema),
-    defaultValues: {
-      email: "",
-    },
-    mode: "onBlur",
   });
 
   const {
@@ -42,15 +38,17 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
 
   async function onSubmit(values: ForgetPasswordFormData) {
     await showToastBeforeSubmit({
+      urlToRedirect: "/sign-in",
       message: {
         loading:
           "Enviando e-mail com as informações da recuperação da conta...",
         success: "O e-mail foi enviado!",
       },
       callback: async () => await authForgetPasswordServer(values),
-      urlToRedirect: "/sign-in",
     });
   }
+
+  const isDisabled = isSubmitting || isRedirecting;
 
   return (
     <Form {...form}>
@@ -65,7 +63,7 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
                 <FormControl>
                   <Input
                     placeholder="Digite o e-mail:"
-                    disabled={isSubmitting}
+                    disabled={isDisabled}
                     {...field}
                   />
                 </FormControl>
@@ -77,7 +75,7 @@ export function ForgetPasswordForm({}: ForgetPasswordFormProps) {
           <Button
             type="submit"
             aria-label="forget password of user"
-            isLoading={isSubmitting}
+            isLoading={isDisabled}
             icon={<SendHorizontalIcon className="size-4" />}
           >
             Recuperar

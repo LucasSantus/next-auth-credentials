@@ -33,7 +33,7 @@ export function Joyride({}: JoyrideProps): JSX.Element {
     lineHeight: "1.25rem",
     fontWeight: 500,
     borderRadius: "0.3rem",
-    border: "1px solid hsl(var(--primary))",
+    border: "1px solid hsl(var(--foreground))",
     color: "hsl(var(--foreground))",
   };
 

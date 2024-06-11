@@ -10,11 +10,11 @@ export function Footer(): JSX.Element {
       : selectedYear;
 
   return (
-    <footer>
-      <div className="z-20 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <span className="text-sm font-medium">
+    <footer className="z-20 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="mx-4 flex h-14 items-center md:mx-8">
+        <p className="text-left text-xs leading-loose text-muted-foreground md:text-sm">
           © {PROJECT_NAME} | {year}
-        </span>
+        </p>
       </div>
     </footer>
   );

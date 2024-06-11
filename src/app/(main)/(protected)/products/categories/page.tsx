@@ -1,16 +1,16 @@
 import { ContentLayout } from "@/components/content-layout";
 import PlaceholderContent from "@/components/placeholder-content";
 import { Metadata } from "next";
-import { ProductBreadcrumb } from "./breadcrumb";
+import { CategoryBreadcrumb } from "./breadcrumb";
 
 export const metadata: Metadata = {
-  title: "Produtos",
+  title: "Categorias",
 };
 
-export default async function ProductPage() {
+export default async function CategoriesPage() {
   return (
-    <ContentLayout title="Produtos">
-      <ProductBreadcrumb />
+    <ContentLayout title="Categorias">
+      <CategoryBreadcrumb />
 
       <PlaceholderContent />
     </ContentLayout>

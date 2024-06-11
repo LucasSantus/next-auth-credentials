@@ -21,18 +21,18 @@ import { InputPassword } from "@/components/input-password";
 import { useHelperSubmit } from "@/hooks/use-helper-submit";
 import { SignUpFormData, signUpFormSchema } from "@/validation/auth/sign-up";
 import { SaveIcon } from "lucide-react";
+import { useState } from "react";
 import { AuthenticationProviders } from "../_components/authentication-providers";
 
 export function SignUpForm({}: SearchFormProps) {
-  const { showToastBeforeSubmit } = useHelperSubmit();
+  const { isRedirecting: isRedirectingNewPage, showToastBeforeSubmit } =
+    useHelperSubmit();
+
+  const [isRedirectingToProviders, setIsRedirectingToProviders] =
+    useState<boolean>(false);
 
   const form = useForm<SignUpFormData>({
     resolver: zodResolver(signUpFormSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
   });
 
   const {
@@ -43,14 +43,17 @@ export function SignUpForm({}: SearchFormProps) {
 
   async function onSubmit(values: SignUpFormData) {
     await showToastBeforeSubmit({
-      callback: async () => await authSignUpServer(values),
       urlToRedirect: "/sign-in",
       message: {
         loading: "Registrando novo usuário...",
         success: "Usuário registrado com sucesso!",
       },
+      callback: async () => await authSignUpServer(values),
     });
   }
+
+  const isDisabled =
+    isSubmitting || isRedirectingToProviders || isRedirectingNewPage;
 
   return (
     <Form {...form}>
@@ -65,7 +68,7 @@ export function SignUpForm({}: SearchFormProps) {
                 <FormControl>
                   <Input
                     placeholder="Digite o nome completo:"
-                    disabled={isSubmitting}
+                    disabled={isDisabled}
                     {...field}
                   />
                 </FormControl>
@@ -83,7 +86,7 @@ export function SignUpForm({}: SearchFormProps) {
                 <FormControl>
                   <Input
                     placeholder="Digite o e-mail:"
-                    disabled={isSubmitting}
+                    disabled={isDisabled}
                     {...field}
                   />
                 </FormControl>
@@ -101,7 +104,7 @@ export function SignUpForm({}: SearchFormProps) {
                 <FormControl>
                   <InputPassword
                     placeholder="Digite a senha:"
-                    disabled={isSubmitting}
+                    disabled={isDisabled}
                     {...field}
                   />
                 </FormControl>
@@ -113,14 +116,19 @@ export function SignUpForm({}: SearchFormProps) {
           <Button
             type="submit"
             aria-label="Submit for create new user"
-            isLoading={isSubmitting}
+            isLoading={isSubmitting || isRedirectingNewPage}
+            disabled={isDisabled}
             icon={<SaveIcon className="size-4" />}
           >
             Salvar
           </Button>
         </form>
 
-        <AuthenticationProviders isLoading={isSubmitting} />
+        <AuthenticationProviders
+          isDisabled={isDisabled}
+          isRedirecting={isRedirectingToProviders}
+          setIsRedirecting={setIsRedirectingToProviders}
+        />
       </div>
     </Form>
   );

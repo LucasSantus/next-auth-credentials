@@ -1,6 +1,6 @@
 "use client";
 
-import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
+import { useSidebarToggle } from "@/hooks/use-sidebar";
 import { useStore } from "@/hooks/use-store";
 import { cn } from "@/lib/utils";
 import { PanelsTopLeft } from "lucide-react";
@@ -14,19 +14,21 @@ export function Sidebar() {
 
   if (!sidebar) return null;
 
+  const { isOpen, setIsOpen } = sidebar;
+
   return (
     <aside
       className={cn(
         "fixed left-0 top-0 z-20 h-screen -translate-x-full transition-[width] duration-300 ease-in-out lg:translate-x-0",
-        sidebar?.isOpen === false ? "w-[90px]" : "w-72",
+        !isOpen ? "w-[90px]" : "w-72",
       )}
     >
-      <SidebarToggle isOpen={sidebar?.isOpen} setIsOpen={sidebar?.setIsOpen} />
+      <SidebarToggle isOpen={isOpen} setIsOpen={setIsOpen} />
       <div className="relative flex h-full flex-col overflow-y-auto px-3 py-4 shadow-md dark:shadow-zinc-800">
         <Button
           className={cn(
             "mb-1 transition-transform duration-300 ease-in-out",
-            sidebar?.isOpen === false ? "translate-x-1" : "translate-x-0",
+            !isOpen ? "translate-x-1" : "translate-x-0",
           )}
           variant="link"
         >
@@ -35,17 +37,17 @@ export function Sidebar() {
             <h1
               className={cn(
                 "whitespace-nowrap text-lg font-bold transition-[transform,opacity,display] duration-300 ease-in-out",
-                sidebar?.isOpen === false
+                !isOpen
                   ? "hidden -translate-x-96 opacity-0"
                   : "translate-x-0 opacity-100",
               )}
             >
-              Brand
+              Credentials
             </h1>
           </Link>
         </Button>
 
-        <Menu isOpen={sidebar?.isOpen} />
+        <Menu isOpen={isOpen} />
       </div>
     </aside>
   );

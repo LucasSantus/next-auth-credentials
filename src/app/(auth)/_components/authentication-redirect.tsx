@@ -1,13 +1,13 @@
 import Link, { LinkProps } from "next/link";
 
-interface AuthenticationRedirectProps extends LinkProps {
+interface AuthenticationLinkProps extends LinkProps {
   title: string;
 }
 
-export function AuthenticationRedirect({
+export function AuthenticationLink({
   title,
   ...rest
-}: AuthenticationRedirectProps): JSX.Element {
+}: AuthenticationLinkProps): JSX.Element {
   return (
     <Link
       className="text-sm text-blue-600 hover:text-blue-500 hover:underline"

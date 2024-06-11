@@ -28,8 +28,8 @@ export function Providers({ children }: PropsWithChildren) {
             speed={200}
             zIndex={9999}
             showAtBottom={false}
+            showSpinner={false}
             crawl
-            showSpinner
           />
 
           <Toaster duration={4000} richColors closeButton visibleToasts={9} />
