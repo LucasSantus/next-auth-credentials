@@ -3,11 +3,11 @@ interface GoogleIconProps extends React.ComponentPropsWithoutRef<"svg"> {}
 export function GoogleIcon(props: GoogleIconProps): JSX.Element {
   return (
     <svg
+      viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       width={15}
       height={15}
-      viewBox="0 0 24 24"
       {...props}
     >
       <path

@@ -6,13 +6,11 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Fragment, ReactNode } from "react";
 
-interface AuthenticationTemplateProps {
+interface AuthTemplateProps {
   children: ReactNode;
 }
 
-export default async function AuthenticationTemplate({
-  children,
-}: AuthenticationTemplateProps) {
+export default async function AuthTemplate({ children }: AuthTemplateProps) {
   const session = await getServerSession(authOptions);
   if (session) redirect("/");
 

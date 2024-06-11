@@ -21,7 +21,7 @@ export function bounceHorizontalAnimation({
       transition: {
         type: "spring",
         stiffness: 60,
-        duration: duration,
+        duration,
         delay: duration * delay,
       },
     },

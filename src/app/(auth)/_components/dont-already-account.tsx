@@ -1,4 +1,4 @@
-import { AuthenticationRedirect } from "./authentication-redirect";
+import { AuthenticationLink } from "./authentication-redirect";
 
 export function DontAlreadyAccount(): JSX.Element {
   return (
@@ -6,7 +6,7 @@ export function DontAlreadyAccount(): JSX.Element {
       <span className="text-sm text-muted-foreground">
         Não possuí uma conta?
       </span>
-      <AuthenticationRedirect title="Crie uma gratis!" href="/sign-up" />
+      <AuthenticationLink title="Crie uma gratis!" href="/sign-up" />
     </div>
   );
 }

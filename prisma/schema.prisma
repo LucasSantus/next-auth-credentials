@@ -14,17 +14,18 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@map("accounts")
 }
 
 model Session {
@@ -33,6 +34,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
 }
 
 model User {
@@ -48,6 +51,8 @@ model User {
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @default(now()) @updatedAt
   deletedAt         DateTime?
+
+  @@map("users")
 }
 
 model VerificationToken {
@@ -58,4 +63,5 @@ model VerificationToken {
   userId      String
 
   @@unique([identifier, token])
+  @@map("verification-tokens")
 }

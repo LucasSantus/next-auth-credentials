@@ -1,6 +1,6 @@
 "use server";
 
-import { messages } from "@/constants/globals";
+import { messages } from "@/constants/messages";
 import { prismaClient } from "@/lib/prisma";
 
 export async function deleteUserByIdServer(id: string) {

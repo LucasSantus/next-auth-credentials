@@ -6,14 +6,13 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.organizeImports": "always",
+    "source.organizeImports": "always"
   },
 
   // prisma
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
-
   // others
   "explorer.compactFolders": false
 }

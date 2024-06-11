@@ -1,4 +1,4 @@
-import { messages } from "@/constants/globals";
+import { messages } from "@/constants/messages";
 import { z } from "zod";
 
 export const forgetPasswordFormSchema = z.object({
